@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /#services
+Allow: /#upload
+Allow: /#pricing
+Allow: /#blog
+Allow: /#contact
+Allow: /#privacy
+Allow: /#terms
+Allow: /#faq
+Allow: /#samples
+Allow: /#affiliates
+Allow: /blog/
+Disallow: /blog-admin
+Sitemap: https://turnitinpaperchecker.com/sitemap.xml
