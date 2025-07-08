@@ -894,6 +894,105 @@
             color: #333;
         }
 
+        /* Password Modal Styles */
+        #passwordModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+        
+        .password-modal-content {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            text-align: center;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .password-modal-content h3 {
+            font-size: 1.5rem;
+            color: #0a5d8c;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: #0a5d8c;
+            box-shadow: 0 0 8px rgba(10, 93, 140, 0.2);
+        }
+        
+        .password-error {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .password-modal-content .btn-primary {
+            background: #0a5d8c;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        
+        .password-modal-content .btn-primary:hover {
+            background: #0873b0;
+            transform: translateY(-2px);
+        }
+        
+        .password-modal-content .close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .password-modal-content .close:hover {
+            color: #333;
+        }
+
         .blog-full {
             padding: 2rem;
         }
@@ -1051,6 +1150,24 @@
         .blog-placeholder i {
             font-size: 3rem;
             color: #0a5d8c;
+        }
+
+        /* Manage Blog Button */
+        .manage-blog-btn {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .manage-blog-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -1723,7 +1840,7 @@
                 <a href="#samples" class="content-link" data-target="samples">Sample Reports</a>
                 <a href="#blog" class="content-link" data-target="blog">Blog</a>
                 <a href="#affiliates" class="content-link" data-target="affiliates">Affiliate Program</a>
-                <a href="#blog-admin" id="manageBlogLink">Manage Blog</a>
+                <button class="manage-blog-btn" id="manageBlogBtn">Manage Blog</button>
             </div>
             
             <div class="newsletter">
@@ -1761,7 +1878,6 @@
     </div>
 
     <script>
-
         // Sample blog data
         let blogPosts = [
             {
@@ -1786,7 +1902,6 @@
                 date: "June 30, 2025"
             }
         ];
-
 
         // Configuration variables
         const config = {
@@ -1860,7 +1975,7 @@
         const contentLinks = document.querySelectorAll('.content-link');
         const contentSections = document.querySelectorAll('.content-section');
         const blogAdminSection = document.getElementById('blog-admin');
-        const manageBlogLink = document.getElementById('manageBlogLink');
+        const manageBlogBtn = document.getElementById('manageBlogBtn');
         const blogGrid = document.getElementById('blogGrid');
         const blogPostsContainer = document.getElementById('blogPostsContainer');
         const saveBlogBtn = document.getElementById('saveBlogBtn');
@@ -1947,11 +2062,12 @@
             window.scrollTo(0, 0);
         }
 
-        // Manage Blog Link - Show password prompt
-        manageBlogLink.addEventListener('click', function(e) {
+        // Manage Blog Button - Show password prompt
+        manageBlogBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            document.getElementById('passwordModal').style.display = 'block';
+            document.getElementById('passwordModal').style.display = 'flex';
             document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
         });
 
         // Verify password for blog access
