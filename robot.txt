@@ -1,14 +1,3 @@
 User-agent: *
 Allow: /
 Sitemap: https://coach365.github.io/turnitinpaperchecker/sitemap.xml
-Allow: /#upload
-Allow: /#pricing
-Allow: /#blog
-Allow: /#contact
-Allow: /#privacy
-Allow: /#terms
-Allow: /#faq
-Allow: /#samples
-Allow: /#affiliates
-Allow: /blog/
-Disallow: /blog-admin
