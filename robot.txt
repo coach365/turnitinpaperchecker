@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Allow: /#services
+Sitemap: https://coach365.github.io/turnitinpaperchecker/sitemap.xml
 Allow: /#upload
 Allow: /#pricing
 Allow: /#blog
@@ -12,4 +12,3 @@ Allow: /#samples
 Allow: /#affiliates
 Allow: /blog/
 Disallow: /blog-admin
-Sitemap: https://turnitinpaperchecker.com/sitemap.xml
