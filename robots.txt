@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Crawl-delay: 0
 
+# XML Sitemap
 Sitemap: https://coach365.github.io/turnitinpaperchecker/sitemap.xml
+
+# HTML Sitemap
+Sitemap: https://coach365.github.io/turnitinpaperchecker/sitemap.html
