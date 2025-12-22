@@ -1,9 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://coach365.github.io/turnitinpaperchecker/</loc>
-<lastmod>2025-12-22</lastmod>
-<changefreq>daily</changefreq>
-<priority>1.0</priority>
-</url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Services Section -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#services</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Upload/Check Now Section -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#upload</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Pricing Section -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#pricing</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Section -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#blog</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact Section -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#contact</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#privacy</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#terms</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <!-- FAQ -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#faq</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Sample Reports -->
+  <url>
+    <loc>https://coach365.github.io/turnitinpaperchecker/#samples</loc>
+    <lastmod>2025-12-22T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
 </urlset>
