@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurnitinPaperChecker - Plagiarism & AI Detection | Academic Integrity Solutions</title>
-    <meta name="description" content="Professional plagiarism and AI content detection services for students and academics. Get comprehensive reports starting at Rs 100, delivered via WhatsApp or email.">
+    <meta name="description" content="Professional plagiarism and AI content detection services for students and academics. Get comprehensive reports starting at Rs 200, delivered via WhatsApp or email.">
     <meta name="keywords" content="TurnitinPaperChecker, plagiarism checker, AI detection, academic integrity, Turnitin alternative, student plagiarism tool, paper checker">
     <meta name="robots" content="index, follow">
     <meta name="author" content="TurnitinPaperChecker">
@@ -1231,21 +1231,21 @@
                         <div class="service-icon">🔍</div>
                         <h3>Plagiarism Detection</h3>
                         <p>Advanced plagiarism checking using Turnitin and multiple databases to ensure comprehensive coverage.</p>
-                        <div class="service-price">Rs 100</div>
+                        <div class="service-price">Rs 200</div>
                     </div>
                     
                     <div class="service-card fade-in">
                         <div class="service-icon">🤖</div>
                         <h3>AI Content Detection</h3>
                         <p>Identify AI-generated content with cutting-edge detection algorithms and machine learning models.</p>
-                        <div class="service-price">Rs 100</div>
+                        <div class="service-price">Rs 200</div>
                     </div>
                     
                     <div class="service-card fade-in">
                         <div class="service-icon">📊</div>
                         <h3>Combined Reports</h3>
                         <p>Get both plagiarism and AI detection in one comprehensive report with detailed analysis.</p>
-                        <div class="service-price">Rs 150</div>
+                        <div class="service-price">Rs 300</div>
                     </div>
                 </div>
             </div>
@@ -1292,10 +1292,10 @@
                     <div style="margin-top: 2rem;">
                         <label for="serviceType" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Select Service:</label>
                         <select id="serviceType" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; width: 200px; margin-right: 1rem;">
-                            <option value="plagiarism">Plagiarism Check (Rs 100)</option>
-                            <option value="ai">AI Detection (Rs 100)</option>
-                            <option value="combined">Combined Report (Rs 150)</option>
-                            <option value="express">Express Service (Rs 150)</option>
+                            <option value="plagiarism">Plagiarism Check (Rs 200)</option>
+                            <option value="ai">AI Detection (Rs 200)</option>
+                            <option value="combined">Combined Report (Rs 300)</option>
+                            <option value="express">Express Service (Rs 300)</option>
                         </select>
                         
                         <label for="deliveryMethod" style="display: block; margin-bottom: 0.5rem; font-weight: bold; margin-top: 1rem;">Report Delivery:</label>
@@ -1372,17 +1372,28 @@
 
         <script src="blogs-data.js"></script>
         <script>
-            // Show latest 3 blogs on homepage
-            if (typeof allBlogs !== 'undefined') {
+            // Show ONLY latest 3 blogs on homepage (sorted by ID, newest first)
+            if (typeof allBlogs !== 'undefined' && allBlogs.length > 0) {
                 const blogGrid = document.getElementById('blogGrid');
-                const latest3 = allBlogs.slice(-3).reverse();
+                
+                // Clear any existing content
+                blogGrid.innerHTML = '';
+                
+                // Sort blogs by ID descending (newest first)
+                const sortedBlogs = [...allBlogs].sort((a, b) => b.id - a.id);
+                
+                // Take only first 3 (latest)
+                const latest3 = sortedBlogs.slice(0, 3);
+                
+                console.log('Total blogs:', allBlogs.length);
+                console.log('Showing latest 3:', latest3.map(b => `#${b.id}: ${b.title}`));
                 
                 latest3.forEach(blog => {
                     const card = document.createElement('div');
                     card.className = 'service-card fade-in';
                     card.innerHTML = `
                         <div style="height: 200px; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
-                            <img src="${blog.image}" alt="${blog.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="${blog.image}" alt="${blog.title}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                         </div>
                         <h3>${blog.title}</h3>
                         <p>${blog.excerpt}</p>
@@ -1429,7 +1440,7 @@
                 <div class="pricing-grid">
                     <div class="pricing-card fade-in">
                         <h3>Individual Check</h3>
-                        <div class="pricing-price">Rs 100</div>
+                        <div class="pricing-price">Rs 200</div>
                         <ul class="pricing-features">
                             <li>✅ Single document check</li>
                             <li>✅ Plagiarism OR AI detection</li>
@@ -1444,7 +1455,7 @@
                     <div class="pricing-card featured fade-in">
                         <div class="pricing-badge">Most Popular</div>
                         <h3>Combined Report</h3>
-                        <div class="pricing-price">Rs 150</div>
+                        <div class="pricing-price">Rs 300</div>
                         <ul class="pricing-features">
                             <li>✅ Single document check</li>
                             <li>✅ Plagiarism AND AI detection</li>
@@ -1458,7 +1469,7 @@
                     
                     <div class="pricing-card fade-in">
                         <h3>Bulk Package</h3>
-                        <div class="pricing-price">Rs 1000</div>
+                        <div class="pricing-price">Rs 2000</div>
                         <ul class="pricing-features">
                             <li>✅ 10 document checks</li>
                             <li>✅ 25% discount included</li>
@@ -1472,7 +1483,7 @@
                 </div>
                 
                 <div style="text-align: center; margin-top: 3rem;">
-                    <p style="color: #666; font-size: 1.1rem;">💡 Student Discount: 20% off with valid student ID | Express Service: +50% for 2-hour delivery</p>
+                    <p style="color: #666; font-size: 1.1rem;">💡 Student Discount: 10% off with valid student ID | Express Service: +50% for 2-hour delivery</p>
                 </div>
             </div>
         </section>
@@ -2402,11 +2413,11 @@
             switch(service) {
                 case 'plagiarism':
                 case 'ai':
-                    pricePerFile = 100;
+                    pricePerFile = 200;
                     break;
                 case 'combined':
                 case 'express':
-                    pricePerFile = 150;
+                    pricePerFile = 300;
                     break;
             }
             
