@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - TurnitinPaperChecker</title>
+    <meta name="description" content="Academic integrity tips, plagiarism detection guides, and student resources from TurnitinPaperChecker.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9fbfa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .blog-hero {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .blog-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 60px 0;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #0a5d8c;
+        }
+        
+        .blog-excerpt {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .read-time {
+            color: #0a9cfc;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: #0a5d8c;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        
+        .btn-primary:hover {
+            background: #0873b0;
+        }
+        
+        .footer {
+            background: #084a70;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .blog-post-full {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .blog-post-full h2 {
+            color: #0a5d8c;
+            margin: 2rem 0 1rem;
+        }
+        
+        .blog-post-full p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .blog-post-full img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        
+        .blog-post-full a {
+            color: #0a9cfc;
+            text-decoration: none;
+        }
+        
+        .blog-post-full a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #0a5d8c;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">📝 TurnitinPaperChecker</a>
+        </div>
+    </header>
+    
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Academic Integrity Blog</h1>
+            <p>Tips, guides, and insights for students</p>
+        </div>
+    </section>
+    
+    <main class="container">
+        <div id="blogContainer" class="blog-grid"></div>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
+    </footer>
+    
+    <script src="blogs-data.js"></script>
+    <script>
+        // Display all blogs
+        const container = document.getElementById('blogContainer');
+        
+        allBlogs.reverse().forEach(blog => {
+            const card = document.createElement('div');
+            card.className = 'blog-card';
+            
+            card.innerHTML = `
+                <img src="${blog.image}" alt="${blog.title}" class="blog-image" loading="lazy">
+                <div class="blog-content">
+                    <div class="blog-date">${blog.date} • ${blog.readTime} min read</div>
+                    <h2 class="blog-title">${blog.title}</h2>
+                    <p class="blog-excerpt">${blog.excerpt}</p>
+                    <a href="blog-post.html?id=${blog.id}" class="btn-primary">Read More</a>
+                </div>
+            `;
+            
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
