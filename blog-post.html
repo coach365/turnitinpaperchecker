@@ -1,205 +1,711 @@
+<artifact identifier="blog-post-monetag-final" type="application/vnd.ant.code" language="html" title="Complete blog-post.html with Monetag - Final Version">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Blog Post - TurnitinPaperChecker</title>
-    <meta name="description" content="" id="pageDescription">
+    <title>Blog Post - TurnitinPaperChecker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📝</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- MONETAG MULTITAG - ALL AD FORMATS -->
+    <script src="https://quge5.com/88/tag.min.js" data-zone="197251" async data-cfasync="false"></script>
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: #f9fbfa;
+            background-color: #f9fbfa;
+            padding-top: 70px;
         }
-        
+
+        /* Header */
         .header {
             background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
             color: white;
             padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .container {
-            max-width: 1200px;
+
+        .nav-container {
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
+
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
             color: white;
             text-decoration: none;
         }
-        
-        .blog-post {
-            max-width: 800px;
-            margin: 60px auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin-bottom: 2rem;
-            color: #0a5d8c;
+
+        .nav-links a {
+            color: white;
             text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
         }
-        
-        .back-link:hover {
-            text-decoration: underline;
+
+        /* Blog Layout */
+        .blog-layout-container {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 20px;
         }
-        
-        .post-title {
-            font-size: 2.5rem;
+
+        /* Sidebars */
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        /* Ad Boxes */
+        .ad-box {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 600px;
+            text-align: center;
+        }
+
+        .ad-label {
+            display: block;
+            font-size: 10px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .ad-fallback {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Related Posts */
+        .related-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .related-box h3 {
             color: #0a5d8c;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
         }
-        
-        .post-meta {
+
+        .related-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .related-item:last-child {
+            border-bottom: none;
+        }
+
+        .related-item a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .related-item a:hover {
+            color: #0a5d8c;
+        }
+
+        .related-item small {
             color: #666;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
+            font-size: 0.85rem;
         }
-        
-        .post-image {
+
+        /* Main Content */
+        .blog-main {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .blog-article h1 {
+            color: #0a5d8c;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .blog-meta {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .blog-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-featured-image {
             width: 100%;
             border-radius: 10px;
-            margin: 2rem 0;
+            margin-bottom: 30px;
         }
-        
-        .post-content {
-            font-size: 1.1rem;
+
+        #blogContent {
             line-height: 1.8;
+            font-size: 1.1rem;
         }
-        
-        .post-content h2 {
+
+        #blogContent h2 {
             color: #0a5d8c;
-            margin: 2rem 0 1rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
             font-size: 1.8rem;
         }
-        
-        .post-content p {
-            margin-bottom: 1.5rem;
+
+        #blogContent h3 {
+            color: #0a5d8c;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
         }
-        
-        .post-content a {
-            color: #0a9cfc;
-            text-decoration: none;
+
+        #blogContent p {
+            margin-bottom: 20px;
         }
-        
-        .post-content a:hover {
-            text-decoration: underline;
+
+        #blogContent ul, #blogContent ol {
+            margin: 20px 0;
+            padding-left: 30px;
         }
-        
-        .post-content ul, .post-content ol {
-            margin: 1rem 0 1.5rem 2rem;
+
+        #blogContent li {
+            margin-bottom: 10px;
         }
-        
-        .post-content li {
-            margin-bottom: 0.5rem;
+
+        /* Share Section */
+        .share-section {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 3px solid #eee;
         }
-        
-        .cta-box {
-            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+
+        .share-section h3 {
+            color: #0a5d8c;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .share-btn.wa { background: #25D366; color: white; }
+        .share-btn.fb { background: #1877F2; color: white; }
+        .share-btn.tw { background: #1DA1F2; color: white; }
+        .share-btn.li { background: #0A66C2; color: white; }
+
+        /* Affiliate/CTA Box */
+        .affiliate-box {
+            background: linear-gradient(135deg, #0a5d8c, #0a9cfc);
             color: white;
-            padding: 2rem;
+            padding: 30px;
             border-radius: 10px;
-            margin: 3rem 0;
+            margin-top: 40px;
             text-align: center;
         }
-        
-        .cta-box h3 {
-            margin-bottom: 1rem;
+
+        .affiliate-box h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
-        
-        .btn-primary {
+
+        .affiliate-box p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .cta-btn {
             background: white;
             color: #0a5d8c;
-            padding: 1rem 2rem;
-            border-radius: 25px;
+            padding: 15px 40px;
+            border-radius: 30px;
             text-decoration: none;
-            display: inline-block;
-            margin-top: 1rem;
             font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
-        
-        .btn-primary:hover {
-            background: #f0f0f0;
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
-        
-        .footer {
-            background: #084a70;
+
+        /* Right Sidebar Boxes */
+        .cta-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cta-box h3 {
+            color: #0a5d8c;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .cta-box p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .cta-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .cta-box li {
+            padding: 8px 0;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .cta-box .cta-btn {
+            display: block;
+            background: #0a5d8c;
             color: white;
-            padding: 2rem 0;
             text-align: center;
-            margin-top: 60px;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Newsletter Box */
+        .newsletter-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            padding: 25px;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .newsletter-box h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-box p {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .newsletter-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .newsletter-box input {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .newsletter-box button {
+            background: white;
+            color: #667eea;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Back Button */
+        .back-to-blog {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .back-to-blog a {
+            color: #0a5d8c;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 2px solid #0a5d8c;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-blog a:hover {
+            background: #0a5d8c;
+            color: white;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .blog-layout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                max-height: none;
+            }
+            
+            .ad-box {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-main {
+                padding: 20px;
+            }
+
+            .blog-article h1 {
+                font-size: 1.8rem;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+
+            .share-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
-        <div class="container">
+        <div class="nav-container">
             <a href="index.html" class="logo">📝 TurnitinPaperChecker</a>
+            <nav class="nav-links">
+                <a href="index.html#home">Home</a>
+                <a href="blog.html">All Posts</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
         </div>
     </header>
-    
-    <main class="container">
-        <article class="blog-post" id="blogPost">
-            <a href="blog.html" class="back-link">← Back to All Posts</a>
-            <h1 class="post-title" id="postTitle">Loading...</h1>
-            <div class="post-meta" id="postMeta"></div>
-            <img id="postImage" class="post-image" src="" alt="" loading="lazy">
-            <div class="post-content" id="postContent"></div>
-            
-            <div class="cta-box">
-                <h3>Ready to Check Your Document?</h3>
-                <p>Get professional plagiarism and AI detection for just Rs 200</p>
-                <a href="index.html#upload" class="btn-primary">Start Checking Now</a>
+
+    <!-- Blog Layout -->
+    <div class="blog-layout-container">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar sidebar-left">
+            <!-- Monetag Ad Space (Auto-populated) -->
+            <div class="ad-box">
+                <span class="ad-label">Advertisement</span>
+                <div id="monetag-left-ad">
+                    <!-- Monetag will auto-insert ads here via Multitag -->
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=300&h=600&fit=crop" 
+                         alt="Educational Resources" 
+                         class="ad-fallback"
+                         loading="lazy">
+                </div>
             </div>
-        </article>
-    </main>
-    
-    <footer class="footer">
-        <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
-    </footer>
-    
+            
+            <!-- Related Posts -->
+            <div class="related-box">
+                <h3>📚 Related Articles</h3>
+                <div id="relatedPosts"></div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="blog-main">
+            <article class="blog-article">
+                <h1 id="blogTitle">Loading...</h1>
+                
+                <div class="blog-meta">
+                    <span id="blogAuthor">✍️ TurnitinPaperChecker Team</span>
+                    <span id="blogDate">📅 Loading...</span>
+                    <span id="blogReadTime">⏱️ Loading...</span>
+                </div>
+                
+                <img id="blogImage" class="blog-featured-image" alt="" loading="lazy">
+                
+                <div id="blogContent">
+                    <p>Loading article content...</p>
+                </div>
+                
+                <!-- Social Share Buttons -->
+                <div class="share-section">
+                    <h3>📢 Share This Article</h3>
+                    <div class="share-buttons">
+                        <button onclick="shareWhatsApp()" class="share-btn wa">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                        <button onclick="shareFacebook()" class="share-btn fb">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </button>
+                        <button onclick="shareTwitter()" class="share-btn tw">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                        <button onclick="shareLinkedIn()" class="share-btn li">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Call-to-Action Box -->
+                <div class="affiliate-box">
+                    <h3>🎓 Need Professional Plagiarism Check?</h3>
+                    <p>Get comprehensive plagiarism and AI detection report for just <strong>Rs 200</strong></p>
+                    <p>✅ 6-12 hour delivery | ✅ Detailed analysis | ✅ Trusted by 1000+ students</p>
+                    <a href="https://coach365.github.io/turnitinpaperchecker/#upload" class="cta-btn">
+                        Check Your Document Now →
+                    </a>
+                </div>
+            </article>
+        </main>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="sidebar sidebar-right">
+            <!-- Monetag Ad Space (Auto-populated) -->
+            <div class="ad-box">
+                <span class="ad-label">Advertisement</span>
+                <div id="monetag-right-ad">
+                    <!-- Monetag will auto-insert ads here via Multitag -->
+                    <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&h=600&fit=crop" 
+                         alt="Academic Writing" 
+                         class="ad-fallback"
+                         loading="lazy">
+                </div>
+            </div>
+
+            <!-- Service CTA Box -->
+            <div class="cta-box">
+                <h3>🔍 Professional Service</h3>
+                <p>Why choose TurnitinPaperChecker?</p>
+                <ul>
+                    <li>✅ Fast 6-12 hour delivery</li>
+                    <li>✅ Comprehensive reports</li>
+                    <li>✅ Affordable Rs 200</li>
+                    <li>✅ Trusted by students</li>
+                    <li>✅ Secure & confidential</li>
+                </ul>
+                <a href="https://coach365.github.io/turnitinpaperchecker/#upload" class="cta-btn">
+                    Get Started - Rs 200
+                </a>
+            </div>
+
+            <!-- Newsletter Signup -->
+            <div class="newsletter-box">
+                <h3>📧 Stay Updated</h3>
+                <p>Get academic tips & updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe Free</button>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Back to Blog Button -->
+    <div class="back-to-blog">
+        <a href="blog.html">
+            <i class="fas fa-arrow-left"></i> Back to All Posts
+        </a>
+    </div>
+
+    <!-- Load blog data -->
     <script src="blogs-data.js"></script>
+
     <script>
-        // Get blog ID from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const blogId = parseInt(urlParams.get('id'));
-        
-        // Find blog post
-        const post = allBlogs.find(b => b.id === blogId);
-        
-        if (post) {
-            document.getElementById('pageTitle').textContent = post.title + ' - TurnitinPaperChecker';
-            document.getElementById('pageDescription').setAttribute('content', post.meta || post.excerpt);
-            document.getElementById('postTitle').textContent = post.title;
-            document.getElementById('postMeta').innerHTML = `
-                ${post.date} • ${post.readTime} min read • By ${post.author}
-            `;
-            document.getElementById('postImage').src = post.image;
-            document.getElementById('postImage').alt = post.title;
-            document.getElementById('postContent').innerHTML = post.content;
-        } else {
-            document.getElementById('blogPost').innerHTML = `
-                <h1>Post Not Found</h1>
-                <p>Sorry, this blog post doesn't exist.</p>
-                <a href="blog.html" class="btn-primary">Back to Blog</a>
-            `;
+        // Social Share Functions
+        function shareWhatsApp() {
+            const title = document.getElementById('blogTitle').innerText;
+            const url = window.location.href;
+            const text = encodeURIComponent(`Check out: ${title}\n\n${url}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
         }
+
+        function shareFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+
+        function shareTwitter() {
+            const title = document.getElementById('blogTitle').innerText;
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(title);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+
+        function shareLinkedIn() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+        }
+
+        // Load Related Posts
+        function loadRelatedPosts(currentBlogId) {
+            if (typeof allBlogs === 'undefined') return;
+            
+            const relatedContainer = document.getElementById('relatedPosts');
+            if (!relatedContainer) return;
+            
+            // Get 5 random other blogs
+            const otherBlogs = allBlogs
+                .filter(b => b.id !== currentBlogId)
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 5);
+            
+            relatedContainer.innerHTML = '';
+            otherBlogs.forEach(blog => {
+                const item = document.createElement('div');
+                item.className = 'related-item';
+                item.innerHTML = `
+                    <a href="blog-post.html?id=${blog.id}">${blog.title}</a>
+                    <small>${blog.date} • ${blog.readTime} min read</small>
+                `;
+                relatedContainer.appendChild(item);
+            });
+        }
+
+        // Newsletter Form Handler
+        document.getElementById('newsletterForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            
+            // Send to your email or database
+            alert(`✅ Thank you for subscribing!\n\nWe'll send academic tips and updates to:\n${email}`);
+            
+            // Optional: Send to your email
+            window.location.href = `mailto:shivansh.assignment365@gmail.com?subject=Newsletter Subscription&body=New subscriber: ${email}`;
+            
+            this.reset();
+        });
+
+        // Load Blog Content on Page Load
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const blogId = parseInt(urlParams.get('id'));
+            
+            if (blogId && typeof allBlogs !== 'undefined') {
+                const blog = allBlogs.find(b => b.id === blogId);
+                
+                if (blog) {
+                    // Update page content
+                    document.getElementById('blogTitle').innerText = blog.title;
+                    document.getElementById('blogAuthor').innerText = '✍️ ' + (blog.author || 'TurnitinPaperChecker Team');
+                    document.getElementById('blogDate').innerText = '📅 ' + blog.date;
+                    document.getElementById('blogReadTime').innerText = '⏱️ ' + blog.readTime + ' min read';
+                    document.getElementById('blogImage').src = blog.image;
+                    document.getElementById('blogContent').innerHTML = blog.content;
+                    
+                    // Update page title
+                    document.title = blog.title + ' - TurnitinPaperChecker';
+                    
+                    // Load related posts
+                    loadRelatedPosts(blogId);
+                    
+                    // Update meta description
+                    let metaDesc = document.querySelector('meta[name="description"]');
+                    if (!metaDesc) {
+                        metaDesc = document.createElement('meta');
+                        metaDesc.name = 'description';
+                        document.head.appendChild(metaDesc);
+                    }
+                    metaDesc.content = blog.excerpt || blog.content.substring(0, 150);
+                } else {
+                    // Blog not found
+                    document.getElementById('blogTitle').innerText = 'Blog Post Not Found';
+                    document.getElementById('blogContent').innerHTML = `
+                        <p>Sorry, we couldn't find the blog post you're looking for.</p>
+                        <p><a href="blog.html">← Back to all posts</a></p>
+                    `;
+                }
+            } else {
+                // No ID provided
+                document.getElementById('blogTitle').innerText = 'No Blog Selected';
+                document.getElementById('blogContent').innerHTML = `
+                    <p>Please select a blog post to read.</p>
+                    <p><a href="blog.html">← View all posts</a></p>
+                `;
+            }
+        });
+
+        // Track page views (optional - for your analytics)
+        console.log('Blog post viewed:', window.location.href);
     </script>
 </body>
 </html>
+</artifact>
