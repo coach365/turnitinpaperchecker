@@ -2117,24 +2117,13 @@
             }
         }
 
-        // Render blog posts
+        // Render blog posts (ADMIN SECTION ONLY)
         function renderBlogPosts() {
-            blogGrid.innerHTML = '';
+            // Clear ONLY admin container, NOT blogGrid
             blogPostsContainer.innerHTML = '';
             
             blogPosts.forEach(post => {
-                // Render for main blog section
-                const blogCard = document.createElement('div');
-                blogCard.className = 'service-card';
-                blogCard.innerHTML = `
-                    <span class="service-badge">New</span>
-                    <h3>${post.title}</h3>
-                    <p>${post.content.substring(0, 150)}...</p>
-                    <button class="btn-primary view-blog" data-id="${post.id}">Read More</button>
-                `;
-                blogGrid.appendChild(blogCard);
-                
-                // Render for admin section
+                // Render ONLY for admin section
                 const blogPostElement = document.createElement('div');
                 blogPostElement.className = 'blog-post';
                 blogPostElement.innerHTML = `
@@ -2151,7 +2140,7 @@
                 blogPostsContainer.appendChild(blogPostElement);
             });
             
-            // Add event listeners to view buttons
+            // Add event listeners to buttons
             document.querySelectorAll('.view-blog').forEach(button => {
                 button.addEventListener('click', function() {
                     const postId = parseInt(this.getAttribute('data-id'));
@@ -2159,7 +2148,6 @@
                 });
             });
             
-            // Add event listeners to edit buttons
             document.querySelectorAll('.edit-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const postId = parseInt(this.getAttribute('data-id'));
@@ -2167,7 +2155,6 @@
                 });
             });
             
-            // Add event listeners to delete buttons
             document.querySelectorAll('.delete-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const postId = parseInt(this.getAttribute('data-id'));
