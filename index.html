@@ -1362,36 +1362,39 @@
                 <h2 class="section-title fade-in">Academic Integrity Blog</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 2rem;">Stay updated with the latest tips and insights on academic integrity.</p>
                 
-                <div class="services-grid" id="blogGrid">
-                    <div class="service-card">
-                        <div class="blog-placeholder" aria-hidden="true">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <h3>10 Plagiarism Mistakes Students Make</h3>
-                        <p>Learn how to avoid accidental plagiarism in academic writing with proper citation techniques...</p>
-                        <button class="btn-primary">Read More</button>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="blog-placeholder" aria-hidden="true">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <h3>Detecting AI Writing: Latest Methods</h3>
-                        <p>How universities are adapting to ChatGPT-generated content and detection strategies...</p>
-                        <button class="btn-primary">Read More</button>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="blog-placeholder" aria-hidden="true">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <h3>Citation Styles Guide 2025</h3>
-                        <p>Updated APA, MLA, and Chicago formatting rules every researcher must know...</p>
-                        <button class="btn-primary">Read More</button>
-                    </div>
+                <div class="services-grid" id="blogGrid"></div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="blog.html" class="btn-primary">View All Blog Posts →</a>
                 </div>
             </div>
         </section>
+
+        <script src="blogs-data.js"></script>
+        <script>
+            // Show latest 3 blogs on homepage
+            if (typeof allBlogs !== 'undefined') {
+                const blogGrid = document.getElementById('blogGrid');
+                const latest3 = allBlogs.slice(-3).reverse();
+                
+                latest3.forEach(blog => {
+                    const card = document.createElement('div');
+                    card.className = 'service-card fade-in';
+                    card.innerHTML = `
+                        <div style="height: 200px; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
+                            <img src="${blog.image}" alt="${blog.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <h3>${blog.title}</h3>
+                        <p>${blog.excerpt}</p>
+                        <div style="color: #666; font-size: 0.9rem; margin: 1rem 0;">
+                            ${blog.date} • ${blog.readTime} min read
+                        </div>
+                        <a href="blog-post.html?id=${blog.id}" class="btn-primary">Read More</a>
+                    `;
+                    blogGrid.appendChild(card);
+                });
+            }
+        </script>
 
         <!-- Testimonials Section -->
         <section class="services">
