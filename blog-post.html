@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Blog Post - TurnitinPaperChecker</title>
+    <meta name="description" content="" id="pageDescription">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9fbfa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 1rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .blog-post {
+            max-width: 800px;
+            margin: 60px auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #0a5d8c;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .post-title {
+            font-size: 2.5rem;
+            color: #0a5d8c;
+            margin-bottom: 1rem;
+        }
+        
+        .post-meta {
+            color: #666;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .post-image {
+            width: 100%;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .post-content h2 {
+            color: #0a5d8c;
+            margin: 2rem 0 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .post-content a {
+            color: #0a9cfc;
+            text-decoration: none;
+        }
+        
+        .post-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .post-content ul, .post-content ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+        
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .cta-box h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #0a5d8c;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        
+        .btn-primary:hover {
+            background: #f0f0f0;
+        }
+        
+        .footer {
+            background: #084a70;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">📝 TurnitinPaperChecker</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <article class="blog-post" id="blogPost">
+            <a href="blog.html" class="back-link">← Back to All Posts</a>
+            <h1 class="post-title" id="postTitle">Loading...</h1>
+            <div class="post-meta" id="postMeta"></div>
+            <img id="postImage" class="post-image" src="" alt="" loading="lazy">
+            <div class="post-content" id="postContent"></div>
+            
+            <div class="cta-box">
+                <h3>Ready to Check Your Document?</h3>
+                <p>Get professional plagiarism and AI detection for just Rs 200</p>
+                <a href="index.html#upload" class="btn-primary">Start Checking Now</a>
+            </div>
+        </article>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
+    </footer>
+    
+    <script src="blogs-data.js"></script>
+    <script>
+        // Get blog ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const blogId = parseInt(urlParams.get('id'));
+        
+        // Find blog post
+        const post = allBlogs.find(b => b.id === blogId);
+        
+        if (post) {
+            document.getElementById('pageTitle').textContent = post.title + ' - TurnitinPaperChecker';
+            document.getElementById('pageDescription').setAttribute('content', post.meta || post.excerpt);
+            document.getElementById('postTitle').textContent = post.title;
+            document.getElementById('postMeta').innerHTML = `
+                ${post.date} • ${post.readTime} min read • By ${post.author}
+            `;
+            document.getElementById('postImage').src = post.image;
+            document.getElementById('postImage').alt = post.title;
+            document.getElementById('postContent').innerHTML = post.content;
+        } else {
+            document.getElementById('blogPost').innerHTML = `
+                <h1>Post Not Found</h1>
+                <p>Sorry, this blog post doesn't exist.</p>
+                <a href="blog.html" class="btn-primary">Back to Blog</a>
+            `;
+        }
+    </script>
+</body>
+</html>
