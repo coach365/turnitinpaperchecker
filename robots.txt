@@ -3,7 +3,7 @@ Allow: /
 Crawl-delay: 0
 
 # XML Sitemap
-Sitemap: https://coach365.github.io/turnitinpaperchecker/sitemap.xml
+Sitemap: https://www.turnitinpaperchecker.com/sitemap.xml
 
 # HTML Sitemap
-Sitemap: https://coach365.github.io/turnitinpaperchecker/sitemap.html
+Sitemap: https://www.turnitinpaperchecker.com/sitemap.html
