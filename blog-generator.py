@@ -13,8 +13,8 @@ from datetime import datetime
 from groq import Groq
 
 # ===== CONFIGURATION =====
-WEBSITE_URL = "https://coach365.github.io/turnitinpaperchecker/"
-WEBSITE_HOST = "coach365.github.io"
+WEBSITE_URL = "https://www.turnitinpaperchecker.com/"
+WEBSITE_HOST = "www.turnitinpaperchecker.com"
 EMAIL = "shivansh.assignment365@gmail.com"
 WHATSAPP = "+91-8168706565"
 
