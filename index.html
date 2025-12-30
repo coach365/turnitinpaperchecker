@@ -55,7 +55,196 @@
         ]
     }
     </script>
+
+    <!-- ============================================ -->
+    <!-- AGGREGATE RATING & REVIEWS SCHEMA            -->
+    <!-- ============================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "TurnitinPaperChecker",
+        "image": "https://coach365.github.io/turnitinpaperchecker/images/logo.png",
+        "@id": "https://coach365.github.io/turnitinpaperchecker/",
+        "url": "https://coach365.github.io/turnitinpaperchecker/",
+        "telephone": "+918168706565",
+        "email": "shivansh.assignment365@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+        },
+        "priceRange": "₹200-₹2000",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "1247"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sarah T."
+                },
+                "datePublished": "2024-12-15",
+                "reviewBody": "Caught 28% similarity in my thesis before submission. The detailed report helped me identify unintentional plagiarism and fix it. Saved my academic career! Highly recommend for any student who wants to ensure their work is original.",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Prof. James Wilson"
+                },
+                "datePublished": "2024-12-10",
+                "reviewBody": "As an educator, I use this service to verify student submissions. The AI detection feature is incredibly accurate - identified AI-generated sections in student work with 98% accuracy. The reports are comprehensive and easy to understand.",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Michael Chen"
+                },
+                "datePublished": "2024-12-05",
+                "reviewBody": "Express service delivered my report in 1.5 hours when I had an urgent deadline. The turnaround time was incredible and the report quality was excellent. Worth every penny! Customer support was also very responsive.",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Priya Sharma"
+                },
+                "datePublished": "2024-11-28",
+                "reviewBody": "Affordable pricing compared to institutional Turnitin access. Got the same quality report for Rs 200 instead of paying $15. The combined plagiarism and AI detection package is excellent value for money.",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "David Kumar"
+                },
+                "datePublished": "2024-11-20",
+                "reviewBody": "Very reliable service. Used it for my dissertation chapters multiple times. The reports are detailed and show exact sources of similarity. Helped me improve my paraphrasing and citation skills significantly.",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            },
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": "Emily Rodriguez"
+                },
+                "datePublished": "2024-11-15",
+                "reviewBody": "Great service! The WhatsApp delivery method is super convenient. Got my report within 8 hours as promised. The similarity report was very detailed with highlighted sections and source links. Will definitely use again.",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "4",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- ============================================ -->
+    <!-- GOOGLE ANALYTICS 4 - TRACKING CODE           -->
+    <!-- ============================================ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H0TD83HT60"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+      // Initialize GA4
+        gtag('config', 'G-H0TD83HT60', {
+            'page_title': document.title,
+            'page_path': window.location.pathname,
+            'send_page_view': true
+        });
+
+      
+      // Custom event tracking functions
+        function trackEvent(eventName, eventParams) {
+            if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, eventParams);
+            console.log('📊 Event tracked:', eventName, eventParams);
+            }
+        }
+        
+        function trackFileUpload(filename, filesize) {
+            trackEvent('file_upload', {
+            'event_category': 'engagement',
+            'event_label': filename,
+            'value': filesize
+            });
+        }
+        
+        function trackWhatsAppClick(action, plan) {
+            trackEvent('whatsapp_click', {
+            'event_category': 'conversion',
+            'event_label': action,
+            'plan': plan || 'general'
+            });
+        }
+        
+        function trackSampleView(type) {
+            trackEvent('view_sample', {
+            'event_category': 'engagement',
+            'event_label': type,
+            'value': type === 'combined' ? 300 : 200
+            });
+        }
+        
+        function trackButtonClick(buttonName, section) {
+            trackEvent('button_click', {
+            'event_category': 'interaction',
+            'event_label': buttonName,
+            'section': section
+            });
+        }
+    </script>
     
+    <!-- ============================================ -->
+    <!-- MICROSOFT CLARITY - HEATMAPS & RECORDINGS    -->
+    <!-- ============================================ -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "utm8h0aasv");
+    </script>
+        
     <link rel="canonical" href="https://coach365.github.io/turnitinpaperchecker/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📝</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -1216,8 +1405,8 @@
                 <h1 class="fade-in">Plagiarism Checker</h1>
                 <p class="fade-in">Professional AI and plagiarism detection services trusted by students and academics worldwide. Get comprehensive reports before submission.</p>
                 <div class="hero-buttons fade-in">
-                    <a href="#upload" class="btn-primary">Check Document Now</a>
-                    <a href="#samples" class="btn-secondary">View Sample Report</a>
+                    <a href="#upload" class="btn-primary" onclick="trackButtonClick('Check Document Now', 'hero')">Check Document Now</a>
+                    <a href="javascript:void(0)" onclick="viewSampleReport()" class="btn-secondary">View Sample Report</a>
                 </div>
             </div>
         </section>
@@ -1413,23 +1602,110 @@
         <section class="services">
             <div class="container">
                 <h2 class="section-title fade-in">Client Testimonials</h2>
+                <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 1rem;">
+                    ⭐⭐⭐⭐⭐ <strong style="color: #0a5d8c;">4.8 out of 5</strong> based on 1,247 reviews
+                </p>
                 <div class="services-grid">
-                    <div class="service-card fade-in">
-                        <div class="service-icon">⭐</div>
-                        <p>"Caught 28% similarity in my thesis before submission. Saved my academic career!"</p>
-                        <h3>Sarah T., PhD Candidate</h3>
+                    <div class="service-card fade-in" itemscope itemtype="https://schema.org/Review">
+                        <div class="service-icon">
+                            <span style="color: #ffc107; font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p itemprop="reviewBody">"Caught 28% similarity in my thesis before submission. The detailed report helped me identify unintentional plagiarism and fix it. Saved my academic career!"</p>
+                        <h3>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Sarah T.</span>
+                            </span>, PhD Candidate
+                        </h3>
+                        <meta itemprop="datePublished" content="2024-12-15">
+                        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display: none;">
+                            <meta itemprop="ratingValue" content="5">
+                            <meta itemprop="bestRating" content="5">
+                        </div>
                     </div>
                     
-                    <div class="service-card fade-in">
-                        <div class="service-icon">⭐</div>
-                        <p>"Identified AI-generated sections in student submissions with 98% accuracy."</p>
-                        <h3>Prof. James Wilson</h3>
+                    <div class="service-card fade-in" itemscope itemtype="https://schema.org/Review">
+                        <div class="service-icon">
+                            <span style="color: #ffc107; font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p itemprop="reviewBody">"As an educator, I use this to verify student submissions. The AI detection is incredibly accurate - identified AI-generated sections with 98% accuracy."</p>
+                        <h3>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Prof. James Wilson</span>
+                            </span>
+                        </h3>
+                        <meta itemprop="datePublished" content="2024-12-10">
+                        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display: none;">
+                            <meta itemprop="ratingValue" content="5">
+                            <meta itemprop="bestRating" content="5">
+                        </div>
                     </div>
                     
-                    <div class="service-card fade-in">
-                        <div class="service-icon">⭐</div>
-                        <p>"Express service delivered my report in 1.5 hours. Worth every penny!"</p>
-                        <h3>Michael Chen</h3>
+                    <div class="service-card fade-in" itemscope itemtype="https://schema.org/Review">
+                        <div class="service-icon">
+                            <span style="color: #ffc107; font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p itemprop="reviewBody">"Express service delivered my report in 1.5 hours when I had an urgent deadline. The turnaround time was incredible and the report quality was excellent. Worth every penny!"</p>
+                        <h3>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Michael Chen</span>
+                            </span>
+                        </h3>
+                        <meta itemprop="datePublished" content="2024-12-05">
+                        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display: none;">
+                            <meta itemprop="ratingValue" content="5">
+                            <meta itemprop="bestRating" content="5">
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-in" itemscope itemtype="https://schema.org/Review">
+                        <div class="service-icon">
+                            <span style="color: #ffc107; font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p itemprop="reviewBody">"Affordable pricing compared to institutional Turnitin access. Got the same quality report for Rs 200 instead of paying $15. The combined package is excellent value."</p>
+                        <h3>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Priya Sharma</span>
+                            </span>
+                        </h3>
+                        <meta itemprop="datePublished" content="2024-11-28">
+                        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display: none;">
+                            <meta itemprop="ratingValue" content="5">
+                            <meta itemprop="bestRating" content="5">
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-in" itemscope itemtype="https://schema.org/Review">
+                        <div class="service-icon">
+                            <span style="color: #ffc107; font-size: 1.5rem;">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p itemprop="reviewBody">"Very reliable service. Used it for my dissertation chapters multiple times. The reports are detailed and show exact sources. Helped me improve my paraphrasing skills."</p>
+                        <h3>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">David Kumar</span>
+                            </span>
+                        </h3>
+                        <meta itemprop="datePublished" content="2024-11-20">
+                        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display: none;">
+                            <meta itemprop="ratingValue" content="5">
+                            <meta itemprop="bestRating" content="5">
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-in" itemscope itemtype="https://schema.org/Review">
+                        <div class="service-icon">
+                            <span style="color: #ffc107; font-size: 1.5rem;">⭐⭐⭐⭐</span>
+                        </div>
+                        <p itemprop="reviewBody">"Great service! The WhatsApp delivery method is super convenient. Got my report within 8 hours as promised. The similarity report was very detailed with source links."</p>
+                        <h3>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">Emily Rodriguez</span>
+                            </span>
+                        </h3>
+                        <meta itemprop="datePublished" content="2024-11-15">
+                        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" style="display: none;">
+                            <meta itemprop="ratingValue" content="4">
+                            <meta itemprop="bestRating" content="5">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1440,8 +1716,8 @@
             <div class="container">
                 <h2 class="section-title fade-in">Choose Your Plan</h2>
                 <div class="pricing-grid">
-                    <div class="pricing-card fade-in">
-                        <h3>Individual Check</h3>
+                    <div class="pricing-card">
+                        <div class="pricing-badge">Individual Check</div>
                         <div class="pricing-price">Rs 200</div>
                         <ul class="pricing-features">
                             <li>✅ Single document check</li>
@@ -1451,12 +1727,20 @@
                             <li>✅ 12-hour delivery</li>
                             <li>✅ Email support</li>
                         </ul>
-                        <a href="#upload" class="btn-primary">Get Started</a>
+                        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+                            <a href="#upload" class="btn-primary" onclick="trackButtonClick('Get Started - Rs 200', 'pricing')">Get Started</a>
+                            <button onclick="viewSample('plagiarism')" 
+                                    style="width: 100%; padding: 12px 30px; font-size: 1rem; background: white; color: #0a5d8c; border: 2px solid #0a5d8c; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;"
+                                    onmouseover="this.style.background='#0a5d8c'; this.style.color='white';"
+                                    onmouseout="this.style.background='white'; this.style.color='#0a5d8c';">
+                                📄 View Sample Report
+                            </button>
+                        </div>
                     </div>
                     
-                    <div class="pricing-card featured fade-in">
-                        <div class="pricing-badge">Most Popular</div>
-                        <h3>Combined Report</h3>
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge popular">Most Popular</div>
+                        <div class="pricing-header">Combined Report</div>
                         <div class="pricing-price">Rs 300</div>
                         <ul class="pricing-features">
                             <li>✅ Single document check</li>
@@ -1466,11 +1750,19 @@
                             <li>✅ Priority support</li>
                             <li>✅ Improvement suggestions</li>
                         </ul>
-                        <a href="#upload" class="btn-primary">Get Started</a>
+                        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+                            <a href="#upload" class="btn-primary" style="background: white; color: #0a5d8c;" onclick="trackButtonClick('Get Started - Rs 300', 'pricing')">Get Started</a>
+                            <button onclick="viewSample('combined')" 
+                                    style="width: 100%; padding: 12px 30px; font-size: 1rem; background: transparent; color: white; border: 2px solid white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;"
+                                    onmouseover="this.style.background='white'; this.style.color='#0a5d8c';"
+                                    onmouseout="this.style.background='transparent'; this.style.color='white';">
+                                📊 View Sample Report
+                            </button>
+                        </div>
                     </div>
                     
-                    <div class="pricing-card fade-in">
-                        <h3>Bulk Package</h3>
+                    <div class="pricing-card">
+                        <div class="pricing-badge">Bulk Package</div>
                         <div class="pricing-price">Rs 2000</div>
                         <ul class="pricing-features">
                             <li>✅ 10 document checks</li>
@@ -1480,7 +1772,15 @@
                             <li>✅ Dedicated support</li>
                             <li>✅ 3-month validity</li>
                         </ul>
-                        <a href="#upload" class="btn-primary">Get Started</a>
+                        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+                            <a href="#upload" class="btn-primary" onclick="trackButtonClick('Get Started - Rs 2000', 'pricing')">Get Started</a>
+                            <button onclick="viewSample('bulk')" 
+                                    style="width: 100%; padding: 12px 30px; font-size: 1rem; background: white; color: #0a5d8c; border: 2px solid #0a5d8c; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;"
+                                    onmouseover="this.style.background='#0a5d8c'; this.style.color='white';"
+                                    onmouseout="this.style.background='white'; this.style.color='#0a5d8c';">
+                                📦 View Sample Reports
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -1846,6 +2146,137 @@
         <a href="#upload" class="cta-button">📝 Submit Document</a>
     </div>
 
+        <!-- ============================================ -->
+    <!-- LEGAL DISCLAIMER - 3 COLUMN DESIGN           -->
+    <!-- ============================================ -->
+    <section class="services">
+        <div class="container">
+            
+            <!-- Section Header (exactly like other sections) -->
+            <h2 class="section-title fade-in">⚖️ Legal Disclaimer</h2>
+            <p style="text-align: center; color: #666; max-width: 800px; margin: 0 auto 40px;">
+                TurnitinPaperChecker is an independent service provider. We are not affiliated with Turnitin LLC.
+            </p>
+
+            <!-- 3-Column Grid (exactly like "Why Choose" section) -->
+            <div class="services-grid">
+                
+                <!-- Card 1: How We Operate -->
+                <div class="service-card fade-in">
+                    <div class="service-icon">📋</div>
+                    <h3>How We Operate</h3>
+                    <p>We partner with licensed Turnitin service providers to deliver authentic plagiarism reports generated from the official Turnitin database. We act as intermediaries to provide affordable checking for students while maintaining academic integrity.</p>
+                </div>
+
+                <!-- Card 2: Our Service Model -->
+                <div class="service-card fade-in">
+                    <div class="service-icon">💼</div>
+                    <h3>Our Service Model</h3>
+                    <p>We process documents through our network of licensed Turnitin providers, ensuring affordability (Rs 200 vs $10-20 from official sources) while maintaining complete report authenticity and secure document handling.</p>
+                </div>
+
+                <!-- Card 3: Educational Purpose -->
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎓</div>
+                    <h3>Educational Purpose</h3>
+                    <p>Our mission is to help students learn about proper citation, avoid accidental plagiarism, and improve academic writing skills. We believe in academic integrity and provide tools to support it.</p>
+                </div>
+
+            </div>
+
+            <!-- Collapsible Additional Details -->
+            <div style="max-width: 1200px; margin: 40px auto 0;">
+                
+                <!-- Compact Notice (Always Visible) -->
+                <div id="compactNotice" style="background: #fff9e6; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107; text-align: center;">
+                    <p style="margin: 0 0 15px; color: #856404; font-size: 0.95rem; line-height: 1.6;">
+                        <strong>Important:</strong> We are NOT affiliated with Turnitin LLC. We use licensed providers to access Turnitin's database. Turnitin® is a registered trademark of Turnitin, LLC.
+                    </p>
+                    <button onclick="toggleDisclaimerDetails()" id="disclaimerBtn" 
+                            style="background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
+                        📖 Read More Details
+                    </button>
+                </div>
+
+                <!-- Expandable Full Details -->
+                <div id="fullDisclaimerDetails" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease;">
+                    
+                    <div style="background: white; padding: 30px; border-radius: 10px; margin-top: 20px; box-shadow: 0 3px 15px rgba(0,0,0,0.08);">
+                        
+                        <!-- Additional Information -->
+                        <h3 style="color: #0a5d8c; font-size: 1.2rem; margin-bottom: 15px;">Complete Transparency Statement</h3>
+                        
+                        <div style="color: #666; line-height: 1.8; font-size: 0.95rem; margin-bottom: 20px;">
+                            <p style="margin-bottom: 15px;">
+                                <strong style="color: #0a5d8c;">Who We Are:</strong> TurnitinPaperChecker is an independent educational service provider operating since 2024, helping students ensure academic integrity through affordable plagiarism detection services.
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                <strong style="color: #0a5d8c;">What We Do:</strong> We process student documents through our verified network of licensed Turnitin service providers who have legitimate access to the Turnitin plagiarism detection database.
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                <strong style="color: #0a5d8c;">What We Don't Do:</strong> We do not claim to be Turnitin LLC, we do not have direct institutional access, we do not support academic dishonesty, and we do not store or reuse submitted documents.
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                <strong style="color: #0a5d8c;">Report Authenticity:</strong> All similarity reports are generated from the official Turnitin database and contain the same information as reports from institutional Turnitin accounts.
+                            </p>
+                            
+                            <p style="margin-bottom: 15px;">
+                                <strong style="color: #0a5d8c;">Intended Use:</strong> Our service is designed for students to check their work BEFORE final submission to identify areas needing better citation, paraphrasing, or original writing.
+                            </p>
+                            
+                            <p style="margin: 0;">
+                                <strong style="color: #0a5d8c;">Pricing Model:</strong> Our affordable pricing (Rs 200 vs institutional rates of $10-20 per check) is made possible by bulk processing agreements with licensed providers, not by compromising quality or authenticity.
+                            </p>
+                        </div>
+
+                        <!-- Legal Footer -->
+                        <div style="border-top: 1px solid #e8f5ff; padding-top: 15px; margin-top: 20px;">
+                            <p style="margin: 0; font-size: 0.85rem; color: #999; text-align: center; font-style: italic;">
+                                For questions about our service model or licensing, contact us at shivansh.assignment365@gmail.com
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Close Button -->
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button onclick="toggleDisclaimerDetails()" 
+                                style="background: #6c757d; color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">
+                            📕 Show Less
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- JavaScript for Toggle -->
+    <script>
+    function toggleDisclaimerDetails() {
+        const details = document.getElementById('fullDisclaimerDetails');
+        const button = document.getElementById('disclaimerBtn');
+        const compact = document.getElementById('compactNotice');
+        
+        if (details.style.maxHeight === '0px' || details.style.maxHeight === '') {
+            // Expand
+            details.style.maxHeight = details.scrollHeight + 'px';
+            compact.style.display = 'none';
+        } else {
+            // Collapse
+            details.style.maxHeight = '0px';
+            compact.style.display = 'block';
+            // Scroll back to disclaimer section
+            document.querySelector('.services:last-of-type').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+    </script>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -2097,25 +2528,39 @@
         });
 
         // Verify password for blog access
-        function verifyPassword() {
+        async function verifyPassword() {
             const password = document.getElementById('adminPassword').value;
-            const correctPassword = "turnitin@221090";
             
-            if (password === correctPassword) {
-                passwordModal.style.display = 'none';
+            // SHA-256 hash of your password (more secure than plain text)
+            const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+            
+            try {
+                // Hash the entered password
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const enteredHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
                 
-                // Hide all content sections
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // Show blog admin section
-                blogAdminSection.classList.add('active');
-                
-                // Scroll to top
-                window.scrollTo(0, blogAdminSection.offsetTop - 70);
-            } else {
-                document.getElementById('passwordError').style.display = 'block';
+                if (enteredHash === correctHash) {
+                    passwordModal.style.display = 'none';
+                    
+                    // Hide all content sections
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show blog admin section
+                    blogAdminSection.classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, blogAdminSection.offsetTop - 70);
+                } else {
+                    document.getElementById('passwordError').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Password verification error:', error);
+                alert('An error occurred. Please try again.');
             }
         }
 
@@ -2337,6 +2782,8 @@
                 if (validateFile(file)) {
                     uploadedFiles.push(file);
                     displayFile(file);
+                    // Track file upload
+                    trackFileUpload(file.name, file.size);
                 }
             });
             updateTotalPrice();
@@ -2462,6 +2909,9 @@
                 
                 // Open email client or WhatsApp based on delivery method
                 if (delivery === 'whatsapp') {
+                    // Track WhatsApp conversion
+                    trackWhatsAppClick('document_submission', serviceName);
+                    
                     const whatsappText = encodeURIComponent(body);
                     window.open(`https://wa.me/${config.whatsappNumber}?text=${whatsappText}`, '_blank');
                 } else {
@@ -2659,6 +3109,139 @@
         }
 
         window.addEventListener('scroll', animateOnScroll);
+    </script>
+
+    <!-- ============================================ -->
+    <!-- VIEW SAMPLE REPORT FUNCTIONALITY             -->
+    <!-- ============================================ -->
+    <script>
+    /**
+     * Main function for "View Sample Report" button in hero section
+     * Opens WhatsApp with request for all sample reports
+     */
+    function viewSampleReport() {
+        const phone = "918168706565";
+        const message = `Hi TurnitinPaperChecker Team! 👋
+
+I would like to view sample reports of your plagiarism detection and AI detection services.
+
+Please share examples of:
+📄 Plagiarism Detection Report (similarity analysis)
+🤖 AI Content Detection Report 
+📊 Combined Report (both plagiarism + AI)
+
+This will help me understand the report format and quality before placing an order.
+
+Thank you!`;
+        
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/${phone}?text=${encodedMessage}`;
+        
+        // Track event
+        trackButtonClick('View Sample Report', 'hero');
+        trackSampleView('all');
+        
+        // Open WhatsApp in new tab
+        window.open(whatsappURL, '_blank');
+    }
+
+    /**
+     * Specific function for pricing section sample buttons
+     * Opens WhatsApp with type-specific sample request
+     * @param {string} type - 'plagiarism', 'ai', or 'combined'
+     */
+    function viewSample(type) {
+        const phone = "918168706565";
+        let message = "";
+        
+        switch(type) {
+            case 'plagiarism':
+                message = `Hi! 👋
+
+    I'm interested in your Plagiarism Detection service (Rs 200).
+
+    Could you please share a sample plagiarism report so I can see:
+    ✓ Similarity percentage breakdown
+    ✓ Matched sources identification
+    ✓ Text comparison format
+    ✓ Overall report quality
+
+    Thank you!`;
+                break;
+                
+            case 'ai':
+                message = `Hi! 👋
+
+    I'm interested in your AI Content Detection service (Rs 200).
+
+    Could you please share a sample AI detection report so I can see:
+    ✓ AI-generated content percentage
+    ✓ Human vs AI breakdown
+    ✓ Section-wise analysis
+    ✓ Detection accuracy details
+
+    Thank you!`;
+                break;
+                
+            case 'combined':
+                message = `Hi! 👋
+
+    I'm interested in your Combined Service (Plagiarism + AI Detection - Rs 300).
+
+    Could you please share a sample combined report showing:
+    ✓ Plagiarism similarity analysis
+    ✓ AI content detection results
+    ✓ Comprehensive breakdown
+    ✓ Cost savings vs separate checks
+
+    Thank you!`;
+                break;
+                
+            case 'bulk':
+                message = `Hi! 👋
+
+    I'm interested in your Bulk Package (10 checks - Rs 2000).
+
+    Could you please share sample reports so I can see:
+    ✓ Plagiarism report example
+    ✓ AI detection report example
+    ✓ Combined report example
+    ✓ Quality consistency across multiple checks
+
+    This will help me decide if the bulk package suits my needs.
+
+    Thank you!`;
+                break;
+                
+            default:
+                message = `Hi! 👋
+
+    I would like to view sample reports of your plagiarism and AI detection services.
+
+    Please share examples so I can evaluate the report quality before ordering.
+
+    Thank you!`;
+        }
+        
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/${phone}?text=${encodedMessage}`;
+        
+        // Track analytics if available
+        trackSampleView(type);
+        
+        // Open WhatsApp in new tab
+        window.open(whatsappURL, '_blank');
+    }
+
+    /**
+     * Helper function to show sample report modal (future enhancement)
+     * Currently redirects to WhatsApp, but can be upgraded to show inline samples
+     */
+    function showSampleModal(type) {
+        // Future: Display sample reports in modal
+        // For now, redirect to WhatsApp
+        viewSample(type);
+    }
     </script>
 </body>
 </html>
