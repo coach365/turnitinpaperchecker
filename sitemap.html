@@ -4,140 +4,362 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sitemap - TurnitinPaperChecker</title>
+    <meta name="description" content="Complete sitemap of TurnitinPaperChecker - Navigate all pages, blog posts, and resources easily.">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.turnitinpaperchecker.com/sitemap.html">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H0TD83HT60"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H0TD83HT60');
+    </script>
+    
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-            line-height: 1.8;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f9fbfa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .content {
+            background: white;
+            margin: 40px auto;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
         h1 {
             color: #0a5d8c;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .last-updated {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
             border-bottom: 3px solid #87cefa;
-            padding-bottom: 10px;
         }
+        
+        .intro {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 4px solid #0a9cfc;
+        }
+        
         h2 {
-            color: #0a9cfc;
-            margin-top: 30px;
+            color: #0a5d8c;
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
         }
-        ul {
-            list-style: none;
-            padding: 0;
+        
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
         }
-        li {
-            margin: 10px 0;
-            padding: 10px;
+        
+        .sitemap-item {
             background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
             border-left: 4px solid #87cefa;
+            transition: all 0.3s;
         }
-        a {
+        
+        .sitemap-item:hover {
+            background: #e9ecef;
+            border-left-color: #0a9cfc;
+            transform: translateX(5px);
+        }
+        
+        .sitemap-item a {
             color: #0a5d8c;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            display: block;
         }
-        a:hover {
-            color: #87cefa;
-            text-decoration: underline;
+        
+        .sitemap-item a:hover {
+            color: #0a9cfc;
         }
+        
         .priority {
             float: right;
             color: #666;
-            font-size: 0.9em;
+            font-size: 0.85rem;
+            font-weight: normal;
+        }
+        
+        .priority.high {
+            color: #28a745;
+        }
+        
+        .priority.medium {
+            color: #ffc107;
+        }
+        
+        .blog-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .blog-list li {
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            background: #084a70;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .sitemap-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>📋 TurnitinPaperChecker - Complete Sitemap</h1>
-    <p><strong>Last Updated:</strong> December 22, 2025</p>
-    <p>Welcome to our sitemap. Below you'll find links to all pages and sections of TurnitinPaperChecker - your trusted plagiarism and AI content detection service.</p>
-
-    <h2>🏠 Main Pages</h2>
-    <ul>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/">Homepage - Plagiarism Checker</a>
-            <span class="priority">Priority: High</span>
-        </li>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#services">Services - Plagiarism & AI Detection</a>
-            <span class="priority">Priority: High</span>
-        </li>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#upload">Check Now - Upload Your Document</a>
-            <span class="priority">Priority: High</span>
-        </li>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#pricing">Pricing - Affordable Plans Starting Rs 200</a>
-            <span class="priority">Priority: High</span>
-        </li>
-    </ul>
-
-    <h2>📝 Content & Resources</h2>
-    <ul>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#blog">Blog - Academic Integrity Articles</a>
-            <span class="priority">Priority: Medium</span>
-        </li>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#samples">Sample Reports - View Demo Reports</a>
-            <span class="priority">Priority: Medium</span>
-        </li>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#faq">FAQ - Frequently Asked Questions</a>
-            <span class="priority">Priority: Medium</span>
-        </li>
-    </ul>
-
-    <h2>📞 Contact & Support</h2>
-    <ul>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#contact">Contact Us - Get in Touch</a>
-            <span class="priority">Priority: Medium</span>
-        </li>
-        <li>
-            <a href="https://wa.me/918168706565">WhatsApp Support - +91-8168706565</a>
-            <span class="priority">Priority: Medium</span>
-        </li>
-    </ul>
-
-    <h2>📜 Legal & Policies</h2>
-    <ul>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#privacy">Privacy Policy - GDPR Compliant</a>
-            <span class="priority">Priority: Low</span>
-        </li>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#terms">Terms of Service</a>
-            <span class="priority">Priority: Low</span>
-        </li>
-        <li>
-            <a href="https://www.turnitinpaperchecker.com/#affiliates">Affiliate Program</a>
-            <span class="priority">Priority: Low</span>
-        </li>
-    </ul>
-
-    <h2>🔗 Important Links</h2>
-    <ul>
-        <li><strong>XML Sitemap:</strong> <a href="https://www.turnitinpaperchecker.com/sitemap.xml">sitemap.xml</a></li>
-        <li><strong>Robots.txt:</strong> <a href="https://www.turnitinpaperchecker.com/robots.txt">robots.txt</a></li>
-    </ul>
-
-    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e9ecef;">
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">📝 TurnitinPaperChecker</a>
+        </div>
+    </header>
     
-    <h2>🔍 Our Services</h2>
-    <p><strong>Plagiarism Detection:</strong> Professional Turnitin-powered plagiarism checking starting at Rs 200. Get comprehensive similarity reports with source identification within 6-12 hours.</p>
-    
-    <p><strong>AI Content Detection:</strong> Advanced AI-generated content detection using cutting-edge algorithms. Identify ChatGPT, GPT-4, and other AI-written text starting at Rs 200.</p>
-    
-    <p><strong>Combined Reports:</strong> Complete plagiarism and AI detection analysis in one comprehensive report for Rs 300. Best value for thorough document verification.</p>
+    <div class="container">
+        <div class="content">
+            <h1>📋 Complete Sitemap</h1>
+            <p class="last-updated"><strong>Last Updated:</strong> January 1, 2025</p>
+            
+            <div class="intro">
+                <p><strong>Welcome to our sitemap!</strong> Find all pages and sections of TurnitinPaperChecker - your trusted plagiarism and AI content detection service for students in India.</p>
+            </div>
 
-    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e9ecef;">
+            <h2>🏠 Main Pages</h2>
+            <div class="sitemap-grid">
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/">
+                        Homepage - Plagiarism Checker
+                        <span class="priority high">★ High Priority</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/#services">
+                        Services - Detection Types
+                        <span class="priority high">★ High Priority</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/#upload">
+                        Check Now - Upload Document
+                        <span class="priority high">★ High Priority</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/#pricing">
+                        Pricing - Rs 200 Plans
+                        <span class="priority high">★ High Priority</span>
+                    </a>
+                </div>
+            </div>
 
-    <p style="text-align: center; color: #666; margin-top: 50px;">
-        <strong>TurnitinPaperChecker</strong> - Trusted by 50,000+ Students Worldwide<br>
-        Professional Plagiarism & AI Detection Services<br>
-        📧 Email: shivansh.assignment365@gmail.com | 📱 WhatsApp: +91-8168706565
-    </p>
+            <h2>📝 Content & Resources</h2>
+            <div class="sitemap-grid">
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/blog.html">
+                        Blog - Academic Integrity Articles
+                        <span class="priority medium">◆ Medium</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/faq.html">
+                        FAQ - Frequently Asked Questions
+                        <span class="priority medium">◆ Medium</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/#samples">
+                        Sample Reports - View Demo
+                        <span class="priority medium">◆ Medium</span>
+                    </a>
+                </div>
+            </div>
+
+            <h2>📞 Contact & Support</h2>
+            <div class="sitemap-grid">
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/#contact">
+                        Contact Form - Get in Touch
+                        <span class="priority medium">◆ Medium</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://wa.me/918168706565">
+                        WhatsApp Support - +91-8168706565
+                        <span class="priority high">★ High Priority</span>
+                    </a>
+                </div>
+            </div>
+
+            <h2>📜 Legal & Policies</h2>
+            <div class="sitemap-grid">
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/privacy-policy.html">
+                        Privacy Policy - GDPR Compliant
+                        <span class="priority">○ Standard</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/terms-of-service.html">
+                        Terms of Service - Legal Terms
+                        <span class="priority">○ Standard</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/#affiliates">
+                        Affiliate Program - Earn 20% Commission
+                        <span class="priority">○ Standard</span>
+                    </a>
+                </div>
+            </div>
+
+            <h2>📰 Latest Blog Posts</h2>
+            <ul class="blog-list" id="blogList">
+                <li>Loading blog posts...</li>
+            </ul>
+
+            <h2>🔗 Technical Resources</h2>
+            <div class="sitemap-grid">
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/sitemap.xml">
+                        XML Sitemap - For Search Engines
+                        <span class="priority">○ Technical</span>
+                    </a>
+                </div>
+                <div class="sitemap-item">
+                    <a href="https://www.turnitinpaperchecker.com/robots.txt">
+                        Robots.txt - Crawler Instructions
+                        <span class="priority">○ Technical</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="intro" style="margin-top: 50px; background: linear-gradient(135deg, #f0f8ff, #e0f0ff);">
+                <h3 style="color: #0a5d8c; margin-bottom: 10px;">🎓 Our Services</h3>
+                <p><strong>Plagiarism Detection:</strong> Professional Turnitin-powered checking starting at Rs 200. Get comprehensive similarity reports with source identification within 6-12 hours.</p>
+                <p style="margin-top: 10px;"><strong>AI Content Detection:</strong> Advanced detection of ChatGPT, GPT-4, and other AI-written text starting at Rs 200.</p>
+                <p style="margin-top: 10px;"><strong>Combined Reports:</strong> Complete plagiarism and AI detection analysis in one report for Rs 300. Best value!</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
+        <p style="margin-top: 10px;">
+            <strong>Trusted by 50,000+ Students Worldwide</strong><br>
+            Professional Plagiarism & AI Detection Services
+        </p>
+        <p style="margin-top: 15px;">
+            <a href="index.html">Home</a> |
+            <a href="blog.html">Blog</a> |
+            <a href="privacy-policy.html">Privacy</a> |
+            <a href="terms-of-service.html">Terms</a> |
+            <a href="faq.html">FAQ</a> |
+            <a href="index.html#contact">Contact</a>
+        </p>
+        <p style="margin-top: 10px; opacity: 0.8;">
+            📧 shivansh.assignment365@gmail.com | 📱 +91-8168706565
+        </p>
+    </footer>
+    
+    <script>
+        // Load blog posts dynamically
+        fetch('blogs-data.js')
+            .then(response => response.text())
+            .then(text => {
+                const match = text.match(/const allBlogs = (\[.*?\]);/s);
+                if (match) {
+                    const blogs = JSON.parse(match[1]);
+                    const blogList = document.getElementById('blogList');
+                    blogList.innerHTML = blogs
+                        .reverse()
+                        .map(blog => `
+                            <li class="sitemap-item">
+                                <a href="https://www.turnitinpaperchecker.com/blog-post.html?id=${blog.id}">
+                                    ${blog.title}
+                                    <span class="priority">📅 ${blog.date}</span>
+                                </a>
+                            </li>
+                        `).join('');
+                }
+            })
+            .catch(() => {
+                document.getElementById('blogList').innerHTML = '<li>Blog posts unavailable</li>';
+            });
+    </script>
 </body>
 </html>
