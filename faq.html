@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Frequently Asked Questions | TurnitinPaperChecker</title>
+    <meta name="description" content="Frequently asked questions about TurnitinPaperChecker plagiarism detection and AI content analysis services. Get instant answers.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.turnitinpaperchecker.com/faq.html">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H0TD83HT60"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H0TD83HT60');
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9fbfa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            margin-top: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .hero h1 {
+            color: #0a5d8c;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .faq-container {
+            margin: 40px auto;
+        }
+        
+        .faq-category {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .category-title {
+            color: #0a5d8c;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #87cefa;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-left: 4px solid #0a9cfc;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            padding-right: 50px;
+        }
+        
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #0a9cfc;
+            font-weight: bold;
+        }
+        
+        .faq-question.active::after {
+            content: '−';
+        }
+        
+        .question-text {
+            font-weight: 600;
+            color: #0a5d8c;
+            font-size: 1.1rem;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+        
+        .faq-answer.active {
+            max-height: 1000px;
+            padding: 20px;
+        }
+        
+        .faq-answer p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        .faq-answer ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .faq-answer li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .faq-answer strong {
+            color: #0a5d8c;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #0a5d8c, #0a9cfc);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-box h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .cta-btn {
+            background: white;
+            color: #0a5d8c;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .footer {
+            background: #084a70;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+            
+            .faq-question {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">📝 TurnitinPaperChecker</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="hero">
+            <h1>❓ Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our plagiarism detection and AI content analysis services</p>
+        </div>
+        
+        <div class="faq-container">
+            <!-- Category 1: General Questions -->
+            <div class="faq-category">
+                <h2 class="category-title">📌 General Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What is TurnitinPaperChecker?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>TurnitinPaperChecker is a professional plagiarism detection and AI content analysis service for students in India. We provide comprehensive reports that check your academic documents for:</p>
+                        <ul>
+                            <li><strong>Plagiarism:</strong> Similarities with online sources, academic papers, and publications</li>
+                            <li><strong>AI-Generated Content:</strong> Detection of ChatGPT, GPT-4, and other AI writing tools</li>
+                            <li><strong>Source Citations:</strong> Identification of unattributed sources</li>
+                        </ul>
+                        <p>Our service helps students ensure their work is original before submission to universities like DU, JNU, IIT, and others.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">How is this different from Turnitin official?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We are an <strong>independent service</strong> that provides similar plagiarism detection capabilities:</p>
+                        <ul>
+                            <li><strong>Affordable:</strong> Rs 200 vs expensive institutional licenses</li>
+                            <li><strong>Fast Delivery:</strong> 6-12 hours via WhatsApp/email</li>
+                            <li><strong>No Account Required:</strong> Simple upload and pay process</li>
+                            <li><strong>Student-Friendly:</strong> Check before official submission</li>
+                            <li><strong>AI Detection Included:</strong> Additional feature not in standard Turnitin</li>
+                        </ul>
+                        <p><strong>Note:</strong> We are not affiliated with Turnitin LLC. We use advanced plagiarism detection algorithms to provide similar reports.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">Is this service legal and safe to use?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Yes, absolutely!</strong> Using plagiarism checkers to verify your own work is completely legal and ethical. Our service:</p>
+                        <ul>
+                            <li>✅ Helps you <strong>improve</strong> your academic work</li>
+                            <li>✅ Ensures you've properly cited all sources</li>
+                            <li>✅ Identifies accidental plagiarism before submission</li>
+                            <li>✅ Protects your privacy (documents deleted after 30 days)</li>
+                            <li>✅ Does NOT store your work in any database</li>
+                        </ul>
+                        <p>We encourage academic integrity. Use our service as a <strong>tool for learning</strong>, not for cheating.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 2: Pricing & Payment -->
+            <div class="faq-category">
+                <h2 class="category-title">💰 Pricing & Payment</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What are your prices?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer transparent, affordable pricing:</p>
+                        <ul>
+                            <li><strong>Plagiarism Check Only:</strong> Rs 200 per document</li>
+                            <li><strong>AI Content Detection Only:</strong> Rs 200 per document</li>
+                            <li><strong>Combined Report (Best Value):</strong> Rs 300 per document</li>
+                        </ul>
+                        <p><strong>No hidden fees!</strong> Price includes complete analysis and detailed report delivery.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What payment methods do you accept?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept multiple convenient payment methods popular in India:</p>
+                        <ul>
+                            <li>💳 UPI (Google Pay, PhonePe, Paytm)</li>
+                            <li>🏦 Bank Transfer / NEFT / IMPS</li>
+                            <li>📱 Paytm Wallet</li>
+                        </ul>
+                        <p>Payment instructions will be provided via WhatsApp after you submit your document request.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">Do you offer discounts for bulk orders?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Yes!</strong> We offer special discounts for:</p>
+                        <ul>
+                            <li><strong>5+ documents:</strong> 10% discount</li>
+                            <li><strong>10+ documents:</strong> 15% discount</li>
+                            <li><strong>20+ documents:</strong> 20% discount</li>
+                            <li><strong>University departments:</strong> Custom pricing available</li>
+                        </ul>
+                        <p>Contact us via WhatsApp at <strong>+91-8168706565</strong> for bulk order quotes.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What is your refund policy?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We stand by our service quality:</p>
+                        <ul>
+                            <li><strong>100% Refund:</strong> If report not delivered within 24 hours</li>
+                            <li><strong>50% Refund:</strong> If report quality doesn't meet promised standards</li>
+                            <li><strong>No Refund:</strong> After successful report delivery and verification</li>
+                        </ul>
+                        <p>Refund requests must be made within 48 hours. See our <a href="terms-of-service.html">Terms of Service</a> for details.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 3: How It Works -->
+            <div class="faq-category">
+                <h2 class="category-title">⚙️ How It Works</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">How do I submit my document?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Super simple 4-step process:</p>
+                        <ul>
+                            <li><strong>Step 1:</strong> Go to our <a href="index.html#upload">Upload Section</a></li>
+                            <li><strong>Step 2:</strong> Select your service (Plagiarism, AI Detection, or Combined)</li>
+                            <li><strong>Step 3:</strong> Choose delivery method (WhatsApp or Email)</li>
+                            <li><strong>Step 4:</strong> Upload your document (Word, PDF, TXT supported)</li>
+                        </ul>
+                        <p>You'll receive payment instructions immediately via your chosen delivery method.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">How long does it take to get my report?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Delivery times:</p>
+                        <ul>
+                            <li><strong>Standard Delivery:</strong> 6-12 hours after payment confirmation</li>
+                            <li><strong>Express Delivery:</strong> 2-4 hours (contact us for availability)</li>
+                            <li><strong>Bulk Orders:</strong> 24-48 hours depending on quantity</li>
+                        </ul>
+                        <p>Reports are delivered via WhatsApp or email as per your preference. <strong>Most orders completed within 8 hours!</strong></p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What file formats do you accept?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all common document formats:</p>
+                        <ul>
+                            <li>📄 <strong>Microsoft Word:</strong> .doc, .docx</li>
+                            <li>📑 <strong>PDF:</strong> .pdf (text-based, not scanned images)</li>
+                            <li>📝 <strong>Plain Text:</strong> .txt</li>
+                            <li>📊 <strong>Rich Text:</strong> .rtf</li>
+                        </ul>
+                        <p><strong>File size limit:</strong> Up to 25 MB per document</p>
+                        <p><strong>Note:</strong> Scanned PDFs or image-based files need OCR conversion first (contact us for assistance).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">How accurate are your plagiarism reports?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our detection accuracy:</p>
+                        <ul>
+                            <li><strong>Plagiarism Detection:</strong> 95%+ accuracy using advanced algorithms</li>
+                            <li><strong>AI Content Detection:</strong> 90%+ accuracy for ChatGPT, GPT-4, and similar models</li>
+                            <li><strong>Source Identification:</strong> Comprehensive database of academic and web sources</li>
+                        </ul>
+                        <p><strong>Important:</strong> Reports are guidance tools. Final academic decisions rest with your institution. Use reports to improve your work quality.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 4: Privacy & Security -->
+            <div class="faq-category">
+                <h2 class="category-title">🔒 Privacy & Security</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">Is my document safe and confidential?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Absolutely!</strong> We take privacy seriously:</p>
+                        <ul>
+                            <li>🔐 <strong>Encrypted Transmission:</strong> SSL/TLS encryption for all uploads</li>
+                            <li>🗑️ <strong>Auto-Deletion:</strong> Documents deleted within 30 days after service</li>
+                            <li>🚫 <strong>No Database Storage:</strong> Your work is NEVER stored in plagiarism databases</li>
+                            <li>👤 <strong>Anonymous Processing:</strong> No personal info linked to documents</li>
+                            <li>🔒 <strong>Secure Delivery:</strong> Reports sent only to your specified email/WhatsApp</li>
+                        </ul>
+                        <p>Read our full <a href="privacy-policy.html">Privacy Policy</a> for details.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">Will my university know I used this service?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>No.</strong> Your use of our service is completely private:</p>
+                        <ul>
+                            <li>✅ We do NOT contact universities</li>
+                            <li>✅ We do NOT report submissions</li>
+                            <li>✅ Documents are NOT added to institutional databases</li>
+                            <li>✅ No record of your check exists outside our temporary system</li>
+                        </ul>
+                        <p><strong>Ethical Use:</strong> Use our service to <strong>improve</strong> your work before official submission, not to circumvent academic integrity policies.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">Do you share my data with third parties?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>No, we do NOT sell your data.</strong> Limited sharing only for:</p>
+                        <ul>
+                            <li>Payment processing (transaction info only)</li>
+                            <li>Cloud storage providers (encrypted documents, temporary)</li>
+                            <li>Legal authorities (only if legally required)</li>
+                        </ul>
+                        <p>We NEVER share, sell, or rent your documents or personal information for marketing purposes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 5: Technical Questions -->
+            <div class="faq-category">
+                <h2 class="category-title">🔧 Technical Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What does the plagiarism report include?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Comprehensive report with:</p>
+                        <ul>
+                            <li><strong>Overall Similarity Score:</strong> Percentage of matched content</li>
+                            <li><strong>Source Breakdown:</strong> List of all matching sources with URLs</li>
+                            <li><strong>Highlighted Matches:</strong> Color-coded sections showing plagiarized text</li>
+                            <li><strong>Sentence-by-Sentence Analysis:</strong> Detailed comparison with sources</li>
+                            <li><strong>Recommendations:</strong> Suggestions to improve originality</li>
+                        </ul>
+                        <p>Report delivered in PDF format for easy viewing and printing.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What is AI content detection?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>AI detection identifies text written by:</p>
+                        <ul>
+                            <li>ChatGPT (GPT-3.5, GPT-4)</li>
+                            <li>Google Bard / Gemini</li>
+                            <li>Claude AI</li>
+                            <li>Other AI writing tools</li>
+                        </ul>
+                        <p>Our algorithm analyzes writing patterns, sentence structure, vocabulary usage, and other markers to determine if content is AI-generated vs human-written.</p>
+                        <p><strong>Use case:</strong> Ensure your work appears authentically human-written for university submissions that prohibit AI assistance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">What is an acceptable plagiarism percentage?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Acceptable similarity scores vary by institution:</p>
+                        <ul>
+                            <li><strong>0-15%:</strong> Excellent - Generally acceptable everywhere</li>
+                            <li><strong>15-25%:</strong> Good - Acceptable for most assignments</li>
+                            <li><strong>25-40%:</strong> Moderate - May need revision, check with professor</li>
+                            <li><strong>40%+:</strong> High - Requires significant rewriting</li>
+                        </ul>
+                        <p><strong>Note:</strong> Requirements vary. Check your university's specific plagiarism policy. Some institutions accept up to 30%, others require below 10%.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">My upload failed. What should I do?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Troubleshooting steps:</p>
+                        <ul>
+                            <li><strong>Check file size:</strong> Must be under 25 MB</li>
+                            <li><strong>Verify format:</strong> Use .doc, .docx, .pdf, or .txt only</li>
+                            <li><strong>Try different browser:</strong> Chrome or Firefox recommended</li>
+                            <li><strong>Check internet:</strong> Stable connection required</li>
+                            <li><strong>Direct submission:</strong> Email document to shivansh.assignment365@gmail.com or WhatsApp to +91-8168706565</li>
+                        </ul>
+                        <p>Still having issues? Contact us immediately via WhatsApp for manual upload assistance.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 6: Support -->
+            <div class="faq-category">
+                <h2 class="category-title">💬 Support & Contact</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">How can I contact customer support?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We're here to help 24/7:</p>
+                        <ul>
+                            <li><strong>WhatsApp:</strong> <a href="https://wa.me/918168706565">+91-8168706565</a> (Fastest response)</li>
+                            <li><strong>Email:</strong> <a href="mailto:shivansh.assignment365@gmail.com">shivansh.assignment365@gmail.com</a></li>
+                            <li><strong>Website:</strong> <a href="index.html#contact">Contact Form</a></li>
+                        </ul>
+                        <p><strong>Response time:</strong> WhatsApp - within 1 hour | Email - within 6 hours</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">I didn't receive my report. What now?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>First, check:</p>
+                        <ul>
+                            <li>Email spam/junk folder</li>
+                            <li>WhatsApp blocked contacts</li>
+                            <li>Correct email/number provided</li>
+                            <li>Payment confirmation received</li>
+                        </ul>
+                        <p><strong>Still missing?</strong> Contact us immediately with your order details. We'll resend within 1 hour or provide full refund.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleAnswer(this)">
+                        <div class="question-text">Can I request a revision of my report?</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Yes!</strong> If you believe the report has errors:</p>
+                        <ul>
+                            <li>Contact us within 24 hours of receiving report</li>
+                            <li>Explain the specific issue or discrepancy</li>
+                            <li>We'll review and provide revised report within 6 hours</li>
+                            <li>No additional charges for genuine errors</li>
+                        </ul>
+                        <p><strong>Note:</strong> We cannot change similarity scores if they're accurate. We can only correct technical errors in processing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="cta-box">
+            <h2>Still Have Questions?</h2>
+            <p>Can't find your answer? Our support team is ready to help!</p>
+            <a href="https://wa.me/918168706565" class="cta-btn">📱 Chat on WhatsApp</a>
+            <p style="margin-top: 20px; opacity: 0.9;">Or check your document now for just Rs 200</p>
+            <a href="index.html#upload" class="cta-btn" style="background: #87cefa; color: #084a70;">🔍 Check My Document</a>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
+        <p style="margin-top: 10px;">
+            <a href="index.html">Home</a> |
+            <a href="blog.html">Blog</a> |
+            <a href="privacy-policy.html">Privacy Policy</a> |
+            <a href="terms-of-service.html">Terms of Service</a> |
+            <a href="faq.html">FAQ</a> |
+            <a href="index.html#contact">Contact</a>
+        </p>
+    </footer>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            const question = element;
+            
+            // Close all other answers
+            document.querySelectorAll('.faq-answer.active').forEach(item => {
+                if (item !== answer) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('.faq-question.active').forEach(item => {
+                if (item !== question) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Toggle current answer
+            answer.classList.toggle('active');
+            question.classList.toggle('active');
+        }
+        
+        // Track FAQ interactions
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', function() {
+                const questionText = this.querySelector('.question-text').innerText;
+                if (typeof gtag === 'function') {
+                    gtag('event', 'faq_click', {
+                        'event_category': 'FAQ',
+                        'event_label': questionText
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
