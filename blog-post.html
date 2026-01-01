@@ -7,6 +7,29 @@
     <title>Blog Post - TurnitinPaperChecker</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📝</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Blog Post Schema (will be populated by JavaScript) -->
+    <script type="application/ld+json" id="blogPostSchema">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Blog Post",
+      "image": "",
+      "datePublished": "",
+      "author": {
+        "@type": "Organization",
+        "name": "TurnitinPaperChecker Team"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "TurnitinPaperChecker",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.turnitinpaperchecker.com/images/logo.png"
+        }
+      }
+    }
+    </script>
     
     <!-- MONETAG MULTITAG - ALL AD FORMATS -->
     <script src="https://quge5.com/88/tag.min.js" data-zone="197251" async data-cfasync="false"></script>
@@ -673,6 +696,37 @@
                     
                     // Update page title
                     document.title = blog.title + ' - TurnitinPaperChecker';
+
+                    // Update schema markup
+                    const schema = {
+                        "@context": "https://schema.org",
+                        "@type": "BlogPosting",
+                        "headline": blog.title,
+                        "image": blog.image,
+                        "datePublished": blog.date,
+                        "author": {
+                            "@type": "Organization",
+                            "name": blog.author || "TurnitinPaperChecker Team"
+                        },
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "TurnitinPaperChecker",
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": "https://www.turnitinpaperchecker.com/images/logo.png"
+                            }
+                        },
+                        "description": blog.excerpt,
+                        "mainEntityOfPage": {
+                            "@type": "WebPage",
+                            "@id": window.location.href
+                        }
+                    };
+                    
+                    const schemaScript = document.getElementById('blogPostSchema');
+                    if (schemaScript) {
+                        schemaScript.textContent = JSON.stringify(schema);
+                    }
                     
                     // Load related posts
                     loadRelatedPosts(blogId);
