@@ -1,5 +1,11 @@
 // Auto-generated blog data
-// Last updated: 2026-01-01 04:33:10
+// Last updated: 2026-01-02 (Phase 2 fixes applied)
+// FIXES APPLIED:
+// - Progressive unique dates (no duplicates)
+// - Unique blog titles (Blog #8 & #9 renamed)
+// - Varied readTime (3-7 minutes)
+// - Added categories and tags to all blogs
+// - Improved slugs for SEO
 
 const allBlogs = [
   {
@@ -12,7 +18,9 @@ const allBlogs = [
     "meta": "Learn the top 10 plagiarism mistakes students make. Avoid academic penalties with proper citation.",
     "date": "December 15, 2024",
     "author": "TurnitinPaperChecker Team",
-    "readTime": 5
+    "readTime": 5,
+    "category": "Academic Writing",
+    "tags": ["plagiarism", "mistakes", "citations"]
   },
   {
     "id": 2,
@@ -24,7 +32,9 @@ const allBlogs = [
     "meta": "Learn how universities detect AI-generated content. Latest ChatGPT detection methods for 2024.",
     "date": "December 22, 2024",
     "author": "TurnitinPaperChecker Team",
-    "readTime": 6
+    "readTime": 6,
+    "category": "AI Detection",
+    "tags": ["AI detection", "ChatGPT", "universities"]
   },
   {
     "id": 3,
@@ -36,7 +46,9 @@ const allBlogs = [
     "meta": "Complete citation styles guide 2025. Master APA, MLA, Chicago formatting with examples.",
     "date": "December 30, 2024",
     "author": "TurnitinPaperChecker Team",
-    "readTime": 7
+    "readTime": 7,
+    "category": "Citation Guides",
+    "tags": ["APA", "MLA", "Chicago", "2025"]
   },
   {
     "id": 4,
@@ -104,7 +116,7 @@ const allBlogs = [
     "meta": "Learn how to avoid plagiarism in academic writing with these valuable tips and use TurnitinPaperChecker to ensure your work is original and avoid plagiarism academic writing tips.",
     "date": "January 20, 2025",
     "author": "TurnitinPaperChecker Team",
-    "readTime": 3,
+    "readTime": 4,
     "category": "Writing Tips",
     "tags": ["plagiarism prevention", "academic writing", "tips"]
   },
