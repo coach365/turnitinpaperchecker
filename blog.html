@@ -230,27 +230,342 @@
         <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
     </footer>
     
+    <!-- ============================================
+   BLOG.HTML - COMPLETE PAGINATION SYSTEM
+   REPLACES EXISTING JAVASCRIPT
+   ============================================ -->
+
+<!-- STEP 1: ADD THIS CSS TO <style> SECTION -->
+<!-- Find the closing </style> tag in blog.html (around line 165)
+     ADD THIS CODE BEFORE </style>: -->
+
+        /* Pagination Styles */
+        .pagination-container {
+            margin: 60px 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .pagination-btn {
+            background: white;
+            border: 2px solid #0a9cfc;
+            color: #0a9cfc;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: #0a9cfc;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 157, 252, 0.3);
+        }
+        
+        .pagination-btn:disabled {
+            background: #e0e0e0;
+            border-color: #ccc;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .pagination-btn.active {
+            background: #0a5d8c;
+            color: white;
+            border-color: #0a5d8c;
+        }
+        
+        .pagination-info {
+            color: #666;
+            font-size: 1rem;
+            padding: 0 15px;
+            font-weight: 500;
+        }
+        
+        .pagination-numbers {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .page-number {
+            background: white;
+            border: 2px solid #ddd;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .page-number:hover {
+            border-color: #0a9cfc;
+            color: #0a9cfc;
+        }
+        
+        .page-number.active {
+            background: #0a9cfc;
+            border-color: #0a9cfc;
+            color: white;
+        }
+        
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .loading-spinner::after {
+            content: '⏳';
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+
+<!-- STEP 2: REPLACE ENTIRE <script> SECTION AT BOTTOM -->
+<!-- Find this section in blog.html (around line 180):
+     <script src="blogs-data.js"></script>
+     <script>
+         // Display all blogs
+         const container = document.getElementById('blogContainer');
+         
+         allBlogs.reverse().forEach(blog => {
+             ...
+         });
+     </script>
+     
+   REPLACE WITH THIS COMPLETE CODE: -->
+
     <script src="blogs-data.js"></script>
     <script>
-        // Display all blogs
-        const container = document.getElementById('blogContainer');
+        // ===== BLOG PAGINATION SYSTEM =====
         
-        allBlogs.reverse().forEach(blog => {
-            const card = document.createElement('div');
-            card.className = 'blog-card';
+        const container = document.getElementById('blogContainer');
+        const BLOGS_PER_PAGE = 9; // Show 9 blogs per page
+        let currentPage = 1;
+        let filteredBlogs = [...allBlogs].reverse(); // Start with all blogs (newest first)
+        
+        // ===== DISPLAY BLOGS FUNCTION =====
+        function displayBlogs(page) {
+            // Show loading state
+            container.innerHTML = '<div class="loading-spinner">Loading blogs...</div>';
             
-            card.innerHTML = `
-                <img src="${blog.image}" alt="${blog.title}" class="blog-image" loading="lazy">
-                <div class="blog-content">
-                    <div class="blog-date">${blog.date} • ${blog.readTime} min read</div>
-                    <h2 class="blog-title">${blog.title}</h2>
-                    <p class="blog-excerpt">${blog.excerpt}</p>
-                    <a href="blog-post.html?id=${blog.id}" class="btn-primary">Read More</a>
-                </div>
-            `;
+            // Simulate loading delay (remove in production for instant load)
+            setTimeout(() => {
+                container.innerHTML = '';
+                
+                const totalBlogs = filteredBlogs.length;
+                const totalPages = Math.ceil(totalBlogs / BLOGS_PER_PAGE);
+                const startIndex = (page - 1) * BLOGS_PER_PAGE;
+                const endIndex = startIndex + BLOGS_PER_PAGE;
+                const blogsToShow = filteredBlogs.slice(startIndex, endIndex);
+                
+                // Display blogs for current page
+                blogsToShow.forEach(blog => {
+                    const card = document.createElement('div');
+                    card.className = 'blog-card';
+                    
+                    card.innerHTML = `
+                        <img src="${blog.image}" alt="${blog.title}" class="blog-image" loading="lazy">
+                        <div class="blog-content">
+                            <div class="blog-date">${blog.date} • ${blog.readTime} min read</div>
+                            <h2 class="blog-title">${blog.title}</h2>
+                            <p class="blog-excerpt">${blog.excerpt}</p>
+                            <a href="blog-post.html?id=${blog.id}" class="btn-primary">Read More</a>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                });
+                
+                // Display pagination controls
+                displayPagination(page, totalPages, totalBlogs);
+                
+                // Scroll to top smoothly
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Track page view
+                if (typeof gtag === 'function') {
+                    gtag('event', 'page_view', {
+                        'event_category': 'Blog',
+                        'event_label': `Page ${page}`,
+                        'value': blogsToShow.length
+                    });
+                }
+                
+            }, 200); // 200ms delay for loading effect
+        }
+        
+        // ===== DISPLAY PAGINATION CONTROLS =====
+        function displayPagination(currentPage, totalPages, totalBlogs) {
+            // Remove existing pagination
+            const existingPagination = document.querySelector('.pagination-container');
+            if (existingPagination) {
+                existingPagination.remove();
+            }
             
-            container.appendChild(card);
+            if (totalPages <= 1) return; // No pagination needed for single page
+            
+            // Create pagination container
+            const paginationDiv = document.createElement('div');
+            paginationDiv.className = 'pagination-container';
+            
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Previous';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => changePage(currentPage - 1);
+            paginationDiv.appendChild(prevBtn);
+            
+            // Page numbers
+            const numbersDiv = document.createElement('div');
+            numbersDiv.className = 'pagination-numbers';
+            
+            // Show max 5 page numbers
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+            
+            // Adjust if near start or end
+            if (currentPage <= 3) {
+                endPage = Math.min(5, totalPages);
+            }
+            if (currentPage >= totalPages - 2) {
+                startPage = Math.max(1, totalPages - 4);
+            }
+            
+            // First page
+            if (startPage > 1) {
+                const firstPage = createPageNumber(1, currentPage);
+                numbersDiv.appendChild(firstPage);
+                
+                if (startPage > 2) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.style.padding = '0 5px';
+                    dots.style.color = '#666';
+                    numbersDiv.appendChild(dots);
+                }
+            }
+            
+            // Middle pages
+            for (let i = startPage; i <= endPage; i++) {
+                const pageNum = createPageNumber(i, currentPage);
+                numbersDiv.appendChild(pageNum);
+            }
+            
+            // Last page
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.style.padding = '0 5px';
+                    dots.style.color = '#666';
+                    numbersDiv.appendChild(dots);
+                }
+                
+                const lastPage = createPageNumber(totalPages, currentPage);
+                numbersDiv.appendChild(lastPage);
+            }
+            
+            paginationDiv.appendChild(numbersDiv);
+            
+            // Page info
+            const info = document.createElement('span');
+            info.className = 'pagination-info';
+            const startBlog = (currentPage - 1) * BLOGS_PER_PAGE + 1;
+            const endBlog = Math.min(currentPage * BLOGS_PER_PAGE, totalBlogs);
+            info.textContent = `${startBlog}-${endBlog} of ${totalBlogs} articles`;
+            paginationDiv.appendChild(info);
+            
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => changePage(currentPage + 1);
+            paginationDiv.appendChild(nextBtn);
+            
+            // Add to page
+            container.parentElement.appendChild(paginationDiv);
+        }
+        
+        // ===== CREATE PAGE NUMBER BUTTON =====
+        function createPageNumber(pageNum, currentPage) {
+            const btn = document.createElement('button');
+            btn.className = 'page-number';
+            btn.textContent = pageNum;
+            if (pageNum === currentPage) {
+                btn.classList.add('active');
+            }
+            btn.onclick = () => changePage(pageNum);
+            return btn;
+        }
+        
+        // ===== CHANGE PAGE FUNCTION =====
+        function changePage(newPage) {
+            currentPage = newPage;
+            displayBlogs(newPage);
+        }
+        
+        // ===== INITIAL LOAD =====
+        displayBlogs(1);
+        
+        // ===== KEYBOARD NAVIGATION =====
+        document.addEventListener('keydown', (e) => {
+            const totalPages = Math.ceil(filteredBlogs.length / BLOGS_PER_PAGE);
+            
+            if (e.key === 'ArrowLeft' && currentPage > 1) {
+                changePage(currentPage - 1);
+            } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                changePage(currentPage + 1);
+            }
+        });
+        
+        console.log('✅ Blog pagination loaded:', {
+            totalBlogs: allBlogs.length,
+            blogsPerPage: BLOGS_PER_PAGE,
+            totalPages: Math.ceil(allBlogs.length / BLOGS_PER_PAGE)
         });
     </script>
+
+
+<!-- ============================================
+   INSTALLATION SUMMARY:
+   
+   ✅ STEP 1: Add pagination CSS to <style> section
+   ✅ STEP 2: Replace entire <script> section with new code
+   
+   FEATURES:
+   - 📄 9 blogs per page (customizable)
+   - ◀️▶️ Previous/Next buttons
+   - 🔢 Page numbers (max 5 visible)
+   - 📊 Blog count display (e.g., "1-9 of 25 articles")
+   - ⏳ Loading animation
+   - 📈 Google Analytics tracking
+   - ⌨️ Arrow key navigation (Left/Right)
+   - 🎯 Smooth scroll to top on page change
+   - 📱 Mobile responsive
+   
+   CUSTOMIZATION:
+   - Change blogs per page: Edit BLOGS_PER_PAGE = 9
+   - Remove loading delay: Set setTimeout to 0ms
+   - Adjust page number count: Modify startPage/endPage logic
+   ============================================ -->
 </body>
 </html>
