@@ -1421,21 +1421,21 @@
                         <div class="service-icon">🔍</div>
                         <h3>Plagiarism Detection</h3>
                         <p>Advanced plagiarism checking using Turnitin and multiple databases to ensure comprehensive coverage.</p>
-                        <div class="service-price">Rs 200</div>
+                        <a href="#upload" class="service-price" style="text-decoration: none; cursor: pointer; display: block;" onclick="trackButtonClick('Service Price Click - Rs 200', 'services'); return true;">Rs 200</a>
                     </div>
                     
                     <div class="service-card fade-in">
                         <div class="service-icon">🤖</div>
                         <h3>AI Content Detection</h3>
                         <p>Identify AI-generated content with cutting-edge detection algorithms and machine learning models.</p>
-                        <div class="service-price">Rs 200</div>
+                        <a href="#upload" class="service-price" style="text-decoration: none; cursor: pointer; display: block;" onclick="trackButtonClick('Service Price Click - Rs 200 AI', 'services'); return true;">Rs 200</a>
                     </div>
                     
                     <div class="service-card fade-in">
                         <div class="service-icon">📊</div>
                         <h3>Combined Reports</h3>
                         <p>Get both plagiarism and AI detection in one comprehensive report with detailed analysis.</p>
-                        <div class="service-price">Rs 300</div>
+                        <a href="#upload" class="service-price" style="text-decoration: none; cursor: pointer; display: block;" onclick="trackButtonClick('Service Price Click - Rs 300', 'services'); return true;">Rs 300</a>
                     </div>
                 </div>
             </div>
@@ -2531,7 +2531,7 @@
             const password = document.getElementById('adminPassword').value;
             
             // SHA-256 hash of your password (more secure than plain text)
-            const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+            const correctHash = "27fcb86d00180784cffd1cae62fcadcc16baac99a27bbe3061f492bfae76371b";
             
             try {
                 // Hash the entered password
@@ -2912,10 +2912,36 @@
                     trackWhatsAppClick('document_submission', serviceName);
                     
                     const whatsappText = encodeURIComponent(body);
-                    window.open(`https://wa.me/${config.whatsappNumber}?text=${whatsappText}`, '_blank');
+                    window.open(`https://wa.me/${config.whatsappNumber}?text=${whatsappText}`, '_blank');                
+
                 } else {
-                    const mailtoLink = `mailto:${config.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                    window.location.href = mailtoLink;
+                    // Show alert that email requires manual sending
+                    const confirmed = confirm(
+                        '📧 EMAIL DELIVERY:\n\n' +
+                        'This will open your email app with pre-filled message.\n' +
+                        'You MUST click SEND in your email app.\n\n' +
+                        '💡 TIP: Use WhatsApp delivery for instant notification!\n\n' +
+                        'Continue with Email?'
+                    );
+                    
+                    if (confirmed) {
+                        // Show warning for email delivery
+                        alert('📧 Email app will open.\n\nPlease click SEND in your email app to complete submission.\n\nAlternative: Contact us directly via WhatsApp for instant response.');
+                        const mailtoLink = `mailto:${config.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                        window.location.href = mailtoLink;
+                    } else {
+                        // Offer WhatsApp alternative
+                        const useWhatsApp = confirm('Switch to WhatsApp delivery instead?');
+                        if (useWhatsApp) {
+                            const deliverySelect = document.getElementById('deliveryMethod');
+                            if (deliverySelect) {
+                                deliverySelect.value = 'whatsapp';
+                            }
+                            // Re-trigger with WhatsApp
+                            const whatsappMsg = `📄 PLAGIARISM CHECK REQUEST\n\n${body}`;
+                            window.open(`https://wa.me/918168706565?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+                        }
+                    }
                 }
                 
                 // Clear files after 5 seconds
@@ -3070,6 +3096,8 @@
             const subject = "Newsletter Subscription";
             const body = `New subscriber: ${email}`;
             
+            // Show warning for email delivery
+            alert('📧 Email app will open.\n\nPlease click SEND in your email app to complete submission.\n\nAlternative: Contact us directly via WhatsApp for instant response.');
             const mailtoLink = `mailto:${config.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             window.location.href = mailtoLink;
             
