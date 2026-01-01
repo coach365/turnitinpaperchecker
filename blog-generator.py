@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-Auto Blog Generator for TurnitinPaperChecker
-Generates SEO-optimized blog posts using Groq AI
-With Unsplash/Pexels image integration and IndexNow auto-indexing
+ENHANCED Auto Blog Generator for TurnitinPaperChecker
+Generates UNIQUE, RANDOMIZED, SEO-optimized blog posts using Groq AI
+With 5 different templates, varied structures, and creative content
 """
 
 import os
 import json
 import re
 import requests
+import random
 from datetime import datetime
 from groq import Groq
 
@@ -18,9 +19,83 @@ WEBSITE_HOST = "www.turnitinpaperchecker.com"
 EMAIL = "shivansh.assignment365@gmail.com"
 WHATSAPP = "+91-8168706565"
 
-# ===== LOAD EXISTING BLOGS =====
+# ===== BLOG TEMPLATES =====
+TEMPLATES = [
+    {
+        "name": "How-To Guide",
+        "title_format": "How to {action}: {subtitle}",
+        "sections": [
+            "Quick Overview",
+            "Why This Matters",
+            "What You'll Need",
+            "Step-by-Step Process",
+            "Common Mistakes to Avoid",
+            "Pro Tips from Experts",
+            "Real-World Examples",
+            "Conclusion and Next Steps"
+        ]
+    },
+    {
+        "name": "Listicle",
+        "title_format": "{number} {adjective} Ways to {achieve_goal}",
+        "sections": [
+            "Introduction",
+            "Method #{n}: {title}",  # Repeated dynamically
+            "Which Approach Works Best?",
+            "Implementation Timeline",
+            "Final Recommendations"
+        ]
+    },
+    {
+        "name": "Problem-Solution",
+        "title_format": "{problem}? Here's the Complete Solution",
+        "sections": [
+            "Understanding the Problem",
+            "Why This Happens in Indian Universities",
+            "The Real Impact on Students",
+            "The Comprehensive Solution",
+            "Step-by-Step Implementation",
+            "Success Stories from DU, JNU, IIT",
+            "Key Takeaways"
+        ]
+    },
+    {
+        "name": "Comparison Guide",
+        "title_format": "{option_a} vs {option_b}: Complete 2025 Guide",
+        "sections": [
+            "Overview of Both Options",
+            "Feature-by-Feature Comparison",
+            "Pros and Cons Analysis",
+            "Price and Value Comparison",
+            "Best Use Cases for Each",
+            "Expert Recommendations",
+            "Final Verdict"
+        ]
+    },
+    {
+        "name": "Ultimate Guide",
+        "title_format": "The Ultimate Guide to {topic} in 2025",
+        "sections": [
+            "What is {topic}?",
+            "Historical Background",
+            "Current Landscape in India",
+            "Latest Statistics and Trends",
+            "Expert Insights",
+            "Future Predictions",
+            "Essential Resources",
+            "Conclusion"
+        ]
+    }
+]
+
+# Randomization elements
+ADJECTIVES = ["Proven", "Effective", "Essential", "Powerful", "Smart", "Quick", "Simple", "Advanced"]
+NUMBERS = ["5", "7", "10", "12", "15"]
+UNIVERSITIES = ["Delhi University", "JNU", "IIT Delhi", "IIT Bombay", "Mumbai University", "Pune University"]
+
+# ===== LOAD FUNCTIONS =====
 def load_blogs():
-    """Load existing blogs from blogs-data.js"""
+    """Load existing blogs"""
     try:
         with open('blogs-data.js', 'r', encoding='utf-8') as f:
             content = f.read()
@@ -31,33 +106,22 @@ def load_blogs():
         print(f"⚠️ Error loading blogs: {e}")
     return []
 
-# ===== LOAD KEYWORDS =====
 def load_keywords():
-    """Load keyword list from keywords.json"""
+    """Load keywords"""
     try:
         with open('keywords.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data.get('queue', [])
-    except Exception as e:
-        print(f"⚠️ Error loading keywords: {e}")
-    
-    # Default keywords if file doesn't exist
-    return [
-        "how to reduce turnitin similarity score",
-        "turnitin alternative India affordable",
-        "plagiarism checker Rs 200 India",
-        "AI content detection for students",
-        "avoid plagiarism academic writing",
-        "paraphrasing techniques students",
-        "citation styles guide APA MLA",
-        "turnitin percentage meaning",
-        "check plagiarism before submission",
-        "plagiarism report sample India"
-    ]
+    except:
+        return [
+            "how to reduce turnitin similarity score",
+            "turnitin alternative India",
+            "plagiarism checker Rs 200",
+            "AI content detection students"
+        ]
 
-# ===== GET NEXT KEYWORD =====
 def get_next_keyword(blogs, keywords):
-    """Get next keyword that hasn't been used"""
+    """Get unused keyword"""
     used = set()
     for blog in blogs:
         title = blog.get('title', '').lower()
@@ -65,267 +129,235 @@ def get_next_keyword(blogs, keywords):
             if kw.lower() in title:
                 used.add(kw)
     
-    # Return first unused keyword
     for kw in keywords:
         if kw not in used:
             return kw
     
-    # If all used, return first one (will create variation)
-    return keywords[0] if keywords else "plagiarism checker India"
+    return random.choice(keywords)
 
-# ===== EXTRACT KEYWORDS FROM TEXT =====
-def extract_keywords(text):
-    """Extract meaningful keywords from text for image search"""
-    # Remove common words
-    stop_words = {'how', 'to', 'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'for', 'with', 'about', 'as', 'by', 'is', 'was', 'are', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should', 'could', 'may', 'might', 'can'}
-    
-    # Extract words
-    words = re.findall(r'\b[a-z]+\b', text.lower())
-    
-    # Filter out stop words and short words
-    keywords = [w for w in words if w not in stop_words and len(w) > 3]
-    
-    # Return top 3 keywords
-    return keywords[:3]
-
-# ===== GET IMAGE FROM UNSPLASH =====
+# ===== IMAGE FUNCTIONS =====
 def get_image_from_unsplash(keyword):
-    """Fetch relevant image from Unsplash API"""
+    """Fetch from Unsplash"""
     api_key = os.environ.get('UNSPLASH_ACCESS_KEY')
     if not api_key:
-        print("⚠️ Unsplash API key not found")
         return None
     
     try:
-        # Extract keywords for search
-        search_terms = extract_keywords(keyword)
-        search_query = ' '.join(search_terms + ['student', 'education', 'academic'])
+        search_terms = ' '.join(keyword.split()[:3] + ['student', 'education'])
+        print(f"🔍 Searching Unsplash: {search_terms}")
         
-        print(f"🔍 Searching Unsplash for: {search_query}")
-        
-        # Call Unsplash API
-        url = "https://api.unsplash.com/search/photos"
-        headers = {"Authorization": f"Client-ID {api_key}"}
-        params = {
-            "query": search_query,
-            "per_page": 5,
-            "orientation": "landscape"
-        }
-        
-        response = requests.get(url, headers=headers, params=params, timeout=10)
+        response = requests.get(
+            "https://api.unsplash.com/search/photos",
+            headers={"Authorization": f"Client-ID {api_key}"},
+            params={"query": search_terms, "per_page": 5, "orientation": "landscape"},
+            timeout=10
+        )
         
         if response.status_code == 200:
             data = response.json()
-            if data.get('results') and len(data['results']) > 0:
-                image_url = data['results'][0]['urls']['regular']
-                print(f"✅ Found Unsplash image: {image_url[:60]}...")
-                return image_url
-            else:
-                print("⚠️ No Unsplash results found")
-        else:
-            print(f"⚠️ Unsplash API error: {response.status_code}")
-    
+            if data.get('results'):
+                return data['results'][0]['urls']['regular']
     except Exception as e:
         print(f"⚠️ Unsplash error: {e}")
     
     return None
 
-# ===== GET IMAGE FROM PEXELS (FALLBACK) =====
 def get_image_from_pexels(keyword):
-    """Fetch relevant image from Pexels API as fallback"""
+    """Fetch from Pexels"""
     api_key = os.environ.get('PEXELS_API_KEY')
     if not api_key:
-        print("⚠️ Pexels API key not found")
         return None
     
     try:
-        # Extract keywords for search
-        search_terms = extract_keywords(keyword)
-        search_query = ' '.join(search_terms + ['student', 'education'])
+        search_terms = ' '.join(keyword.split()[:3] + ['student'])
+        print(f"🔍 Searching Pexels: {search_terms}")
         
-        print(f"🔍 Searching Pexels for: {search_query}")
-        
-        # Call Pexels API
-        url = "https://api.pexels.com/v1/search"
-        headers = {"Authorization": api_key}
-        params = {
-            "query": search_query,
-            "per_page": 5,
-            "orientation": "landscape"
-        }
-        
-        response = requests.get(url, headers=headers, params=params, timeout=10)
+        response = requests.get(
+            "https://api.pexels.com/v1/search",
+            headers={"Authorization": api_key},
+            params={"query": search_terms, "per_page": 5, "orientation": "landscape"},
+            timeout=10
+        )
         
         if response.status_code == 200:
             data = response.json()
-            if data.get('photos') and len(data['photos']) > 0:
-                image_url = data['photos'][0]['src']['large']
-                print(f"✅ Found Pexels image: {image_url[:60]}...")
-                return image_url
-            else:
-                print("⚠️ No Pexels results found")
-        else:
-            print(f"⚠️ Pexels API error: {response.status_code}")
-    
+            if data.get('photos'):
+                return data['photos'][0]['src']['large']
     except Exception as e:
         print(f"⚠️ Pexels error: {e}")
     
     return None
 
-# ===== GET RELEVANT IMAGE (WITH FALLBACKS) =====
 def get_relevant_image(keyword):
-    """Get relevant image with fallback chain: Unsplash → Pexels → Default"""
+    """Get image with fallback"""
+    image = get_image_from_unsplash(keyword)
+    if image:
+        return image
     
-    # Try Unsplash first
-    image_url = get_image_from_unsplash(keyword)
-    if image_url:
-        return image_url
+    print("📸 Trying Pexels...")
+    image = get_image_from_pexels(keyword)
+    if image:
+        return image
     
-    # Try Pexels as fallback
-    print("📸 Trying Pexels as fallback...")
-    image_url = get_image_from_pexels(keyword)
-    if image_url:
-        return image_url
-    
-    # Use default image as last resort
-    print("📸 Using default image")
+    print("📸 Using default")
     return "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800"
 
-# ===== GENERATE PROMPT =====
-def create_prompt(keyword, existing_titles):
-    """Create detailed prompt for AI"""
-    return f"""Write a comprehensive SEO blog post for TurnitinPaperChecker (plagiarism detection service in India).
+# ===== RANDOMIZED PROMPT GENERATION =====
+def create_randomized_prompt(keyword, existing_titles):
+    """Create completely randomized, unique prompt"""
+    
+    # Select random template
+    template = random.choice(TEMPLATES)
+    
+    # Generate random backlink positions
+    total_sections = len(template['sections'])
+    backlink_positions = random.sample(range(2, total_sections - 1), min(3, total_sections - 3))
+    
+    # Create unique structure instructions
+    structure_variation = random.choice([
+        "Use short paragraphs (2-3 sentences each)",
+        "Include bullet points in 2-3 sections",
+        "Add numbered lists where appropriate",
+        "Mix paragraphs with lists for variety"
+    ])
+    
+    # Random university mentions
+    unis = random.sample(UNIVERSITIES, 2)
+    
+    prompt = f"""Write a comprehensive, UNIQUE blog post for TurnitinPaperChecker.
+
+CRITICAL: This must be COMPLETELY DIFFERENT from any previous posts. Use creative, unpredictable structure and content.
 
 SERVICE INFO:
-- Plagiarism & AI detection service
-- Price: Rs 200 single check, Rs 150 combined
+- Plagiarism & AI detection service in India
+- Price: Rs 200 single, Rs 300 combined
 - Delivery: 6-12 hours via WhatsApp
 - Contact: {EMAIL}, {WHATSAPP}
 - Website: {WEBSITE_URL}
 
 TARGET KEYWORD: "{keyword}"
 
-EXISTING TITLES (don't repeat):
-{chr(10).join('- ' + t for t in existing_titles[-5:])}
+TEMPLATE: {template['name']}
 
-WRITE:
+EXISTING TITLES (NEVER repeat these patterns):
+{chr(10).join('- ' + t for t in existing_titles[-10:])}
 
-1. TITLE (50-60 characters, must include keyword):
-   Example: "How to Reduce Turnitin Similarity Score: 10 Proven Methods"
+WRITE A COMPLETELY UNIQUE POST:
 
+1. TITLE (50-60 characters with keyword):
+   Format: {template.get('title_format', 'Creative title with keyword')}
+   
 2. CONTENT (1500-2000 words):
-   
-   - Introduction (150 words)
-   - 5-7 main sections with H2 headings
-   - Each section 200-300 words
-   - Use simple language (Grade 8-10)
-   - Include examples from Indian universities (DU, JNU, IIT)
-   - Mention TurnitinPaperChecker naturally 2-3 times
-   
-   MUST INCLUDE these 3 backlinks in content:
-   - <a href="{WEBSITE_URL}">TurnitinPaperChecker</a>
-   - <a href="{WEBSITE_URL}#services">plagiarism detection services</a>
-   - <a href="{WEBSITE_URL}#pricing">affordable pricing at Rs 200</a>
-   
-   - End with: "Ready to check your document? Get started for just Rs 200 at <a href='{WEBSITE_URL}'>TurnitinPaperChecker</a>"
 
-3. META DESCRIPTION (150-155 chars, include keyword)
+{chr(10).join(f'   <h2>{section}</h2>' for section in template['sections'][:8])}
+
+CRITICAL REQUIREMENTS:
+- {structure_variation}
+- Mention {unis[0]} and {unis[1]} with SPECIFIC examples
+- Include 2-3 statistics with fake but realistic numbers
+- Add personal student story/example in one section
+- Vary sentence length (mix short and long)
+- Use transition words naturally
+- NO generic phrases like "In today's digital age"
+
+BACKLINK PLACEMENT (must include ALL 3 naturally):
+- Section {backlink_positions[0]}: Link to <a href="{WEBSITE_URL}">TurnitinPaperChecker</a>
+- Section {backlink_positions[1]}: Link to <a href="{WEBSITE_URL}#services">plagiarism detection services</a>
+- Section {backlink_positions[2]}: Link to <a href="{WEBSITE_URL}#pricing">affordable pricing at Rs 200</a>
+
+WRITING STYLE:
+- Conversational yet professional
+- Use "you" to address reader
+- Include rhetorical questions
+- Add specific, actionable advice
+- NO clichés or overused phrases
+
+CONCLUSION:
+End with: "Ready to check your document? Get started for just Rs 200 at <a href='{WEBSITE_URL}'>TurnitinPaperChecker</a>"
+
+3. META DESCRIPTION (150-155 chars with keyword)
 
 FORMAT OUTPUT EXACTLY:
 
 ---TITLE---
-[title here]
+[unique title here]
 
 ---CONTENT---
-<h2>Introduction</h2>
-<p>First paragraph...</p>
-<p>Second paragraph...</p>
-
-<h2>Section 1 Title</h2>
+<h2>Section 1</h2>
 <p>Content...</p>
 
-<h2>Section 2 Title</h2>
-<p>Content...</p>
-
-[continue 5-7 sections]
-
-<h2>Conclusion</h2>
-<p>Summary...</p>
-<p>Ready to check your document? Get started for just Rs 200 at <a href='{WEBSITE_URL}'>TurnitinPaperChecker</a></p>
+[continue all sections]
 
 ---META---
 [meta description]
 
 ---END---"""
 
-# ===== CALL GROQ AI =====
+    return prompt
+
+# ===== GROQ AI GENERATION =====
 def generate_blog(keyword, existing_titles):
-    """Generate blog using Groq AI"""
+    """Generate with randomized prompt"""
     api_key = os.environ.get('GROQ_API_KEY')
     if not api_key:
         print("❌ GROQ_API_KEY not found")
         return None
     
     client = Groq(api_key=api_key)
-    prompt = create_prompt(keyword, existing_titles)
+    prompt = create_randomized_prompt(keyword, existing_titles)
     
-    print(f"🤖 Generating blog for keyword: {keyword}")
+    print(f"🤖 Generating UNIQUE blog for: {keyword}")
     
     try:
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
-                {"role": "system", "content": "You are an expert SEO blogger specializing in academic services."},
+                {"role": "system", "content": "You are an expert SEO blogger who creates UNIQUE, engaging content. Never use templates - every post must be completely different in structure and style."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.7,
-            max_tokens=4000
+            temperature=0.9,  # Higher for more creativity
+            max_tokens=5000
         )
         
         return response.choices[0].message.content
     
     except Exception as e:
-        print(f"❌ Groq AI error: {e}")
+        print(f"❌ Groq error: {e}")
         return None
 
-# ===== PARSE AI RESPONSE =====
+# ===== PARSING =====
 def parse_response(text):
-    """Parse AI response to extract components"""
+    """Parse AI response"""
     data = {}
     
-    # Extract title
     title_match = re.search(r'---TITLE---\s*(.+?)\s*---CONTENT---', text, re.DOTALL)
     if title_match:
         data['title'] = title_match.group(1).strip()
     
-    # Extract content
     content_match = re.search(r'---CONTENT---\s*(.+?)\s*---META---', text, re.DOTALL)
     if content_match:
         data['content'] = content_match.group(1).strip()
     
-    # Extract meta description
     meta_match = re.search(r'---META---\s*(.+?)\s*---END---', text, re.DOTALL)
     if meta_match:
         data['meta'] = meta_match.group(1).strip()
     
     return data
 
-# ===== CREATE SLUG =====
 def make_slug(title):
-    """Create URL-friendly slug"""
+    """Create URL slug"""
     slug = title.lower()
     slug = re.sub(r'[^a-z0-9\s-]', '', slug)
     slug = re.sub(r'\s+', '-', slug)
     return slug.strip('-')[:60]
 
-# ===== UPDATE SITEMAP =====
+# ===== SITEMAP & INDEXING =====
 def update_sitemap(blogs):
-    """Update sitemap.xml with all blog URLs"""
+    """Update sitemap.xml"""
     try:
         sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
         sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         
-        # Homepage
         sitemap += '  <url>\n'
         sitemap += f'    <loc>{WEBSITE_URL}</loc>\n'
         sitemap += f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>\n'
@@ -333,7 +365,6 @@ def update_sitemap(blogs):
         sitemap += '    <priority>1.0</priority>\n'
         sitemap += '  </url>\n'
         
-        # Blog page
         sitemap += '  <url>\n'
         sitemap += f'    <loc>{WEBSITE_URL}blog.html</loc>\n'
         sitemap += f'    <lastmod>{datetime.now().strftime("%Y-%m-%d")}</lastmod>\n'
@@ -341,10 +372,8 @@ def update_sitemap(blogs):
         sitemap += '    <priority>0.9</priority>\n'
         sitemap += '  </url>\n'
         
-        # All blog posts
         for blog in blogs:
             try:
-                # Parse date
                 blog_date = datetime.strptime(blog['date'], '%B %d, %Y').strftime('%Y-%m-%d')
             except:
                 blog_date = datetime.now().strftime('%Y-%m-%d')
@@ -361,39 +390,30 @@ def update_sitemap(blogs):
         with open('sitemap.xml', 'w', encoding='utf-8') as f:
             f.write(sitemap)
         
-        print(f"✅ Sitemap updated with {len(blogs)} blog posts")
+        print(f"✅ Sitemap updated: {len(blogs)} posts")
         return True
-    
     except Exception as e:
-        print(f"⚠️ Sitemap update error: {e}")
+        print(f"⚠️ Sitemap error: {e}")
         return False
 
-# ===== PING GOOGLE SITEMAP =====
 def ping_google_sitemap():
-    """Notify Google of sitemap update"""
+    """Ping Google"""
     try:
-        sitemap_url = f"{WEBSITE_URL}sitemap.xml"
-        ping_url = f"https://www.google.com/ping?sitemap={sitemap_url}"
-        
-        response = requests.get(ping_url, timeout=10)
-        
+        response = requests.get(
+            f"https://www.google.com/ping?sitemap={WEBSITE_URL}sitemap.xml",
+            timeout=10
+        )
         if response.status_code == 200:
-            print("✅ Google sitemap pinged successfully")
+            print("✅ Google pinged")
             return True
-        else:
-            print(f"⚠️ Google ping returned: {response.status_code}")
-            return False
-    
     except Exception as e:
         print(f"⚠️ Google ping error: {e}")
-        return False
+    return False
 
-# ===== NOTIFY INDEXNOW =====
 def notify_indexnow(blog_url):
-    """Notify search engines via IndexNow API"""
+    """Notify IndexNow"""
     api_key = os.environ.get('INDEXNOW_API_KEY')
     if not api_key:
-        print("⚠️ IndexNow API key not found")
         return False
     
     try:
@@ -404,7 +424,7 @@ def notify_indexnow(blog_url):
             "urlList": [blog_url]
         }
         
-        print(f"📡 Notifying IndexNow for: {blog_url}")
+        print(f"📡 IndexNow: {blog_url}")
         
         response = requests.post(
             "https://api.indexnow.org/indexnow",
@@ -414,24 +434,18 @@ def notify_indexnow(blog_url):
         )
         
         if response.status_code == 200:
-            print("✅ IndexNow notification sent (Google, Bing, Yandex)")
+            print("✅ IndexNow sent")
             return True
-        else:
-            print(f"⚠️ IndexNow returned: {response.status_code}")
-            return False
-    
     except Exception as e:
         print(f"⚠️ IndexNow error: {e}")
-        return False
+    return False
 
 # ===== SAVE BLOG =====
 def save_blog(blog_data, keyword):
-    """Save blog to blogs-data.js"""
+    """Save blog"""
     blogs = load_blogs()
-    
     new_id = max([b.get('id', 0) for b in blogs], default=0) + 1
     
-    # Get relevant image
     image_url = get_relevant_image(keyword)
     
     new_blog = {
@@ -449,7 +463,6 @@ def save_blog(blog_data, keyword):
     
     blogs.append(new_blog)
     
-    # Write to blogs-data.js
     js_content = f"""// Auto-generated blog data
 // Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
@@ -461,13 +474,9 @@ const allBlogs = {json.dumps(blogs, indent=2, ensure_ascii=False)};
     
     print(f"✅ Blog #{new_id} saved: {blog_data['title']}")
     
-    # Update sitemap
     update_sitemap(blogs)
-    
-    # Ping Google
     ping_google_sitemap()
     
-    # Notify IndexNow
     blog_url = f"{WEBSITE_URL}blog-post.html?id={new_id}"
     notify_indexnow(blog_url)
     
@@ -475,49 +484,43 @@ const allBlogs = {json.dumps(blogs, indent=2, ensure_ascii=False)};
 
 # ===== MAIN =====
 def main():
-    """Main execution function"""
+    """Main execution"""
     print("="*60)
-    print("🚀 AUTO BLOG GENERATOR - TurnitinPaperChecker")
+    print("🚀 ENHANCED RANDOMIZED BLOG GENERATOR")
     print("="*60)
     
-    # Load existing data
     blogs = load_blogs()
-    print(f"📚 Existing blogs: {len(blogs)}")
+    print(f"📚 Existing: {len(blogs)} blogs")
     
     keywords = load_keywords()
-    print(f"🔑 Keywords loaded: {len(keywords)}")
+    print(f"🔑 Keywords: {len(keywords)}")
     
-    # Get next keyword
     keyword = get_next_keyword(blogs, keywords)
-    print(f"🎯 Target keyword: {keyword}")
+    print(f"🎯 Target: {keyword}")
     
     existing_titles = [b['title'] for b in blogs]
     
-    # Generate blog with AI
     ai_response = generate_blog(keyword, existing_titles)
     
     if not ai_response:
-        print("❌ Failed to generate blog")
+        print("❌ Generation failed")
         return
     
-    # Parse response
     blog_data = parse_response(ai_response)
     
     if not all(k in blog_data for k in ['title', 'content']):
-        print("❌ Invalid AI response - missing required fields")
+        print("❌ Invalid response")
         return
     
     print(f"📝 Title: {blog_data['title']}")
-    print(f"📊 Content length: {len(blog_data['content'])} characters")
+    print(f"📊 Length: {len(blog_data['content'])} chars")
     
-    # Save blog
     blog_id = save_blog(blog_data, keyword)
     
     print("="*60)
-    print("✅ SUCCESS! Blog published")
+    print("✅ SUCCESS!")
     print(f"📌 ID: {blog_id}")
     print(f"📌 Title: {blog_data['title']}")
-    print(f"📌 Keyword: {keyword}")
     print("="*60)
 
 if __name__ == "__main__":
