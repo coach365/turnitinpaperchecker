@@ -1,0 +1,214 @@
+# ===========================
+# TurnitinPaperChecker .gitignore
+# Generated: 2026-01-02
+# ===========================
+
+# ===== PYTHON =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Virtual Environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# ===== SENSITIVE DATA =====
+.env
+.env.local
+.env.*.local
+api_keys.txt
+*.key
+*.pem
+*.p12
+secrets.json
+config.local.js
+
+# API Keys (if accidentally committed)
+*_api_key.txt
+*_secret.txt
+
+# ===== IDE / EDITORS =====
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# ===== OPERATING SYSTEMS =====
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ===== LOGS =====
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log.*
+
+# ===== TEMPORARY FILES =====
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*.orig
+*.rej
+*~
+
+# ===== NODE.JS (if added later) =====
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+.npm/
+.yarn/
+
+# ===== BUILD OUTPUTS =====
+dist/
+build/
+*.min.js
+*.min.css
+compiled/
+
+# ===== DATABASE =====
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+
+# ===== TESTING =====
+.coverage
+.pytest_cache/
+.tox/
+htmlcov/
+coverage/
+*.cover
+.hypothesis/
+
+# ===== DOCUMENTATION =====
+site/
+.mkdocs/
+
+# ===== COMPILED FILES =====
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ===== ARCHIVES =====
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ===== EXPLICITLY TRACK IMPORTANT FILES =====
+# (Override ignore rules)
+!blogs-data.js
+!keywords.json
+!sitemap.xml
+!robots.txt
+!README.md
+!.gitignore
+
+# ===== PROJECT-SPECIFIC IGNORES =====
+# Backup files
+index.html.bak
+blog-generator.py.backup
+
+# Test files
+test_*.html
+draft_*.js
+
+# User uploaded documents (if stored locally)
+uploads/
+user-files/
+temp-docs/
+
+# Analytics data (if exported)
+analytics-*.csv
+stats-*.json
+
+# ===== SECURITY =====
+# Never commit private keys or certificates
+*.crt
+*.der
+*.key
+*.p12
+*.pfx
+*.pub
+*.pem
+
+# Never commit password files
+passwords.txt
+credentials.txt
+auth.json
+
+# ===== END =====
