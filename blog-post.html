@@ -580,13 +580,98 @@
                 padding: 6px 10px;
             }
         }
+        /* ===== IN-CONTENT AD STYLES ===== */
+        .in-content-ad {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            min-height: 250px;
+        }
+        
+        .in-content-ad .ad-label {
+            display: block;
+            font-size: 10px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        /* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+        .skip-to-content {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #0a5d8c;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            z-index: 10000;
+            border-radius: 0 0 8px 0;
+        }
+        
+        .skip-to-content:focus {
+            top: 0;
+        }
+        
+        /* Focus indicators for accessibility */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: 3px solid #0a9cfc;
+            outline-offset: 2px;
+        }
+        
+        .share-btn:focus {
+            outline: 3px solid rgba(255, 255, 255, 0.8);
+            outline-offset: 2px;
+        }
+
+        /* ===== RELATED POSTS CATEGORY BADGE ===== */
+        .related-category {
+            display: inline-block;
+            background: #e6f3ff;
+            color: #0a5d8c;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .related-match {
+            border-left: 4px solid #27ae60;
+        }
+        
+        .related-match .related-category {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        /* ===== IMPROVED MOBILE NAVIGATION ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- STEP 1: ADD THIS HTML RIGHT AFTER <body> TAG -->
     <!-- Find <body> tag in blog-post.html (around line 335)
         INSERT THIS CODE IMMEDIATELY AFTER <body>: -->
-
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
     <!-- Reading Progress Bar -->
     <div id="progressBar" style="
         position: fixed;
@@ -637,7 +722,7 @@
         </aside>
 
         <!-- MAIN CONTENT -->
-        <main class="blog-main">
+        <main class="blog-main" id="main-content" role="main" aria-label="Blog post content">
             <article class="blog-article">
                 <h1 id="blogTitle">Loading...</h1>
                 
@@ -658,17 +743,17 @@
                 <!-- Social Share Buttons -->
                 <div class="share-section">
                     <h3>📢 Share This Article</h3>
-                    <div class="share-buttons">
-                        <button onclick="shareWhatsApp()" class="share-btn wa">
+                    <div class="share-buttons" role="group" aria-label="Social media sharing options">
+                        <button onclick="shareWhatsApp()" class="share-btn wa" aria-label="Share on WhatsApp">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </button>
-                        <button onclick="shareFacebook()" class="share-btn fb">
+                        <button onclick="shareFacebook()" class="share-btn fb" aria-label="Share on Facebook">
                             <i class="fab fa-facebook"></i> Facebook
                         </button>
-                        <button onclick="shareTwitter()" class="share-btn tw">
+                        <button onclick="shareTwitter()" class="share-btn tw" aria-label="Share on Twitter">
                             <i class="fab fa-twitter"></i> Twitter
                         </button>
-                        <button onclick="shareLinkedIn()" class="share-btn li">
+                        <button onclick="shareLinkedIn()" class="share-btn li" aria-label="Share on LinkedIn">
                             <i class="fab fa-linkedin"></i> LinkedIn
                         </button>
                     </div>
@@ -739,17 +824,33 @@
     <script src="blogs-data.js"></script>
 
     <script>
-        // Social Share Functions
+        // ===== SOCIAL SHARE FUNCTIONS =====
         function shareWhatsApp() {
             const title = document.getElementById('blogTitle').innerText;
             const url = window.location.href;
             const text = encodeURIComponent(`Check out: ${title}\n\n${url}`);
             window.open(`https://wa.me/?text=${text}`, '_blank');
+            
+            // Track share
+            if (typeof gtag === 'function') {
+                gtag('event', 'share', {
+                    'event_category': 'Blog',
+                    'event_label': 'WhatsApp',
+                    'value': title
+                });
+            }
         }
 
         function shareFacebook() {
             const url = encodeURIComponent(window.location.href);
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            
+            if (typeof gtag === 'function') {
+                gtag('event', 'share', {
+                    'event_category': 'Blog',
+                    'event_label': 'Facebook'
+                });
+            }
         }
 
         function shareTwitter() {
@@ -757,45 +858,162 @@
             const url = encodeURIComponent(window.location.href);
             const text = encodeURIComponent(title);
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+            
+            if (typeof gtag === 'function') {
+                gtag('event', 'share', {
+                    'event_category': 'Blog',
+                    'event_label': 'Twitter'
+                });
+            }
         }
 
         function shareLinkedIn() {
             const url = encodeURIComponent(window.location.href);
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+            
+            if (typeof gtag === 'function') {
+                gtag('event', 'share', {
+                    'event_category': 'Blog',
+                    'event_label': 'LinkedIn'
+                });
+            }
         }
 
-        // Load Related Posts
-        function loadRelatedPosts(currentBlogId) {
+        // ===== SMART RELATED POSTS MATCHING =====
+        function loadRelatedPosts(currentBlogId, currentBlog) {
             if (typeof allBlogs === 'undefined') return;
             
             const relatedContainer = document.getElementById('relatedPosts');
             if (!relatedContainer) return;
             
-            // Get 5 random other blogs
-            const otherBlogs = allBlogs
+            const currentCategory = currentBlog.category || '';
+            const currentTags = currentBlog.tags || [];
+            
+            // Score each blog based on relevance
+            const scoredBlogs = allBlogs
                 .filter(b => b.id !== currentBlogId)
-                .sort(() => 0.5 - Math.random())
+                .map(blog => {
+                    let score = 0;
+                    
+                    // Same category = +10 points
+                    if (blog.category && blog.category === currentCategory) {
+                        score += 10;
+                    }
+                    
+                    // Shared tags = +5 points per tag
+                    if (blog.tags && currentTags.length > 0) {
+                        const sharedTags = blog.tags.filter(tag => currentTags.includes(tag));
+                        score += sharedTags.length * 5;
+                    }
+                    
+                    // Similar title words = +1 point per word
+                    const currentWords = currentBlog.title.toLowerCase().split(' ').filter(w => w.length > 4);
+                    const blogWords = blog.title.toLowerCase().split(' ').filter(w => w.length > 4);
+                    const sharedWords = currentWords.filter(w => blogWords.includes(w));
+                    score += sharedWords.length;
+                    
+                    // Recent posts = +2 points (prefer newer content)
+                    try {
+                        const blogDate = new Date(blog.date);
+                        const daysSincePublished = (new Date() - blogDate) / (1000 * 60 * 60 * 24);
+                        if (daysSincePublished < 30) score += 2;
+                    } catch (e) {}
+                    
+                    return { blog, score };
+                });
+            
+            // Sort by score (descending) and take top 5
+            const topRelated = scoredBlogs
+                .sort((a, b) => b.score - a.score)
                 .slice(0, 5);
             
+            // If we don't have 5 highly-scored results, fill with random
+            if (topRelated.length < 5) {
+                const remaining = allBlogs
+                    .filter(b => b.id !== currentBlogId && !topRelated.find(tr => tr.blog.id === b.id))
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 5 - topRelated.length)
+                    .map(blog => ({ blog, score: 0 }));
+                
+                topRelated.push(...remaining);
+            }
+            
+            // Display related posts
             relatedContainer.innerHTML = '';
-            otherBlogs.forEach(blog => {
+            topRelated.forEach(({ blog, score }) => {
                 const item = document.createElement('div');
                 item.className = 'related-item';
+                
+                // Highlight strongly-matched posts
+                if (score >= 10) {
+                    item.classList.add('related-match');
+                }
+                
                 item.innerHTML = `
                     <a href="blog-post.html?id=${blog.id}">${blog.title}</a>
                     <small>${blog.date} • ${blog.readTime} min read</small>
+                    ${blog.category ? `<span class="related-category">${blog.category}</span>` : ''}
                 `;
                 relatedContainer.appendChild(item);
             });
+            
+            // Track related post display
+            if (typeof gtag === 'function') {
+                gtag('event', 'related_posts_shown', {
+                    'event_category': 'Blog',
+                    'event_label': currentBlog.title,
+                    'value': topRelated.length
+                });
+            }
         }
 
-        // Newsletter Form Handler
+        // ===== IN-CONTENT AD INSERTION =====
+        function insertInContentAds() {
+            const blogContent = document.getElementById('blogContent');
+            if (!blogContent) return;
+            
+            const paragraphs = blogContent.querySelectorAll('p');
+            
+            // Insert ads after specific paragraphs (after 3rd, 7th, 11th paragraph)
+            const adPositions = [3, 7, 11];
+            
+            adPositions.forEach(position => {
+                if (paragraphs[position]) {
+                    const adDiv = document.createElement('div');
+                    adDiv.className = 'in-content-ad';
+                    adDiv.innerHTML = `
+                        <span class="ad-label">Advertisement</span>
+                        <div id="in-content-ad-${position}">
+                            <!-- Monetag will populate this -->
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=728&h=90&fit=crop" 
+                                 alt="Advertisement" 
+                                 style="max-width: 100%; height: auto; border-radius: 8px;"
+                                 loading="lazy">
+                        </div>
+                    `;
+                    
+                    // Insert after the paragraph
+                    paragraphs[position].parentNode.insertBefore(adDiv, paragraphs[position].nextSibling);
+                }
+            });
+            
+            console.log('✅ In-content ads inserted at positions:', adPositions);
+        }
+
+        // ===== NEWSLETTER FORM HANDLER =====
         document.getElementById('newsletterForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
             const email = this.querySelector('input').value;
             
-            // Send to your email or database
             alert(`✅ Thank you for subscribing!\n\nWe'll send academic tips and updates to:\n${email}`);
+            
+            // Track subscription
+            if (typeof gtag === 'function') {
+                gtag('event', 'newsletter_signup', {
+                    'event_category': 'Conversion',
+                    'event_label': 'Blog Post'
+                });
+            }
             
             // Optional: Send to your email
             window.location.href = `mailto:shivansh.assignment365@gmail.com?subject=Newsletter Subscription&body=New subscriber: ${email}`;
@@ -803,7 +1021,7 @@
             this.reset();
         });
 
-        // Load Blog Content on Page Load
+        // ===== LOAD BLOG CONTENT ON PAGE LOAD =====
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const blogId = parseInt(urlParams.get('id'));
@@ -818,8 +1036,13 @@
                     document.getElementById('blogDate').innerText = '📅 ' + blog.date;
                     document.getElementById('blogReadTime').innerText = '⏱️ ' + blog.readTime + ' min read';
                     document.getElementById('blogImage').src = blog.image;
+                    document.getElementById('blogImage').alt = blog.title;
                     document.getElementById('blogContent').innerHTML = blog.content;
 
+                    // ===== INSERT IN-CONTENT ADS =====
+                    setTimeout(() => {
+                        insertInContentAds();
+                    }, 500);
 
                     // ===== AUTO-GENERATE TABLE OF CONTENTS =====
                     (function generateTOC() {
@@ -828,43 +1051,32 @@
                         
                         if (!blogContent || !tocContainer) return;
                         
-                        // Find all H2 headings in blog content
                         const headings = blogContent.querySelectorAll('h2');
                         
-                        if (headings.length < 3) {
-                            // Don't show TOC for short posts (less than 3 sections)
-                            return;
-                        }
+                        if (headings.length < 3) return;
                         
-                        // Create TOC structure
                         let tocHTML = `
                             <div class="toc-container toc-sticky">
                                 <div class="toc-title">
                                     <i class="fas fa-list-ul"></i>
                                     Table of Contents
-                                    <button class="toc-toggle" onclick="toggleTOC(this)" aria-label="Toggle table of contents">
+                                    <button class="toc-toggle" onclick="toggleTOC(this)" aria-label="Toggle table of contents" aria-expanded="true">
                                         <i class="fas fa-chevron-down"></i>
                                     </button>
                                 </div>
                                 <ol class="toc-list" id="tocList">
                         `;
                         
-                        // Add each heading to TOC
                         headings.forEach((heading, index) => {
-                            // Create unique ID for heading
                             const headingId = 'section-' + index;
                             heading.id = headingId;
-                            
-                            // Get heading text (strip HTML tags)
                             const headingText = heading.textContent.trim();
-                            
-                            // Skip "Introduction" and "Conclusion" from numbering (optional)
                             const isSpecial = headingText.toLowerCase() === 'introduction' || 
                                             headingText.toLowerCase() === 'conclusion';
                             
                             tocHTML += `
                                 <li class="toc-item">
-                                    <a href="#${headingId}" class="toc-link" data-section="${headingId}">
+                                    <a href="#${headingId}" class="toc-link" data-section="${headingId}" aria-label="Jump to ${headingText}">
                                         <span class="toc-number">${isSpecial ? '•' : (index + 1) + '.'}</span>
                                         <span class="toc-text">${headingText}</span>
                                     </a>
@@ -872,16 +1084,10 @@
                             `;
                         });
                         
-                        tocHTML += `
-                                </ol>
-                            </div>
-                        `;
-                        
-                        // Insert TOC into page
+                        tocHTML += `</ol></div>`;
                         tocContainer.innerHTML = tocHTML;
                         tocContainer.style.display = 'block';
                         
-                        // ===== ACTIVE SECTION HIGHLIGHTING =====
                         const tocLinks = document.querySelectorAll('.toc-link');
                         
                         function highlightActiveSection() {
@@ -893,21 +1099,20 @@
                                 
                                 if (!link) return;
                                 
-                                // Check if heading is in viewport (with offset for header)
                                 if (rect.top <= 150 && rect.bottom >= 0 && !activeFound) {
                                     link.classList.add('active');
+                                    link.setAttribute('aria-current', 'location');
                                     activeFound = true;
                                 } else {
                                     link.classList.remove('active');
+                                    link.removeAttribute('aria-current');
                                 }
                             });
                         }
                         
-                        // Highlight on scroll
                         window.addEventListener('scroll', highlightActiveSection);
-                        highlightActiveSection(); // Initial highlight
+                        highlightActiveSection();
                         
-                        // ===== SMOOTH SCROLL ON CLICK =====
                         tocLinks.forEach(link => {
                             link.addEventListener('click', function(e) {
                                 e.preventDefault();
@@ -915,7 +1120,6 @@
                                 const targetElement = document.getElementById(targetId);
                                 
                                 if (targetElement) {
-                                    // Smooth scroll to section (with offset for fixed header)
                                     const headerOffset = 80;
                                     const elementPosition = targetElement.getBoundingClientRect().top;
                                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -925,7 +1129,10 @@
                                         behavior: 'smooth'
                                     });
                                     
-                                    // Track TOC click
+                                    // Set focus for accessibility
+                                    targetElement.setAttribute('tabindex', '-1');
+                                    targetElement.focus();
+                                    
                                     if (typeof gtag === 'function') {
                                         gtag('event', 'toc_click', {
                                             'event_category': 'Blog',
@@ -972,8 +1179,8 @@
                         schemaScript.textContent = JSON.stringify(schema);
                     }
                     
-                    // Load related posts
-                    loadRelatedPosts(blogId);
+                    // Load SMART related posts
+                    loadRelatedPosts(blogId, blog);
                     
                     // Update meta description
                     let metaDesc = document.querySelector('meta[name="description"]');
@@ -983,6 +1190,16 @@
                         document.head.appendChild(metaDesc);
                     }
                     metaDesc.content = blog.excerpt || blog.content.substring(0, 150);
+                    
+                    // Track page view
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'page_view', {
+                            'event_category': 'Blog',
+                            'event_label': blog.title,
+                            'value': blog.readTime
+                        });
+                    }
+                    
                 } else {
                     // Blog not found
                     document.getElementById('blogTitle').innerText = 'Blog Post Not Found';
@@ -1001,52 +1218,77 @@
             }
         });
 
-        // Track page views (optional - for your analytics)
-        console.log('Blog post viewed:', window.location.href);
+        // ===== TOGGLE TOC =====
+        function toggleTOC(button) {
+            const tocList = document.getElementById('tocList');
+            const icon = button.querySelector('i');
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            
+            if (tocList.style.display === 'none') {
+                tocList.style.display = 'block';
+                icon.className = 'fas fa-chevron-down';
+                button.classList.remove('collapsed');
+                button.setAttribute('aria-expanded', 'true');
+            } else {
+                tocList.style.display = 'none';
+                icon.className = 'fas fa-chevron-right';
+                button.classList.add('collapsed');
+                button.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        // Expose global functions
+        window.shareWhatsApp = shareWhatsApp;
+        window.shareFacebook = shareFacebook;
+        window.shareTwitter = shareTwitter;
+        window.shareLinkedIn = shareLinkedIn;
+        window.toggleTOC = toggleTOC;
+
+        console.log('✅ Blog post loaded with smart matching, in-content ads, and accessibility features');
     </script>
     <!-- STEP 2: ADD THIS JAVASCRIPT BEFORE CLOSING </body> TAG -->
 <!-- Find the closing </body> tag (near end of file)
      ADD THIS CODE JUST BEFORE </body>: -->
 
-<script>
-// ===== READING PROGRESS BAR =====
-(function() {
-    const progressBar = document.getElementById('progressBar');
-    
-    if (!progressBar) return;
-    
-    function updateProgressBar() {
-        // Calculate scroll progress
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    <script>
+    // ===== READING PROGRESS BAR =====
+    (function() {
+        const progressBar = document.getElementById('progressBar');
         
-        // Calculate percentage (0-100)
-        const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+        if (!progressBar) return;
         
-        // Update progress bar width
-        progressBar.style.width = Math.min(scrollPercent, 100) + '%';
-        
-        // Change color based on progress
-        if (scrollPercent < 30) {
-            progressBar.style.background = 'linear-gradient(90deg, #0a5d8c 0%, #0a9cfc 100%)';
-        } else if (scrollPercent < 70) {
-            progressBar.style.background = 'linear-gradient(90deg, #0a9cfc 0%, #87cefa 100%)';
-        } else {
-            progressBar.style.background = 'linear-gradient(90deg, #87cefa 0%, #27ae60 100%)';
+        function updateProgressBar() {
+            // Calculate scroll progress
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Calculate percentage (0-100)
+            const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+            
+            // Update progress bar width
+            progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+            
+            // Change color based on progress
+            if (scrollPercent < 30) {
+                progressBar.style.background = 'linear-gradient(90deg, #0a5d8c 0%, #0a9cfc 100%)';
+            } else if (scrollPercent < 70) {
+                progressBar.style.background = 'linear-gradient(90deg, #0a9cfc 0%, #87cefa 100%)';
+            } else {
+                progressBar.style.background = 'linear-gradient(90deg, #87cefa 0%, #27ae60 100%)';
+            }
         }
-    }
-    
-    // Update on scroll
-    window.addEventListener('scroll', updateProgressBar);
-    
-    // Update on page load
-    updateProgressBar();
-    
-    // Update on window resize
-    window.addEventListener('resize', updateProgressBar);
-})();
-</script>
+        
+        // Update on scroll
+        window.addEventListener('scroll', updateProgressBar);
+        
+        // Update on page load
+        updateProgressBar();
+        
+        // Update on window resize
+        window.addEventListener('resize', updateProgressBar);
+    })();
+    </script>
 
 
 <!-- ============================================
@@ -1055,127 +1297,127 @@
    ============================================ -->
 
 <!-- Reading Progress Bar with Percentage -->
-<div style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: #e0e0e0;
-    z-index: 9999;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-">
-    <div id="progressBar" style="
-        height: 100%;
-        background: linear-gradient(90deg, #0a5d8c 0%, #0a9cfc 50%, #87cefa 100%);
-        width: 0%;
-        transition: width 0.1s ease;
-        position: relative;
+    <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: #e0e0e0;
+        z-index: 9999;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     ">
-        <span id="progressPercent" style="
-            position: absolute;
-            right: 10px;
-            top: 8px;
-            background: #0a5d8c;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            display: none;
-        ">0%</span>
+        <div id="progressBar" style="
+            height: 100%;
+            background: linear-gradient(90deg, #0a5d8c 0%, #0a9cfc 50%, #87cefa 100%);
+            width: 0%;
+            transition: width 0.1s ease;
+            position: relative;
+        ">
+            <span id="progressPercent" style="
+                position: absolute;
+                right: 10px;
+                top: 8px;
+                background: #0a5d8c;
+                color: white;
+                padding: 3px 10px;
+                border-radius: 12px;
+                font-size: 0.75rem;
+                font-weight: bold;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                display: none;
+            ">0%</span>
+        </div>
     </div>
-</div>
 
-<!-- Then update the JavaScript to include percentage: -->
-<script>
-// ===== READING PROGRESS BAR WITH PERCENTAGE =====
-(function() {
-    const progressBar = document.getElementById('progressBar');
-    const progressPercent = document.getElementById('progressPercent');
-    
-    if (!progressBar) return;
-    
-    function updateProgressBar() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    <!-- Then update the JavaScript to include percentage: -->
+    <script>
+    // ===== READING PROGRESS BAR WITH PERCENTAGE =====
+    (function() {
+        const progressBar = document.getElementById('progressBar');
+        const progressPercent = document.getElementById('progressPercent');
         
-        const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-        const clampedPercent = Math.min(Math.max(scrollPercent, 0), 100);
+        if (!progressBar) return;
         
-        progressBar.style.width = clampedPercent + '%';
-        
-        // Update percentage text
-        if (progressPercent) {
-            const roundedPercent = Math.round(clampedPercent);
-            progressPercent.textContent = roundedPercent + '%';
+        function updateProgressBar() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            // Show percentage when scrolling past header
-            if (scrollTop > 100) {
-                progressPercent.style.display = 'block';
+            const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+            const clampedPercent = Math.min(Math.max(scrollPercent, 0), 100);
+            
+            progressBar.style.width = clampedPercent + '%';
+            
+            // Update percentage text
+            if (progressPercent) {
+                const roundedPercent = Math.round(clampedPercent);
+                progressPercent.textContent = roundedPercent + '%';
+                
+                // Show percentage when scrolling past header
+                if (scrollTop > 100) {
+                    progressPercent.style.display = 'block';
+                } else {
+                    progressPercent.style.display = 'none';
+                }
+            }
+            
+            // Color gradient based on progress
+            if (clampedPercent < 30) {
+                progressBar.style.background = 'linear-gradient(90deg, #0a5d8c 0%, #0a9cfc 100%)';
+            } else if (clampedPercent < 70) {
+                progressBar.style.background = 'linear-gradient(90deg, #0a9cfc 0%, #87cefa 100%)';
             } else {
-                progressPercent.style.display = 'none';
+                progressBar.style.background = 'linear-gradient(90deg, #87cefa 0%, #27ae60 100%)';
             }
         }
         
-        // Color gradient based on progress
-        if (clampedPercent < 30) {
-            progressBar.style.background = 'linear-gradient(90deg, #0a5d8c 0%, #0a9cfc 100%)';
-        } else if (clampedPercent < 70) {
-            progressBar.style.background = 'linear-gradient(90deg, #0a9cfc 0%, #87cefa 100%)';
-        } else {
-            progressBar.style.background = 'linear-gradient(90deg, #87cefa 0%, #27ae60 100%)';
-        }
-    }
-    
-    window.addEventListener('scroll', updateProgressBar);
-    window.addEventListener('resize', updateProgressBar);
-    updateProgressBar();
-})();
-</script>
-<script>
-// Toggle TOC visibility
-                function toggleTOC(button) {
-                    const tocList = document.getElementById('tocList');
-                    const icon = button.querySelector('i');
-                    
-                    if (tocList.style.display === 'none') {
-                        tocList.style.display = 'block';
-                        icon.className = 'fas fa-chevron-down';
-                        button.classList.remove('collapsed');
-                    } else {
-                        tocList.style.display = 'none';
-                        icon.className = 'fas fa-chevron-right';
-                        button.classList.add('collapsed');
+        window.addEventListener('scroll', updateProgressBar);
+        window.addEventListener('resize', updateProgressBar);
+        updateProgressBar();
+    })();
+    </script>
+    <script>
+    // Toggle TOC visibility
+                    function toggleTOC(button) {
+                        const tocList = document.getElementById('tocList');
+                        const icon = button.querySelector('i');
+                        
+                        if (tocList.style.display === 'none') {
+                            tocList.style.display = 'block';
+                            icon.className = 'fas fa-chevron-down';
+                            button.classList.remove('collapsed');
+                        } else {
+                            tocList.style.display = 'none';
+                            icon.className = 'fas fa-chevron-right';
+                            button.classList.add('collapsed');
+                        }
                     }
-                }
-</script>
+    </script>
 
-<!-- ============================================
-   INSTALLATION SUMMARY:
-   
-   OPTION A: Simple Progress Bar
-   ✅ STEP 1: Add progress bar HTML after <body>
-   ✅ STEP 2: Add JavaScript before </body>
-   
-   OPTION B: Progress Bar with Percentage
-   ✅ Use alternative HTML + JavaScript
-   
-   FEATURES:
-   - 📊 Real-time scroll progress
-   - 🎨 Color changes (blue → cyan → green)
-   - 📱 Mobile responsive
-   - ⚡ Smooth transitions
-   - 🎯 Fixed at top of page
-   - 💯 Optional percentage display
-   
-   CUSTOMIZATION:
-   - Height: Change "height: 4px"
-   - Colors: Edit gradient colors
-   - Speed: Adjust "transition: width 0.1s"
-   ============================================ -->
+    <!-- ============================================
+    INSTALLATION SUMMARY:
+    
+    OPTION A: Simple Progress Bar
+    ✅ STEP 1: Add progress bar HTML after <body>
+    ✅ STEP 2: Add JavaScript before </body>
+    
+    OPTION B: Progress Bar with Percentage
+    ✅ Use alternative HTML + JavaScript
+    
+    FEATURES:
+    - 📊 Real-time scroll progress
+    - 🎨 Color changes (blue → cyan → green)
+    - 📱 Mobile responsive
+    - ⚡ Smooth transitions
+    - 🎯 Fixed at top of page
+    - 💯 Optional percentage display
+    
+    CUSTOMIZATION:
+    - Height: Change "height: 4px"
+    - Colors: Edit gradient colors
+    - Speed: Adjust "transition: width 0.1s"
+    ============================================ -->
 </body>
 </html>
 </artifact>
