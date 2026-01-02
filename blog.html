@@ -122,11 +122,13 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
         
         .blog-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
         }
         
         .blog-image {
@@ -169,10 +171,13 @@
             text-decoration: none;
             display: inline-block;
             margin-top: 1rem;
+            transition: all 0.3s;
         }
         
         .btn-primary:hover {
             background: #0873b0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(8, 93, 140, 0.3);
         }
         
         .footer {
@@ -293,8 +298,6 @@
             transform: scale(1.05);
         }
 
-
-
         /* Breadcrumb Styles */
         .breadcrumb-container {
             background: #f5f5f5;
@@ -339,15 +342,6 @@
             color: #666;
             font-weight: 600;
         }
-        
-        @media (max-width: 768px) {
-            .breadcrumbs {
-                font-size: 0.85rem;
-            }
-        }
-        <!-- STEP 1: ADD THIS CSS TO <style> SECTION -->
-<!-- Find the closing </style> tag in blog.html (around line 165)
-     ADD THIS CODE BEFORE </style>: -->
 
         /* Pagination Styles */
         .pagination-container {
@@ -446,6 +440,150 @@
             to { transform: rotate(360deg); }
         }
 
+        /* ===== NEW: FILTER & SORT CONTROLS ===== */
+        .filter-sort-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #0a5d8c;
+            font-size: 0.95rem;
+        }
+        
+        .filter-select {
+            padding: 10px 35px 10px 15px;
+            border: 2px solid #0a9cfc;
+            border-radius: 25px;
+            font-size: 1rem;
+            color: #333;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230a9cfc' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+        
+        .filter-select:hover {
+            border-color: #0a5d8c;
+            box-shadow: 0 2px 10px rgba(10, 157, 252, 0.2);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #0a5d8c;
+            box-shadow: 0 4px 15px rgba(10, 157, 252, 0.3);
+        }
+        
+        .reset-filters-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .reset-filters-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        /* ===== NEW: BACK TO TOP BUTTON ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0a9cfc;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(10, 157, 252, 0.4);
+            transition: all 0.3s;
+            z-index: 1000;
+            border: none;
+            font-size: 1.2rem;
+        }
+        
+        .back-to-top.visible {
+            display: flex;
+        }
+        
+        .back-to-top:hover {
+            background: #0a5d8c;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(10, 93, 140, 0.5);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .breadcrumbs {
+                font-size: 0.85rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-sort-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .filter-group {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .filter-select {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .pagination-container {
+                gap: 5px;
+            }
+            
+            .pagination-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .pagination-info {
+                font-size: 0.9rem;
+                padding: 0 10px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -473,27 +611,58 @@
             </nav>
         </div>
     </div>
-
     
     <section class="blog-hero">
-        <div class="container">
-            <h1>Academic Integrity Blog</h1>
-            <p>Tips, guides, and insights for students</p>
-        </div>
-    </section>
     <div class="container">
-        <div class="blog-search-container">
-            <input 
-                type="text" 
-                id="blogSearchInput" 
-                class="blog-search-input"
-                placeholder="🔍 Search blogs by title, keyword, or category..."
-                autocomplete="off"
-            >
-            <i class="fas fa-search blog-search-icon"></i>
-        </div>
-        <div id="searchResultsInfo" style="display: none;"></div>
+        <h1>Academic Integrity Blog</h1>
+        <p>Tips, guides, and insights for students</p>
     </div>
+</section>
+
+<!-- Search Bar -->
+<div class="container">
+    <div class="blog-search-container">
+        <input 
+            type="text" 
+            id="blogSearchInput" 
+            class="blog-search-input"
+            placeholder="🔍 Search blogs by title, keyword, or category..."
+            autocomplete="off"
+        >
+        <i class="fas fa-search blog-search-icon"></i>
+    </div>
+    <div id="searchResultsInfo" style="display: none;"></div>
+</div>
+
+<!-- NEW: Filter & Sort Controls -->
+<div class="filter-sort-container">
+    <div class="filter-group">
+        <label class="filter-label">📂 Category:</label>
+        <select id="categoryFilter" class="filter-select">
+            <option value="all">All Categories</option>
+            <option value="Academic Writing">Academic Writing</option>
+            <option value="Plagiarism Detection">Plagiarism Detection</option>
+            <option value="AI Detection">AI Detection</option>
+            <option value="Student Tips">Student Tips</option>
+            <option value="Academic Integrity">Academic Integrity</option>
+            <option value="Research">Research</option>
+            <option value="Citation">Citation</option>
+        </select>
+    </div>
+    
+    <div class="filter-group">
+        <label class="filter-label">🔄 Sort By:</label>
+        <select id="sortFilter" class="filter-select">
+            <option value="latest">Latest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="alphabetical">A-Z (Title)</option>
+        </select>
+    </div>
+    
+    <button class="reset-filters-btn" id="resetFiltersBtn" style="display: none;">
+        <i class="fas fa-undo"></i> Reset Filters
+    </button>
+</div>
     
     <main class="container">
         <div id="blogContainer" class="blog-grid"></div>
@@ -503,35 +672,28 @@
         <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
     </footer>
     
+    <!-- NEW: Back to Top Button -->
+    <button class="back-to-top" id="backToTopBtn" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
     <!-- ============================================
    BLOG.HTML - COMPLETE PAGINATION SYSTEM
    REPLACES EXISTING JAVASCRIPT
    ============================================ -->
-
-
-
-
-<!-- STEP 2: REPLACE ENTIRE <script> SECTION AT BOTTOM -->
-<!-- Find this section in blog.html (around line 180):
-     <script src="blogs-data.js"></script>
-     <script>
-         // Display all blogs
-         const container = document.getElementById('blogContainer');
-         
-         allBlogs.reverse().forEach(blog => {
-             ...
-         });
-     </script>
-     
-   REPLACE WITH THIS COMPLETE CODE: -->
-
     <script src="blogs-data.js"></script>
     <script>
-        // ===== BLOG PAGINATION SYSTEM =====
+        // ===== BLOG PAGINATION & FILTER SYSTEM =====
         
         const container = document.getElementById('blogContainer');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        
         const BLOGS_PER_PAGE = 9; // Show 9 blogs per page
         let currentPage = 1;
+        let allBlogsArray = [...allBlogs]; // Original array
         let filteredBlogs = [...allBlogs].reverse(); // Start with all blogs (newest first)
         
         // ===== DISPLAY BLOGS FUNCTION =====
@@ -549,18 +711,37 @@
                 const endIndex = startIndex + BLOGS_PER_PAGE;
                 const blogsToShow = filteredBlogs.slice(startIndex, endIndex);
                 
+                if (blogsToShow.length === 0) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">📭</div>
+                            <h2 style="color: #0a5d8c; margin-bottom: 1rem;">No blogs found</h2>
+                            <p style="color: #666; margin-bottom: 2rem;">Try adjusting your filters or search query.</p>
+                            <button class="btn-primary" onclick="resetAllFilters()">Reset All Filters</button>
+                        </div>
+                    `;
+                    return;
+                }
+                
                 // Display blogs for current page
                 blogsToShow.forEach(blog => {
                     const card = document.createElement('div');
                     card.className = 'blog-card';
+                    card.onclick = () => {
+                        trackBlogCardClick(blog.title, blog.category);
+                        window.location.href = `blog-post.html?id=${blog.id}`;
+                    };
                     
                     card.innerHTML = `
                         <img src="${blog.image}" alt="${blog.title}" class="blog-image" loading="lazy">
                         <div class="blog-content">
-                            <div class="blog-date">${blog.date} • ${blog.readTime} min read</div>
+                            <div class="blog-date">
+                                ${blog.date} • ${blog.readTime} min read
+                                ${blog.category ? `• <span style="color: #0a9cfc;">${blog.category}</span>` : ''}
+                            </div>
                             <h2 class="blog-title">${blog.title}</h2>
                             <p class="blog-excerpt">${blog.excerpt}</p>
-                            <a href="blog-post.html?id=${blog.id}" class="btn-primary">Read More</a>
+                            <a href="blog-post.html?id=${blog.id}" class="btn-primary" onclick="event.stopPropagation(); trackBlogCardClick('${blog.title}', '${blog.category || 'Uncategorized'}')">Read More</a>
                         </div>
                     `;
                     
@@ -595,58 +776,7 @@
                 clearTimeout(searchTimeout);
                 
                 searchTimeout = setTimeout(() => {
-                    const query = e.target.value.toLowerCase().trim();
-                    
-                    if (query === '') {
-                        // Reset to all blogs
-                        filteredBlogs = [...allBlogs].reverse();
-                        currentPage = 1;
-                        displayBlogs(1);
-                        searchResultsInfo.style.display = 'none';
-                        return;
-                    }
-                    
-                    // Search in title, excerpt, category, and tags
-                    const results = allBlogs.filter(blog => {
-                        const searchText = [
-                            blog.title,
-                            blog.excerpt,
-                            blog.category || '',
-                            (blog.tags || []).join(' ')
-                        ].join(' ').toLowerCase();
-                        
-                        return searchText.includes(query);
-                    });
-                    
-                    filteredBlogs = results.reverse();
-                    currentPage = 1;
-                    displayBlogs(1);
-                    
-                    // Show search results info
-                    searchResultsInfo.style.display = 'block';
-                    if (results.length === 0) {
-                        searchResultsInfo.className = 'search-results-info no-results';
-                        searchResultsInfo.innerHTML = `
-                            ❌ No blogs found for "<strong>${query}</strong>"
-                            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
-                        `;
-                    } else {
-                        searchResultsInfo.className = 'search-results-info';
-                        searchResultsInfo.innerHTML = `
-                            ✅ Found <strong>${results.length}</strong> blog${results.length > 1 ? 's' : ''} matching "<strong>${query}</strong>"
-                            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
-                        `;
-                    }
-                    
-                    // Track search
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'search', {
-                            'event_category': 'Blog',
-                            'event_label': query,
-                            'value': results.length
-                        });
-                    }
-                    
+                    applyFilters();
                 }, 300); // 300ms debounce
             });
             
@@ -662,9 +792,139 @@
         function clearSearch() {
             if (searchInput) {
                 searchInput.value = '';
-                searchInput.dispatchEvent(new Event('input'));
+                applyFilters();
                 searchInput.blur();
             }
+        }
+
+        // ===== CATEGORY FILTER =====
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', function() {
+                applyFilters();
+                
+                // Track category filter
+                if (typeof gtag === 'function') {
+                    gtag('event', 'filter_category', {
+                        'event_category': 'Blog',
+                        'event_label': this.value
+                    });
+                }
+            });
+        }
+
+        // ===== SORT FILTER =====
+        if (sortFilter) {
+            sortFilter.addEventListener('change', function() {
+                applyFilters();
+                
+                // Track sort
+                if (typeof gtag === 'function') {
+                    gtag('event', 'sort_blogs', {
+                        'event_category': 'Blog',
+                        'event_label': this.value
+                    });
+                }
+            });
+        }
+
+        // ===== APPLY ALL FILTERS =====
+        function applyFilters() {
+            let results = [...allBlogsArray];
+            
+            // Apply search filter
+            const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            if (searchQuery) {
+                results = results.filter(blog => {
+                    const searchText = [
+                        blog.title,
+                        blog.excerpt,
+                        blog.category || '',
+                        (blog.tags || []).join(' ')
+                    ].join(' ').toLowerCase();
+                    
+                    return searchText.includes(searchQuery);
+                });
+            }
+            
+            // Apply category filter
+            const selectedCategory = categoryFilter ? categoryFilter.value : 'all';
+            if (selectedCategory !== 'all') {
+                results = results.filter(blog => blog.category === selectedCategory);
+            }
+            
+            // Apply sort
+            const sortOption = sortFilter ? sortFilter.value : 'latest';
+            switch(sortOption) {
+                case 'latest':
+                    results.reverse(); // Newest first
+                    break;
+                case 'oldest':
+                    // Keep original order (oldest first)
+                    break;
+                case 'alphabetical':
+                    results.sort((a, b) => a.title.localeCompare(b.title));
+                    break;
+            }
+            
+            filteredBlogs = results;
+            currentPage = 1;
+            displayBlogs(1);
+            
+            // Show/hide reset button
+            const filtersActive = searchQuery || selectedCategory !== 'all' || sortOption !== 'latest';
+            if (resetFiltersBtn) {
+                resetFiltersBtn.style.display = filtersActive ? 'block' : 'none';
+            }
+            
+            // Update search results info
+            if (searchResultsInfo) {
+                if (searchQuery) {
+                    searchResultsInfo.style.display = 'block';
+                    if (results.length === 0) {
+                        searchResultsInfo.className = 'search-results-info no-results';
+                        searchResultsInfo.innerHTML = `
+                            ❌ No blogs found for "<strong>${searchQuery}</strong>"
+                            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
+                        `;
+                    } else {
+                        searchResultsInfo.className = 'search-results-info';
+                        searchResultsInfo.innerHTML = `
+                            ✅ Found <strong>${results.length}</strong> blog${results.length > 1 ? 's' : ''} matching "<strong>${searchQuery}</strong>"
+                            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
+                        `;
+                    }
+                } else {
+                    searchResultsInfo.style.display = 'none';
+                }
+            }
+            
+            // Track search
+            if (searchQuery && typeof gtag === 'function') {
+                gtag('event', 'search', {
+                    'event_category': 'Blog',
+                    'event_label': searchQuery,
+                    'value': results.length
+                });
+            }
+        }
+
+        // ===== RESET ALL FILTERS =====
+        function resetAllFilters() {
+            if (searchInput) searchInput.value = '';
+            if (categoryFilter) categoryFilter.value = 'all';
+            if (sortFilter) sortFilter.value = 'latest';
+            applyFilters();
+            
+            // Track reset
+            if (typeof gtag === 'function') {
+                gtag('event', 'reset_filters', {
+                    'event_category': 'Blog'
+                });
+            }
+        }
+        
+        if (resetFiltersBtn) {
+            resetFiltersBtn.addEventListener('click', resetAllFilters);
         }
         
         // ===== DISPLAY PAGINATION CONTROLS =====
@@ -778,6 +1038,102 @@
             currentPage = newPage;
             displayBlogs(newPage);
         }
+
+        // ===== BACK TO TOP BUTTON =====
+        if (backToTopBtn) {
+            // Show/hide button based on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            // Scroll to top on click
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Track back to top
+                if (typeof gtag === 'function') {
+                    gtag('event', 'back_to_top', {
+                        'event_category': 'Blog',
+                        'event_label': 'Button Click'
+                    });
+                }
+            });
+        }
+
+        // ===== ANALYTICS TRACKING =====
+        function trackBlogCardClick(title, category) {
+            if (typeof gtag === 'function') {
+                gtag('event', 'blog_card_click', {
+                    'event_category': 'Blog',
+                    'event_label': title,
+                    'category': category
+                });
+            }
+        }
+
+        // Scroll depth tracking
+        let maxScrollDepth = 0;
+        let scrollTracked = {25: false, 50: false, 75: false, 100: false};
+        
+        window.addEventListener('scroll', function() {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollDepth = Math.round((window.scrollY / scrollHeight) * 100);
+            
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+                
+                if (maxScrollDepth >= 25 && !scrollTracked[25]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'Blog', 'event_label': '25%'});
+                    }
+                    scrollTracked[25] = true;
+                } else if (maxScrollDepth >= 50 && !scrollTracked[50]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'Blog', 'event_label': '50%'});
+                    }
+                    scrollTracked[50] = true;
+                } else if (maxScrollDepth >= 75 && !scrollTracked[75]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'Blog', 'event_label': '75%'});
+                    }
+                    scrollTracked[75] = true;
+                } else if (maxScrollDepth >= 100 && !scrollTracked[100]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'Blog', 'event_label': '100%'});
+                    }
+                    scrollTracked[100] = true;
+                }
+            }
+        });
+
+        // Time on page tracking
+        let timeOnPage = 0;
+        let timeTracked = {30: false, 60: false, 180: false};
+        
+        setInterval(function() {
+            timeOnPage += 30;
+            
+            if (timeOnPage === 30 && !timeTracked[30]) {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'time_on_page', {'event_category': 'Blog', 'event_label': '30_seconds'});
+                }
+                timeTracked[30] = true;
+            } else if (timeOnPage === 60 && !timeTracked[60]) {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'time_on_page', {'event_category': 'Blog', 'event_label': '1_minute'});
+                }
+                timeTracked[60] = true;
+            } else if (timeOnPage === 180 && !timeTracked[180]) {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'time_on_page', {'event_category': 'Blog', 'event_label': '3_minutes'});
+                }
+                timeTracked[180] = true;
+            }
+        }, 30000);
         
         // ===== INITIAL LOAD =====
         displayBlogs(1);
@@ -792,37 +1148,17 @@
                 changePage(currentPage + 1);
             }
         });
+
+        // Expose global functions
+        window.clearSearch = clearSearch;
+        window.resetAllFilters = resetAllFilters;
         
-        console.log('✅ Blog pagination loaded:', {
+        console.log('✅ Blog system loaded:', {
             totalBlogs: allBlogs.length,
             blogsPerPage: BLOGS_PER_PAGE,
-            totalPages: Math.ceil(allBlogs.length / BLOGS_PER_PAGE)
+            totalPages: Math.ceil(allBlogs.length / BLOGS_PER_PAGE),
+            features: ['Pagination', 'Search', 'Category Filter', 'Sort', 'Back to Top', 'Analytics']
         });
     </script>
-    
-
-
-<!-- ============================================
-   INSTALLATION SUMMARY:
-   
-   ✅ STEP 1: Add pagination CSS to <style> section
-   ✅ STEP 2: Replace entire <script> section with new code
-   
-   FEATURES:
-   - 📄 9 blogs per page (customizable)
-   - ◀️▶️ Previous/Next buttons
-   - 🔢 Page numbers (max 5 visible)
-   - 📊 Blog count display (e.g., "1-9 of 25 articles")
-   - ⏳ Loading animation
-   - 📈 Google Analytics tracking
-   - ⌨️ Arrow key navigation (Left/Right)
-   - 🎯 Smooth scroll to top on page change
-   - 📱 Mobile responsive
-   
-   CUSTOMIZATION:
-   - Change blogs per page: Edit BLOGS_PER_PAGE = 9
-   - Remove loading delay: Set setTimeout to 0ms
-   - Adjust page number count: Modify startPage/endPage logic
-   ============================================ -->
 </body>
 </html>
