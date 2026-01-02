@@ -750,14 +750,17 @@
     </footer>
     
     <script>
+        // ===== TOGGLE FAQ ANSWER =====
         function toggleAnswer(element) {
             const answer = element.nextElementSibling;
             const question = element;
+            const isExpanded = question.getAttribute('aria-expanded') === 'true';
             
             // Close all other answers
             document.querySelectorAll('.faq-answer.active').forEach(item => {
                 if (item !== answer) {
                     item.classList.remove('active');
+                    item.previousElementSibling.setAttribute('aria-expanded', 'false');
                 }
             });
             
@@ -770,20 +773,241 @@
             // Toggle current answer
             answer.classList.toggle('active');
             question.classList.toggle('active');
+            question.setAttribute('aria-expanded', !isExpanded);
+            
+            // Track FAQ interaction
+            const questionText = question.querySelector('.question-text').innerText;
+            if (typeof gtag === 'function') {
+                gtag('event', 'faq_click', {
+                    'event_category': 'FAQ',
+                    'event_label': questionText
+                });
+            }
         }
+
+        // ===== KEYBOARD SUPPORT =====
+        function handleKeyPress(event, element) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleAnswer(element);
+            }
+        }
+
+        // ===== FAQ SEARCH FUNCTIONALITY =====
+        const searchInput = document.getElementById('faqSearchInput');
+        const searchResultsInfo = document.getElementById('searchResultsInfo');
+        const allFaqItems = document.querySelectorAll('.faq-item');
+        const allCategories = document.querySelectorAll('.faq-category');
+        let searchTimeout;
         
-        // Track FAQ interactions
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', function() {
-                const questionText = this.querySelector('.question-text').innerText;
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                clearTimeout(searchTimeout);
+                
+                searchTimeout = setTimeout(() => {
+                    const query = e.target.value.toLowerCase().trim();
+                    
+                    if (query === '') {
+                        // Reset - show all
+                        allFaqItems.forEach(item => item.classList.remove('hidden'));
+                        allCategories.forEach(cat => cat.style.display = 'block');
+                        searchResultsInfo.style.display = 'none';
+                        return;
+                    }
+                    
+                    let matchCount = 0;
+                    
+                    // Search through all FAQ items
+                    allFaqItems.forEach(item => {
+                        const questionText = item.querySelector('.question-text').innerText.toLowerCase();
+                        const answerText = item.querySelector('.faq-answer').innerText.toLowerCase();
+                        
+                        if (questionText.includes(query) || answerText.includes(query)) {
+                            item.classList.remove('hidden');
+                            matchCount++;
+                            
+                            // Auto-expand matching questions
+                            const question = item.querySelector('.faq-question');
+                            const answer = item.querySelector('.faq-answer');
+                            question.classList.add('active');
+                            answer.classList.add('active');
+                            question.setAttribute('aria-expanded', 'true');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Hide empty categories
+                    allCategories.forEach(category => {
+                        const visibleItems = category.querySelectorAll('.faq-item:not(.hidden)');
+                        category.style.display = visibleItems.length > 0 ? 'block' : 'none';
+                    });
+                    
+                    // Show results info
+                    searchResultsInfo.style.display = 'block';
+                    if (matchCount === 0) {
+                        searchResultsInfo.className = 'search-results-info no-results';
+                        searchResultsInfo.innerHTML = `
+                            ❌ No FAQs found for "<strong>${e.target.value}</strong>"
+                            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
+                        `;
+                    } else {
+                        searchResultsInfo.className = 'search-results-info';
+                        searchResultsInfo.innerHTML = `
+                            ✅ Found <strong>${matchCount}</strong> FAQ${matchCount > 1 ? 's' : ''} matching "<strong>${e.target.value}</strong>"
+                            <button class="clear-search-btn" onclick="clearSearch()">Clear Search</button>
+                        `;
+                    }
+                    
+                    // Track search
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'faq_search', {
+                            'event_category': 'FAQ',
+                            'event_label': query,
+                            'value': matchCount
+                        });
+                    }
+                    
+                }, 300); // 300ms debounce
+            });
+            
+            // Clear search on Escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    clearSearch();
+                }
+            });
+        }
+
+        // ===== CLEAR SEARCH =====
+        function clearSearch() {
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.blur();
+            }
+        }
+
+        // ===== SCROLL TO QUESTION (Popular Questions) =====
+        function scrollToQuestion(questionText) {
+            // Find the question
+            const questions = document.querySelectorAll('.question-text');
+            let targetQuestion = null;
+            
+            questions.forEach(q => {
+                if (q.innerText.trim() === questionText.trim()) {
+                    targetQuestion = q.parentElement;
+                }
+            });
+            
+            if (targetQuestion) {
+                // Scroll to question
+                targetQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Open the question
+                setTimeout(() => {
+                    if (!targetQuestion.classList.contains('active')) {
+                        toggleAnswer(targetQuestion);
+                    }
+                    
+                    // Highlight briefly
+                    targetQuestion.style.background = '#fff9e6';
+                    setTimeout(() => {
+                        targetQuestion.style.background = '';
+                    }, 2000);
+                }, 500);
+                
+                // Track popular question click
                 if (typeof gtag === 'function') {
-                    gtag('event', 'faq_click', {
+                    gtag('event', 'popular_faq_click', {
                         'event_category': 'FAQ',
                         'event_label': questionText
                     });
                 }
+            }
+        }
+
+        // ===== ANALYTICS TRACKING =====
+        
+        // Track page scroll depth
+        let maxScrollDepth = 0;
+        let scrollTracked = {25: false, 50: false, 75: false, 100: false};
+        
+        window.addEventListener('scroll', function() {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollDepth = Math.round((window.scrollY / scrollHeight) * 100);
+            
+            if (scrollDepth > maxScrollDepth) {
+                maxScrollDepth = scrollDepth;
+                
+                if (maxScrollDepth >= 25 && !scrollTracked[25]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'FAQ', 'event_label': '25%'});
+                    }
+                    scrollTracked[25] = true;
+                } else if (maxScrollDepth >= 50 && !scrollTracked[50]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'FAQ', 'event_label': '50%'});
+                    }
+                    scrollTracked[50] = true;
+                } else if (maxScrollDepth >= 75 && !scrollTracked[75]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'FAQ', 'event_label': '75%'});
+                    }
+                    scrollTracked[75] = true;
+                } else if (maxScrollDepth >= 100 && !scrollTracked[100]) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll_depth', {'event_category': 'FAQ', 'event_label': '100%'});
+                    }
+                    scrollTracked[100] = true;
+                }
+            }
+        });
+
+        // Time on page tracking
+        let timeOnPage = 0;
+        let timeTracked = {30: false, 60: false, 180: false};
+        
+        setInterval(function() {
+            timeOnPage += 30;
+            
+            if (timeOnPage === 30 && !timeTracked[30]) {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'time_on_page', {'event_category': 'FAQ', 'event_label': '30_seconds'});
+                }
+                timeTracked[30] = true;
+            } else if (timeOnPage === 60 && !timeTracked[60]) {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'time_on_page', {'event_category': 'FAQ', 'event_label': '1_minute'});
+                }
+                timeTracked[60] = true;
+            } else if (timeOnPage === 180 && !timeTracked[180]) {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'time_on_page', {'event_category': 'FAQ', 'event_label': '3_minutes'});
+                }
+                timeTracked[180] = true;
+            }
+        }, 30000);
+
+        // Track CTA clicks
+        document.querySelectorAll('.cta-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'cta_click', {
+                        'event_category': 'FAQ',
+                        'event_label': this.innerText.trim()
+                    });
+                }
             });
         });
+
+        // Expose global functions
+        window.toggleAnswer = toggleAnswer;
+        window.handleKeyPress = handleKeyPress;
+        window.clearSearch = clearSearch;
+        window.scrollToQuestion = scrollToQuestion;
+
+        console.log('✅ FAQ page loaded with search, accessibility, and analytics');
     </script>
 </body>
 </html>
