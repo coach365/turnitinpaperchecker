@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 
 # ===== CONFIGURATION =====
-BREVO_API_KEY = 'YOUR_BREVO_API_KEY_HERE'  # You'll get this from Brevo dashboard
+BREVO_API_KEY = 'xsmtpsib-c52b1a5897d4fb061380796be4d038b8a805669a60f495eaa7a730cbe70fe992-WtaOMsBPAtQPCnwn'  # You'll get this from Brevo dashboard
 FROM_EMAIL = 'shivansh.assignment365@gmail.com'
 FROM_NAME = 'TurnitinPaperChecker'
 SUBSCRIBERS_FILE = 'newsletter-subscribers.json'
