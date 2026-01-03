@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Management Dashboard - TurnitinPaperChecker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📝</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Password Screen */
+        .password-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 10000;
+        }
+
+        .password-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .password-card h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .password-card p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .password-error {
+            color: #dc3545;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-home {
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        /* Header */
+        .dashboard-header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .dashboard-header h1 {
+            color: #667eea;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .stat-icon.purple { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        .stat-details h3 {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
+
+        .stat-details p {
+            color: #333;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .card-header h2 {
+            color: #667eea;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .char-counter {
+            float: right;
+            color: #999;
+        }
+
+        /* Blog Table */
+        .blog-table-container {
+            overflow-x: auto;
+        }
+
+        .blog-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .blog-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .blog-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .blog-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blog-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .blog-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .blog-thumbnail {
+            width: 80px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Search & Filter */
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .filter-select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .modal-header h2 {
+            color: #667eea;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        /* AI Generation */
+        .ai-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .ai-section h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .ai-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .ai-controls input,
+        .ai-controls select {
+            background: rgba(255,255,255,0.9);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-spinner.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-filter {
+                flex-direction: column;
+            }
+
+            .blog-table {
+                font-size: 0.85rem;
+            }
+
+            .blog-table th,
+            .blog-table td {
+                padding: 10px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .ai-controls {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #667eea;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Screen -->
+    <div class="password-screen" id="passwordScreen">
+        <div class="password-card">
+            <h1>🔐 Admin Access</h1>
+            <p>Blog Management Dashboard</p>
+            <input type="password" id="adminPassword" class="password-input" placeholder="Enter admin password">
+            <p id="passwordError" class="password-error">❌ Incorrect password. Please try again.</p>
+            <button class="btn-login" onclick="verifyPassword()">
+                <i class="fas fa-unlock"></i> Login
+            </button>
+            <a href="index.html" class="back-home">← Back to Homepage</a>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="container">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <h1>
+                    <i class="fas fa-blog"></i>
+                    Blog Management Dashboard
+                </h1>
+                <div class="header-actions">
+                    <button class="btn btn-success" onclick="showAddBlogModal()">
+                        <i class="fas fa-plus"></i> New Blog Post
+                    </button>
+                    <button class="btn btn-warning" onclick="showAIGenerator()">
+                        <i class="fas fa-robot"></i> AI Generate
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportBlogs()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <a href="index.html" class="btn btn-danger">
+                        <i class="fas fa-home"></i> Exit
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-newspaper" style="color: white; font-size: 2.5rem;"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Total Blog Posts</h3>
+                        <p id="totalBlogs">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-calendar-alt" style="color: white; font-size: 2.5rem;"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Published This Month</h3>
+                        <p id="monthlyBlogs">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-tags" style="color: white; font-size: 2.5rem;"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Categories</h3>
+                        <p id="totalCategories">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-clock" style="color: white; font-size: 2.5rem;"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Avg Read Time</h3>
+                        <p id="avgReadTime">0 min</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <div id="alertSuccess" class="alert alert-success"></div>
+            <div id="alertError" class="alert alert-error"></div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Tabs -->
+                <div class="card">
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab('all')">
+                            <i class="fas fa-list"></i> All Posts
+                        </button>
+                        <button class="tab" onclick="switchTab('add')">
+                            <i class="fas fa-plus-circle"></i> Add New
+                        </button>
+                        <button class="tab" onclick="switchTab('ai')">
+                            <i class="fas fa-robot"></i> AI Generator
+                        </button>
+                        <button class="tab" onclick="switchTab('settings')">
+                            <i class="fas fa-cog"></i> Settings
+                        </button>
+                    </div>
+
+                    <!-- All Posts Tab -->
+                    <div id="tabAll" class="tab-content active">
+                        <!-- Search & Filter -->
+                        <div class="search-filter">
+                            <div class="search-box">
+                                <input type="text" id="searchBlogs" placeholder="Search blogs by title, content, or category..." oninput="searchBlogs()">
+                                <i class="fas fa-search search-icon"></i>
+                            </div>
+                            <select id="filterCategory" class="filter-select" onchange="filterBlogs()">
+                                <option value="">All Categories</option>
+                                <option value="Academic Writing">Academic Writing</option>
+                                <option value="Plagiarism Detection">Plagiarism Detection</option>
+                                <option value="AI Detection">AI Detection</option>
+                                <option value="Student Tips">Student Tips</option>
+                                <option value="Academic Integrity">Academic Integrity</option>
+                                <option value="Research">Research</option>
+                                <option value="Citation">Citation</option>
+                            </select>
+                            <select id="sortBy" class="filter-select" onchange="sortBlogs()">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="title">Title (A-Z)</option>
+                                <option value="readtime">Read Time</option>
+                            </select>
+                        </div>
+
+                        <!-- Blog Table -->
+                        <div class="blog-table-container">
+                            <table class="blog-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Read Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="blogTableBody">
+                                    <tr>
+                                        <td colspan="7" class="empty-state">
+                                            <i class="fas fa-inbox"></i>
+                                            <p>Loading blogs...</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Add New Blog Tab -->
+                    <div id="tabAdd" class="tab-content">
+                        <form id="blogForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="blogTitle">
+                                        Blog Title *
+                                        <span class="char-counter" id="titleCounter">0/100</span>
+                                    </label>
+                                    <input type="text" id="blogTitle" maxlength="100" required oninput="updateCharCounter('blogTitle', 'titleCounter', 100); generateSlug()">
+                                    <small>Enter a compelling, SEO-friendly title</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="blogSlug">URL Slug *</label>
+                                    <input type="text" id="blogSlug" required>
+                                    <small>Auto-generated from title (editable)</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="blogCategory">Category *</label>
+                                    <select id="blogCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Academic Writing">Academic Writing</option>
+                                        <option value="Plagiarism Detection">Plagiarism Detection</option>
+                                        <option value="AI Detection">AI Detection</option>
+                                        <option value="Student Tips">Student Tips</option>
+                                        <option value="Academic Integrity">Academic Integrity</option>
+                                        <option value="Research">Research</option>
+                                        <option value="Citation">Citation</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="blogImage">Featured Image URL *</label>
+                                    <input type="url" id="blogImage" required placeholder="https://images.unsplash.com/...">
+                                    <small>Recommended: 1200x630px (Unsplash or Pexels)</small>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="blogExcerpt">
+                                        Excerpt (Meta Description)
+                                        <span class="char-counter" id="excerptCounter">0/160</span>
+                                    </label>
+                                    <textarea id="blogExcerpt" rows="3" maxlength="160" oninput="updateCharCounter('blogExcerpt', 'excerptCounter', 160)"></textarea>
+                                    <small>Brief summary for search engines (150-160 chars recommended)</small>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="blogContent">
+                                        Blog Content (HTML) *
+                                        <span class="char-counter" id="contentCounter">0 words</span>
+                                    </label>
+                                    <textarea id="blogContent" rows="15" required oninput="updateWordCounter()"></textarea>
+                                    <small>Use HTML tags: &lt;h2&gt;, &lt;h3&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="blogAuthor">Author Name</label>
+                                    <input type="text" id="blogAuthor" value="TurnitinPaperChecker Team">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="blogTags">Tags (comma separated)</label>
+                                    <input type="text" id="blogTags" placeholder="plagiarism, turnitin, academic">
+                                    <small>Separate tags with commas</small>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: flex-end;">
+                                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                    <i class="fas fa-times"></i> Clear Form
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Publish Blog Post
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- AI Generator Tab -->
+                    <div id="tabAI" class="tab-content">
+                        <div class="ai-section">
+                            <h3><i class="fas fa-robot"></i> AI-Powered Blog Generator</h3>
+                            <p style="margin-bottom: 20px; opacity: 0.9;">Generate high-quality blog posts automatically using AI</p>
+                            
+                            <div class="ai-controls">
+                                <div class="form-group">
+                                    <label style="color: white;">Number of Blogs</label>
+                                    <input type="number" id="aiCount" min="1" max="10" value="1">
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="color: white;">Target Category</label>
+                                    <select id="aiCategory">
+                                        <option value="random">Random Mix</option>
+                                        <option value="Academic Writing">Academic Writing</option>
+                                        <option value="Plagiarism Detection">Plagiarism Detection</option>
+                                        <option value="AI Detection">AI Detection</option>
+                                        <option value="Student Tips">Student Tips</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-success" onclick="generateAIBlogs()" style="width: 100%; margin-top: 20px; background: white; color: #667eea;">
+                                <i class="fas fa-magic"></i> Generate Blogs Now
+                            </button>
+                        </div>
+
+                        <div class="loading-spinner" id="aiLoading">
+                            <div class="spinner"></div>
+                            <p>AI is generating your blog posts...</p>
+                            <p style="color: #999;">This may take 30-60 seconds</p>
+                        </div>
+
+                        <div id="aiResults"></div>
+
+                        <div class="alert alert-info" style="display: block; margin-top: 20px;">
+                            <strong>💡 Note:</strong> AI-generated blogs will be saved to blogs-data.js. You can use the Python script <code>blog-generator.py</code> for advanced generation with Groq AI integration.
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div id="tabSettings" class="tab-content">
+                        <h3 style="margin-bottom: 20px;">⚙️ Blog Settings</h3>
+
+                        <div class="form-group">
+                            <label>
+                                <strong>Auto-Send Newsletter</strong>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autoNewsletter" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <small>Automatically email new blog posts to subscribers</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label><strong>Default Author Name</strong></label>
+                            <input type="text" id="defaultAuthor" value="TurnitinPaperChecker Team">
+                        </div>
+
+                        <div class="form-group">
+                            <label><strong>Blog Posts Per Page</strong></label>
+                            <select id="blogsPerPage">
+                                <option value="6">6 posts</option>
+                                <option value="9" selected>9 posts</option>
+                                <option value="12">12 posts</option>
+                                <option value="15">15 posts</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><strong>Default Image Source</strong></label>
+                            <select id="imageSource">
+                                <option value="unsplash">Unsplash</option>
+                                <option value="pexels">Pexels</option>
+                                <option value="custom">Custom URL</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-success" onclick="saveSettings()">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+
+                        <hr style="margin: 30px 0;">
+
+                        <h3 style="margin-bottom: 20px;">🔧 Advanced Actions</h3>
+
+                        <div style="display: grid; gap: 15px;">
+                            <button class="btn btn-warning" onclick="regenerateSlugs()">
+                                <i class="fas fa-sync"></i> Regenerate All Slugs
+                            </button>
+                            <button class="btn btn-warning" onclick="updateReadTimes()">
+                                <i class="fas fa-clock"></i> Recalculate Read Times
+                            </button>
+                            <button class="btn btn-danger" onclick="confirmDeleteAll()">
+                                <i class="fas fa-trash"></i> Delete All Blogs (Danger!)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Blog Modal -->
+    <div id="viewBlogModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-eye"></i> View Blog Post</h2>
+                <button class="close-modal" onclick="closeModal('viewBlogModal')">&times;</button>
+            </div>
+            <div id="viewBlogContent"></div>
+        </div>
+    </div>
+
+    <!-- Edit Blog Modal -->
+    <div id="editBlogModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Edit Blog Post</h2>
+                <button class="close-modal" onclick="closeModal('editBlogModal')">&times;</button>
+            </div>
+            <form id="editBlogForm">
+                <input type="hidden" id="editBlogId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editBlogTitle">Title *</label>
+                        <input type="text" id="editBlogTitle" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editBlogSlug">URL Slug *</label>
+                        <input type="text" id="editBlogSlug" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editBlogCategory">Category *</label>
+                        <select id="editBlogCategory" required>
+                            <option value="Academic Writing">Academic Writing</option>
+                            <option value="Plagiarism Detection">Plagiarism Detection</option>
+                            <option value="AI Detection">AI Detection</option>
+                            <option value="Student Tips">Student Tips</option>
+                            <option value="Academic Integrity">Academic Integrity</option>
+                            <option value="Research">Research</option>
+                            <option value="Citation">Citation</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editBlogImage">Featured Image URL *</label>
+                        <input type="url" id="editBlogImage" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="editBlogExcerpt">Excerpt</label>
+                        <textarea id="editBlogExcerpt" rows="3" maxlength="160"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="editBlogContent">Content (HTML) *</label>
+                        <textarea id="editBlogContent" rows="15" required></textarea>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editBlogModal')">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Update Blog
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Load Blog Data -->
+    <script src="blogs-data.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+        // Configuration
+        const CONFIG = {
+            adminPasswordHash: '27fcb86d00180784cffd1cae62fcadcc16baac99a27bbe3061f492bfae76371b'
+        };
+
+        // Blog posts array (loaded from blogs-data.js)
+        let blogPosts = [];
+        let filteredBlogs = [];
+        let currentEditId = null;
+
+        // ===== PASSWORD VERIFICATION =====
+        async function verifyPassword() {
+            const password = document.getElementById('adminPassword').value;
+            
+            if (!password) {
+                alert('⚠️ Please enter a password');
+                return;
+            }
+            
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const enteredHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            
+            if (enteredHash === CONFIG.adminPasswordHash) {
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                initDashboard();
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+            }
+        }
+
+        // Enter key for password
+        document.getElementById('adminPassword')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyPassword();
+        });
+
+        // ===== INITIALIZE DASHBOARD =====
+        function initDashboard() {
+            if (typeof allBlogs !== 'undefined') {
+                blogPosts = [...allBlogs];
+                filteredBlogs = [...blogPosts];
+            }
+            
+            updateStats();
+            renderBlogTable();
+            console.log('✅ Dashboard initialized with', blogPosts.length, 'blogs');
+        }
+
+        // ===== UPDATE STATISTICS =====
+        function updateStats() {
+            document.getElementById('totalBlogs').textContent = blogPosts.length;
+            
+            // Monthly blogs
+            const thisMonth = new Date().getMonth();
+            const thisYear = new Date().getFullYear();
+            const monthlyCount = blogPosts.filter(blog => {
+                try {
+                    const blogDate = new Date(blog.date);
+                    return blogDate.getMonth() === thisMonth && blogDate.getFullYear() === thisYear;
+                } catch(e) {
+                    return false;
+                }
+            }).length;
+            document.getElementById('monthlyBlogs').textContent = monthlyCount;
+            
+            // Categories
+            const categories = [...new Set(blogPosts.map(b => b.category).filter(Boolean))];
+            document.getElementById('totalCategories').textContent = categories.length;
+            
+            // Average read time
+            const avgTime = blogPosts.length > 0 
+                ? Math.round(blogPosts.reduce((sum, b) => sum + (b.readTime || 0), 0) / blogPosts.length)
+                : 0;
+            document.getElementById('avgReadTime').textContent = avgTime + ' min';
+        }
+
+        // ===== RENDER BLOG TABLE =====
+        function renderBlogTable() {
+            const tbody = document.getElementById('blogTableBody');
+            
+            if (filteredBlogs.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>No blogs found</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            filteredBlogs.forEach(blog => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>#${blog.id}</strong></td>
+                    <td><img src="${blog.image}" alt="${blog.title}" class="blog-thumbnail"></td>
+                    <td><strong>${blog.title}</strong></td>
+                    <td><span class="category-badge">${blog.category || 'Uncategorized'}</span></td>
+                    <td>${blog.date}</td>
+                    <td>${blog.readTime} min</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-sm" onclick="viewBlog(${blog.id})">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="btn btn-warning btn-sm" onclick="editBlog(${blog.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteBlog(${blog.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // ===== SEARCH BLOGS =====
+        function searchBlogs() {
+            const query = document.getElementById('searchBlogs').value.toLowerCase();
+            filteredBlogs = blogPosts.filter(blog => 
+                blog.title.toLowerCase().includes(query) ||
+                blog.content.toLowerCase().includes(query) ||
+                (blog.category && blog.category.toLowerCase().includes(query))
+            );
+            renderBlogTable();
+        }
+
+        // ===== FILTER BY CATEGORY =====
+        function filterBlogs() {
+            const category = document.getElementById('filterCategory').value;
+            if (category === '') {
+                filteredBlogs = [...blogPosts];
+            } else {
+                filteredBlogs = blogPosts.filter(blog => blog.category === category);
+            }
+            renderBlogTable();
+        }
+
+        // ===== SORT BLOGS =====
+        function sortBlogs() {
+            const sortBy = document.getElementById('sortBy').value;
+            
+            switch(sortBy) {
+                case 'newest':
+                    filteredBlogs.sort((a, b) => b.id - a.id);
+                    break;
+                case 'oldest':
+                    filteredBlogs.sort((a, b) => a.id - b.id);
+                    break;
+                case 'title':
+                    filteredBlogs.sort((a, b) => a.title.localeCompare(b.title));
+                    break;
+                case 'readtime':
+                    filteredBlogs.sort((a, b) => a.readTime - b.readTime);
+                    break;
+            }
+            
+            renderBlogTable();
+        }
+
+        // ===== TAB SWITCHING =====
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.closest('.tab').classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1)).classList.add('active');
+        }
+
+        // ===== CHARACTER/WORD COUNTERS =====
+        function updateCharCounter(inputId, counterId, maxLength) {
+            const input = document.getElementById(inputId);
+            const counter = document.getElementById(counterId);
+            counter.textContent = `${input.value.length}/${maxLength}`;
+        }
+
+        function updateWordCounter() {
+            const content = document.getElementById('blogContent').value;
+            const words = content.trim().split(/\s+/).filter(w => w.length > 0).length;
+            document.getElementById('contentCounter').textContent = words + ' words';
+        }
+
+        // ===== GENERATE SLUG =====
+        function generateSlug() {
+            const title = document.getElementById('blogTitle').value;
+            const slug = title.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .substring(0, 100);
+            document.getElementById('blogSlug').value = slug;
+        }
+
+        // ===== ADD BLOG POST =====
+        document.getElementById('blogForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('blogTitle').value.trim();
+            const slug = document.getElementById('blogSlug').value.trim();
+            const category = document.getElementById('blogCategory').value;
+            const image = document.getElementById('blogImage').value.trim();
+            const excerpt = document.getElementById('blogExcerpt').value.trim();
+            const content = document.getElementById('blogContent').value.trim();
+            const author = document.getElementById('blogAuthor').value.trim();
+            const tags = document.getElementById('blogTags').value.trim().split(',').map(t => t.trim()).filter(Boolean);
+            
+            const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(w => w.length > 0).length;
+            const readTime = Math.max(1, Math.ceil(wordCount / 200));
+            
+            const newBlog = {
+                id: blogPosts.length > 0 ? Math.max(...blogPosts.map(b => b.id)) + 1 : 1,
+                title: title,
+                slug: slug,
+                content: content,
+                excerpt: excerpt || content.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+                image: image,
+                meta: {
+                    title: title,
+                    description: excerpt || content.replace(/<[^>]*>/g, '').substring(0, 150)
+                },
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                author: author || "TurnitinPaperChecker Team",
+                readTime: readTime,
+                category: category,
+                tags: tags
+            };
+            
+            blogPosts.unshift(newBlog);
+            filteredBlogs = [...blogPosts];
+            
+            showAlert('success', `✅ Blog post "${title}" created successfully! ID: ${newBlog.id}`);
+            updateStats();
+            renderBlogTable();
+            resetForm();
+            switchTab('all');
+            
+            // Show export reminder
+            setTimeout(() => {
+                if (confirm('📥 Blog created! Do you want to export blogs-data.js now?')) {
+                    exportBlogs();
+                }
+            }, 1000);
+        });
+
+        // ===== VIEW BLOG =====
+        function viewBlog(id) {
+            const blog = blogPosts.find(b => b.id === id);
+            if (!blog) return;
+            
+            document.getElementById('viewBlogContent').innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <img src="${blog.image}" alt="${blog.title}" style="width: 100%; border-radius: 10px; margin-bottom: 20px;">
+                    <h2 style="color: #667eea; margin-bottom: 10px;">${blog.title}</h2>
+                    <p style="color: #666; margin-bottom: 20px;">
+                        <strong>Category:</strong> ${blog.category || 'N/A'} | 
+                        <strong>Date:</strong> ${blog.date} | 
+                        <strong>Read Time:</strong> ${blog.readTime} min |
+                        <strong>Author:</strong> ${blog.author}
+                    </p>
+                    ${blog.excerpt ? `<p style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;"><strong>Excerpt:</strong> ${blog.excerpt}</p>` : ''}
+                    <div style="line-height: 1.8;">${blog.content}</div>
+                    ${blog.tags && blog.tags.length > 0 ? `<p style="margin-top: 20px;"><strong>Tags:</strong> ${blog.tags.map(t => `<span class="category-badge" style="margin-right: 5px;">${t}</span>`).join('')}</p>` : ''}
+                </div>
+            `;
+            
+            showModal('viewBlogModal');
+        }
+
+        // ===== EDIT BLOG =====
+        function editBlog(id) {
+            const blog = blogPosts.find(b => b.id === id);
+            if (!blog) return;
+            
+            currentEditId = id;
+            document.getElementById('editBlogId').value = id;
+            document.getElementById('editBlogTitle').value = blog.title;
+            document.getElementById('editBlogSlug').value = blog.slug;
+            document.getElementById('editBlogCategory').value = blog.category;
+            document.getElementById('editBlogImage').value = blog.image;
+            document.getElementById('editBlogExcerpt').value = blog.excerpt;
+            document.getElementById('editBlogContent').value = blog.content;
+            
+            showModal('editBlogModal');
+        }
+
+        // ===== UPDATE BLOG =====
+        document.getElementById('editBlogForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = parseInt(document.getElementById('editBlogId').value);
+            const blogIndex = blogPosts.findIndex(b => b.id === id);
+            
+            if (blogIndex === -1) return;
+            
+            const content = document.getElementById('editBlogContent').value.trim();
+            const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(w => w.length > 0).length;
+            
+            blogPosts[blogIndex] = {
+                ...blogPosts[blogIndex],
+                title: document.getElementById('editBlogTitle').value.trim(),
+                slug: document.getElementById('editBlogSlug').value.trim(),
+                category: document.getElementById('editBlogCategory').value,
+                image: document.getElementById('editBlogImage').value.trim(),
+                excerpt: document.getElementById('editBlogExcerpt').value.trim(),
+                content: content,
+                readTime: Math.max(1, Math.ceil(wordCount / 200))
+            };
+            
+            filteredBlogs = [...blogPosts];
+            
+            showAlert('success', '✅ Blog post updated successfully!');
+            renderBlogTable();
+            closeModal('editBlogModal');
+        });
+
+        // ===== DELETE BLOG =====
+        function deleteBlog(id) {
+            const blog = blogPosts.find(b => b.id === id);
+            if (!blog) return;
+            
+            if (confirm(`🗑️ Are you sure you want to delete "${blog.title}"?\n\nThis action cannot be undone.`)) {
+                blogPosts = blogPosts.filter(b => b.id !== id);
+                filteredBlogs = [...blogPosts];
+                
+                showAlert('success', '✅ Blog post deleted successfully!');
+                updateStats();
+                renderBlogTable();
+            }
+        }
+
+        // ===== AI BLOG GENERATION =====
+        function generateAIBlogs() {
+            const count = parseInt(document.getElementById('aiCount').value);
+            const category = document.getElementById('aiCategory').value;
+            
+            document.getElementById('aiLoading').classList.add('show');
+            
+            // Simulate AI generation (in production, call your Python script or API)
+            setTimeout(() => {
+                const aiBlogs = [];
+                const categories = category === 'random' 
+                    ? ['Academic Writing', 'Plagiarism Detection', 'AI Detection', 'Student Tips']
+                    : [category];
+                
+                for (let i = 0; i < count; i++) {
+                    const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+                    const newId = blogPosts.length > 0 ? Math.max(...blogPosts.map(b => b.id)) + 1 + i : 1 + i;
+                    
+                    const aiTitle = generateAITitle(selectedCategory);
+                    const aiContent = generateAIContent(selectedCategory);
+                    
+                    const newBlog = {
+                        id: newId,
+                        title: aiTitle,
+                        slug: aiTitle.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-'),
+                        content: aiContent,
+                        excerpt: aiContent.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+                        image: `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000)}?w=1200&h=630&fit=crop`,
+                        meta: {
+                            title: aiTitle,
+                            description: aiContent.replace(/<[^>]*>/g, '').substring(0, 150)
+                        },
+                        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                        author: "TurnitinPaperChecker AI",
+                        readTime: Math.ceil(Math.random() * 5) + 3,
+                        category: selectedCategory,
+                        tags: [`${selectedCategory.toLowerCase()}`, "turnitin", "academic"]
+                    };
+                    
+                    blogPosts.unshift(newBlog);
+                    aiBlogs.push(newBlog);
+                }
+                
+                filteredBlogs = [...blogPosts];
+                
+                document.getElementById('aiLoading').classList.remove('show');
+                document.getElementById('aiResults').innerHTML = `
+                    <div class="alert alert-success" style="display: block;">
+                        <strong>✅ Success!</strong> Generated ${count} blog post${count > 1 ? 's' : ''} using AI.
+                    </div>
+                `;
+                
+                updateStats();
+                renderBlogTable();
+                switchTab('all');
+                
+                setTimeout(() => {
+                    if (confirm('📥 AI blogs generated! Do you want to export blogs-data.js now?')) {
+                        exportBlogs();
+                    }
+                }, 1000);
+            }, 2000);
+        }
+
+        // Helper functions for AI generation
+        function generateAITitle(category) {
+            const titles = {
+                'Academic Writing': [
+                    'How to Improve Your Academic Writing Skills in 2026',
+                    'The Ultimate Guide to Academic Essay Structure',
+                    'Common Academic Writing Mistakes to Avoid'
+                ],
+                'Plagiarism Detection': [
+                    'Understanding Plagiarism Detection Technology',
+                    'How Turnitin Similarity Index Works',
+                    'Best Practices for Avoiding Plagiarism'
+                ],
+                'AI Detection': [
+                    'How to Detect AI-Generated Content in Academic Papers',
+                    'The Future of AI Content Detection',
+                    'AI Writing Tools vs Academic Integrity'
+                ],
+                'Student Tips': [
+                    '10 Study Tips for College Students in 2026',
+                    'How to Write a Perfect Research Paper',
+                    'Time Management Strategies for Students'
+                ]
+            };
+            
+            const categoryTitles = titles[category] || titles['Student Tips'];
+            return categoryTitles[Math.floor(Math.random() * categoryTitles.length)];
+        }
+
+        function generateAIContent(category) {
+            return `
+                <h2>Introduction</h2>
+                <p>This is an AI-generated blog post about ${category}. In this comprehensive guide, we'll explore the key concepts and best practices.</p>
+                
+                <h2>Understanding ${category}</h2>
+                <p>When it comes to ${category.toLowerCase()}, there are several important factors to consider. Students and academics need to stay informed about the latest developments and techniques.</p>
+                
+                <h2>Best Practices</h2>
+                <ul>
+                    <li>Always cite your sources properly</li>
+                    <li>Use reliable plagiarism detection tools</li>
+                    <li>Maintain academic integrity</li>
+                    <li>Stay updated with latest guidelines</li>
+                </ul>
+                
+                <h2>Conclusion</h2>
+                <p>By following these guidelines and best practices for ${category.toLowerCase()}, you can ensure academic success and maintain the highest standards of integrity.</p>
+            `;
+        }
+
+        // ===== EXPORT BLOGS =====
+        function exportBlogs() {
+            const blogsJS = `// Auto-generated blogs-data.js
+// Last updated: ${new Date().toLocaleString()}
+
+const allBlogs = ${JSON.stringify(blogPosts, null, 2)};
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = allBlogs;
+}
+`;
+            
+            const blob = new Blob([blogsJS], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'blogs-data.js';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showAlert('success', '✅ blogs-data.js exported successfully! Replace the existing file in your website folder.');
+        }
+
+        // ===== SETTINGS =====
+        function saveSettings() {
+            const settings = {
+                autoNewsletter: document.getElementById('autoNewsletter').checked,
+                defaultAuthor: document.getElementById('defaultAuthor').value,
+                blogsPerPage: document.getElementById('blogsPerPage').value,
+                imageSource: document.getElementById('imageSource').value
+            };
+            
+            localStorage.setItem('blogSettings', JSON.stringify(settings));
+            showAlert('success', '✅ Settings saved successfully!');
+        }
+
+        // Load settings
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('blogSettings') || '{}');
+            if (settings.autoNewsletter !== undefined) document.getElementById('autoNewsletter').checked = settings.autoNewsletter;
+            if (settings.defaultAuthor) document.getElementById('defaultAuthor').value = settings.defaultAuthor;
+            if (settings.blogsPerPage) document.getElementById('blogsPerPage').value = settings.blogsPerPage;
+            if (settings.imageSource) document.getElementById('imageSource').value = settings.imageSource;
+        }
+
+        // ===== ADVANCED ACTIONS =====
+        function regenerateSlugs() {
+            if (!confirm('🔄 Regenerate slugs for all blog posts?')) return;
+            
+            blogPosts.forEach(blog => {
+                blog.slug = blog.title.toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-');
+            });
+            
+            filteredBlogs = [...blogPosts];
+            renderBlogTable();
+            showAlert('success', '✅ All slugs regenerated!');
+        }
+
+        function updateReadTimes() {
+            if (!confirm('⏱️ Recalculate read times for all blogs?')) return;
+            
+            blogPosts.forEach(blog => {
+                const wordCount = blog.content.replace(/<[^>]*>/g, '').split(/\s+/).filter(w => w.length > 0).length;
+                blog.readTime = Math.max(1, Math.ceil(wordCount / 200));
+            });
+            
+            filteredBlogs = [...blogPosts];
+            updateStats();
+            renderBlogTable();
+            showAlert('success', '✅ Read times updated!');
+        }
+
+        function confirmDeleteAll() {
+            if (confirm('⚠️ DELETE ALL BLOGS?\n\nThis will permanently delete all blog posts. This action CANNOT be undone!\n\nType "DELETE ALL" to confirm.')) {
+                const confirmation = prompt('Type "DELETE ALL" to confirm:');
+                if (confirmation === 'DELETE ALL') {
+                    blogPosts = [];
+                    filteredBlogs = [];
+                    updateStats();
+                    renderBlogTable();
+                    showAlert('success', '✅ All blogs deleted.');
+                }
+            }
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function showAlert(type, message) {
+            const alertId = type === 'success' ? 'alertSuccess' : 'alertError';
+            const alert = document.getElementById(alertId);
+            alert.textContent = message;
+            alert.classList.add('show');
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function resetForm() {
+            document.getElementById('blogForm').reset();
+            document.getElementById('titleCounter').textContent = '0/100';
+            document.getElementById('excerptCounter').textContent = '0/160';
+            document.getElementById('contentCounter').textContent = '0 words';
+        }
+
+        function showAddBlogModal() {
+            switchTab('add');
+        }
+
+        function showAIGenerator() {
+            switchTab('ai');
+        }
+
+        // Initialize settings on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+        });
+
+        // Close modals on outside click
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+            }
+        });
+
+        console.log('✅ Blog Management Dashboard loaded');
+    </script>
+</body>
+</html>
