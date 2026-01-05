@@ -219,11 +219,27 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-menu a:hover {
             color: #87cefa;
+        }
+
+        .nav-menu a.active {
+            color: #87cefa;
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #87cefa;
         }
 
         .cta-button {
@@ -1096,6 +1112,30 @@
             transform: translateY(0);
         }
 
+        /* Hero Section Mobile Responsive */
+        @media (max-width: 968px) {
+            .hero .container > div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+            .hero h1 {
+                font-size: 2rem !important;
+                text-align: center !important;
+            }
+            .hero p {
+                font-size: 1rem !important;
+                text-align: center !important;
+            }
+            .hero-buttons {
+                justify-content: center !important;
+            }
+            .trust-badges-hero {
+                justify-content: center !important;
+            }
+            .live-stats {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
         /* Mobile Responsive */
         .mobile-menu-toggle {
             display: none;
@@ -1222,13 +1262,18 @@
                 <a href="#" class="logo" id="homeLink">📝 TurnitinPaperChecker</a>
                 <!-- FIX #3: Added "Features" navigation link -->
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#upload">Check Now</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#upload" class="nav-link">Check Now</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#sample-reports-preview" class="nav-link">Samples</a></li>
+                    <li><a href="#blog" class="nav-link">Blog</a></li>
+                    <li><a href="#live-activity" class="nav-link">Live Activity</a></li>
+                    <li><a href="#success-stories" class="nav-link">Success Stories</a></li>
+                    <li><a href="#whatsapp-reviews" class="nav-link">Reviews</a></li>
+                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                    <li><a href="#price-calculator" class="nav-link">Calculator</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
                 <a href="#upload" class="cta-button">Start Checking</a>
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
@@ -1245,77 +1290,106 @@
     <main>
         <!-- Hero Section -->
         <section class="hero" id="home">
-            <div class="hero-content">
-                <h1 class="fade-in">Plagiarism Checker</h1>
-                <p class="fade-in">Professional AI and plagiarism detection services trusted by students and academics worldwide. Get comprehensive reports before submission.</p>
-                <div class="hero-buttons fade-in">
-                    <a href="#upload" class="btn-primary" onclick="trackButtonClick('Check Document Now', 'hero')">Check Document Now</a>
-                    <a href="javascript:void(0)" onclick="openWhatsAppForSample()" class="btn-secondary">View Sample Report</a>
-                </div>
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; max-width: 1200px; margin: 0 auto;">
+                    
+                    <!-- LEFT SIDE: Content -->
+                    <div style="text-align: left;">
+                        <h1 class="fade-in" style="text-align: left; font-size: 3.5rem; margin-bottom: 1rem;">Plagiarism Checker</h1>
+                        <p class="fade-in" style="text-align: left; max-width: 100%; font-size: 1.3rem; margin-bottom: 2rem;">Professional AI and plagiarism detection services trusted by students and academics worldwide. Get comprehensive reports before submission.</p>
+                        
+                        <div class="hero-buttons fade-in" style="justify-content: flex-start; display: flex; gap: 1rem;">
+                            <a href="#upload" class="btn-primary" onclick="trackButtonClick('Check Document Now', 'hero')">Check Document Now</a>
+                            <a href="javascript:void(0)" onclick="openWhatsAppForSample()" class="btn-secondary">View Sample Report</a>
+                        </div>
 
-                <!-- Trust Badges in Hero - NEW -->
-                <div class="trust-badges-hero fade-in" style="margin-top: 2.5rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
-                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1.2rem;">✓</span> 10,000+ Students Served
+                        <!-- Trust Badges -->
+                        <div class="trust-badges-hero fade-in" style="margin-top: 2rem; display: flex; justify-content: flex-start; gap: 1rem; flex-wrap: wrap;">
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.2rem;">✓</span> 10,000+ Students Served
+                            </div>
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.2rem;">⭐</span> 4.8/5 Rating (1,247 reviews)
+                            </div>
+                            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.2rem;">⚡</span> 10-20 Min Delivery
+                            </div>
+                        </div>
                     </div>
-                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1.2rem;">⭐</span> 4.8/5 Rating (1,247 reviews)
-                    </div>
-                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 1.2rem;">⚡</span> 10-20 Min Delivery
-                    </div>
-                </div>
 
-                <!-- Live Stats Counter - NEW -->
-                <div class="live-stats fade-in" style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <!-- RIGHT SIDE: Stats + Table -->
                     <div style="text-align: center;">
-                        <div style="font-size: 2.5rem; font-weight: bold; color: #87cefa;" id="ordersToday">247</div>
-                        <div style="font-size: 0.9rem; opacity: 0.9;">documents checked today</div>
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2.5rem; font-weight: bold; color: #87cefa;" id="waitingUsers">12</div>
-                        <div style="font-size: 0.9rem; opacity: 0.9;">students checking now</div>
+                        <!-- Live Stats -->
+                        <div class="live-stats fade-in" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                            <div style="background: white; color: #0a5d8c; padding: 1.5rem; border-radius: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                                <div style="font-size: 2.5rem; font-weight: bold;" id="ordersToday">247</div>
+                                <div style="font-size: 0.85rem;">documents checked today</div>
+                            </div>
+                            <div style="background: white; color: #0a5d8c; padding: 1.5rem; border-radius: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                                <div style="font-size: 2.5rem; font-weight: bold;" id="waitingUsers">12</div>
+                                <div style="font-size: 0.85rem;">students checking now</div>
+                            </div>
+                        </div>
+
+                        <!-- Price Comparison Table - WHITE BACKGROUND WITH BLUE BORDERS -->
+                        <div class="price-comparison fade-in" style="background: white; border-radius: 15px; overflow: hidden; border: 3px solid #0a5d8c; box-shadow: 0 5px 20px rgba(10, 93, 140, 0.2);">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: #0a5d8c;">
+                                        <th style="padding: 1rem; text-align: left; font-size: 0.95rem; border: 2px solid #0a5d8c; color: white;">Service</th>
+                                        <th style="padding: 1rem; text-align: center; font-size: 0.95rem; border: 2px solid #0a5d8c; color: white;">Price</th>
+                                        <th style="padding: 1rem; text-align: center; font-size: 0.95rem; border: 2px solid #0a5d8c; color: white;">Delivery</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: white;">
+                                        <td style="padding: 1rem; font-size: 0.9rem; border: 2px solid #0a5d8c; color: #0a5d8c;">Official Turnitin</td>
+                                        <td style="padding: 1rem; text-align: center; font-size: 0.9rem; border: 2px solid #0a5d8c; color: #0a5d8c;">$15-20 USD</td>
+                                        <td style="padding: 1rem; text-align: center; font-size: 0.9rem; border: 2px solid #0a5d8c; color: #0a5d8c;">24-48 hours</td>
+                                    </tr>
+                                    <tr style="background: #0a5d8c;">
+                                        <td style="padding: 1rem; font-weight: bold; font-size: 1rem; border: 2px solid #0a5d8c; color: white;">TurnitinPaperChecker</td>
+                                        <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1.1rem; color: #87cefa; border: 2px solid #0a5d8c;">Rs 200 (~$2.50)</td>
+                                        <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1rem; border: 2px solid #0a5d8c; color: white;">10-20 min ⚡</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="padding: 1rem; text-align: center; background: #87cefa; font-size: 0.9rem; font-weight: 600; color: #0a5d8c;">
+                                💰 Save 90% + Get Results 100x Faster!
+                            </div>
+                        </div>
+
+                        <!-- Urgency Indicator -->
+                        <div class="urgency-indicator fade-in" style="margin-top: 1.5rem; background: rgba(255, 193, 7, 0.2); border: 2px solid #ffc107; border-radius: 10px; padding: 1rem;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.95rem; font-weight: 600; color: white;">
+                                <span class="pulse-dot" style="width: 10px; height: 10px; background: #ffc107; border-radius: 50%; animation: pulseDot 2s infinite;"></span>
+                                <span id="liveViewers">8</span> students checking pricing right now
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Price Comparison Table - NEW -->
-                <div class="price-comparison fade-in" style="margin-top: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; overflow: hidden; border: 2px solid rgba(255,255,255,0.2);">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <thead>
-                            <tr style="background: rgba(255,255,255,0.1);">
-                                <th style="padding: 1rem; text-align: left; font-size: 1rem; border-bottom: 2px solid rgba(255,255,255,0.2);">Service</th>
-                                <th style="padding: 1rem; text-align: center; font-size: 1rem; border-bottom: 2px solid rgba(255,255,255,0.2);">Price</th>
-                                <th style="padding: 1rem; text-align: center; font-size: 1rem; border-bottom: 2px solid rgba(255,255,255,0.2);">Delivery</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="opacity: 0.7;">
-                                <td style="padding: 1rem; font-size: 0.95rem;">Official Turnitin</td>
-                                <td style="padding: 1rem; text-align: center; font-size: 0.95rem;">$15-20 USD</td>
-                                <td style="padding: 1rem; text-align: center; font-size: 0.95rem;">24-48 hours</td>
-                            </tr>
-                            <tr style="background: rgba(135, 206, 250, 0.2); border-left: 4px solid #87cefa;">
-                                <td style="padding: 1rem; font-weight: bold; font-size: 1rem;">TurnitinPaperChecker</td>
-                                <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1.1rem; color: #87cefa;">Rs 200 (~$2.50)</td>
-                                <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1rem; color: #87cefa;">10-20 min ⚡</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div style="padding: 1rem; text-align: center; background: rgba(135, 206, 250, 0.1); font-size: 0.9rem; font-weight: 600;">
-                        💰 Save 90% + Get Results 100x Faster!
-                    </div>
-                </div>
-
-                <!-- Urgency Indicator - NEW -->
-                <div class="urgency-indicator fade-in" style="margin-top: 2rem; background: rgba(255, 193, 7, 0.15); backdrop-filter: blur(10px); border: 2px solid #ffc107; border-radius: 10px; padding: 1rem; max-width: 500px; margin-left: auto; margin-right: auto; text-align: center;">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; font-weight: 600;">
-                        <span class="pulse-dot" style="width: 10px; height: 10px; background: #ffc107; border-radius: 50%; animation: pulse 2s infinite;"></span>
-                        <span id="liveViewers">8</span> students checking pricing right now
-                    </div>
-                </div>
-
             </div>
         </section>
+
+        <!-- Mobile Responsive CSS - Add to existing <style> section -->
+        <style>
+        @media (max-width: 968px) {
+            .hero .container > div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            .hero h1 {
+                text-align: center !important;
+                font-size: 2.5rem !important;
+            }
+            .hero p,
+            .hero-buttons,
+            .trust-badges-hero {
+                text-align: center !important;
+                justify-content: center !important;
+            }
+        }
+        </style>
 
         <!-- Services Section - GREY BACKGROUND -->
         <section class="services" id="services" style="background: #f8f9fa;">
@@ -1324,7 +1398,7 @@
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto;">Our advanced detection tools provide comprehensive analysis to ensure your work is original and credible before submission.</p>
                 
                 <!-- Service Comparison Chart - NEW -->
-                <div class="service-comparison-chart fade-in" style="max-width: 900px; margin: 0 auto 3rem; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div class="service-comparison-chart fade-in" style="max-width: 1200px; margin: 0 auto 3rem; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
                     <div style="background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; padding: 1.5rem; text-align: center;">
                         <h3 style="margin: 0; font-size: 1.5rem; font-weight: 600;">📊 Compare Our Services</h3>
                         <p style="margin: 0.5rem 0 0; font-size: 0.95rem; opacity: 0.9;">Choose the perfect plan for your needs</p>
@@ -1441,32 +1515,59 @@
                     <p style="text-align: center; color: #666; margin-bottom: 2rem;">Choose your preferred submission method</p>
                     
 
-                    <!-- Data Protection Statement - NEW -->
-                    <div class="data-protection fade-in" style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(10, 93, 140, 0.05) 0%, rgba(10, 156, 252, 0.05) 100%); border-radius: 12px; border: 2px solid #0a9cfc;">
-                        <div style="display: flex; align-items: start; gap: 1rem;">
-                            <div style="font-size: 2.5rem; flex-shrink: 0;">🔒</div>
-                            <div>
-                                <h3 style="color: #0a5d8c; margin: 0 0 0.8rem; font-size: 1.3rem;">Your Privacy is 100% Protected</h3>
-                                <ul style="list-style: none; padding: 0; margin: 0; color: #666; font-size: 0.95rem; line-height: 1.8;">
-                                    <li style="margin-bottom: 0.5rem;">
-                                        <strong style="color: #0a5d8c;">🔐 Encrypted Transfer:</strong> All files are encrypted during upload and transmission
-                                    </li>
-                                    <li style="margin-bottom: 0.5rem;">
-                                        <strong style="color: #0a5d8c;">🗑️ Auto-Delete:</strong> Your documents are automatically deleted after 30 days
-                                    </li>
-                                    <li style="margin-bottom: 0.5rem;">
-                                        <strong style="color: #0a5d8c;">🚫 Never Shared:</strong> We never share your documents with third parties or databases
-                                    </li>
-                                    <li style="margin-bottom: 0.5rem;">
-                                        <strong style="color: #0a5d8c;">✅ GDPR Compliant:</strong> Full compliance with international data protection standards
-                                    </li>
-                                </ul>
-                                <p style="margin: 1rem 0 0; font-size: 0.9rem;">
-                                    Read our complete <a href="privacy-policy.html" style="color: #0a5d8c; font-weight: 600; text-decoration: underline;">Privacy Policy</a> for more details.
-                                </p>
+                    <!-- Data Protection Statement - IMPROVED 2x2 GRID -->
+                    <div class="data-protection fade-in" style="margin-bottom: 2rem; background: white; border-radius: 15px; border: 3px solid #0a9cfc; box-shadow: 0 5px 15px rgba(10, 156, 252, 0.1); overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; padding: 1.5rem; text-align: center;">
+                            <h3 style="margin: 0; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                <span style="font-size: 2rem;">🔒</span> Your Privacy is 100% Protected
+                            </h3>
+                        </div>
+                        
+                        <div style="padding: 0;">
+                            <!-- Row 1 -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid #e9ecef;">
+                                <div style="padding: 1.5rem; border-right: 2px solid #e9ecef; background: #f8f9fa;">
+                                    <strong style="color: #0a5d8c; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">🔐 Encrypted Transfer</strong>
+                                    <p style="margin: 0; color: #666; font-size: 0.95rem;">All files are encrypted during upload and transmission</p>
+                                </div>
+                                <div style="padding: 1.5rem; background: white;">
+                                    <strong style="color: #0a5d8c; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">🗑️ Auto-Delete</strong>
+                                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Your documents are automatically deleted after 30 days</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Row 2 -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr;">
+                                <div style="padding: 1.5rem; border-right: 2px solid #e9ecef; background: white;">
+                                    <strong style="color: #0a5d8c; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">🚫 Never Shared</strong>
+                                    <p style="margin: 0; color: #666; font-size: 0.95rem;">We never share your documents with third parties or databases</p>
+                                </div>
+                                <div style="padding: 1.5rem; background: #f8f9fa;">
+                                    <strong style="color: #0a5d8c; font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">✅ GDPR Compliant</strong>
+                                    <p style="margin: 0; color: #666; font-size: 0.95rem;">Full compliance with international data protection standards</p>
+                                </div>
                             </div>
                         </div>
+                        
+                        <div style="padding: 1rem; background: #e8f5ff; text-align: center; border-top: 2px solid #0a9cfc;">
+                            <p style="margin: 0; color: #0a5d8c; font-size: 0.95rem;">
+                                Read our complete <a href="privacy-policy.html" style="color: #0a5d8c; font-weight: 700; text-decoration: underline;">Privacy Policy</a> for more details
+                            </p>
+                        </div>
                     </div>
+
+                    <!-- Mobile Responsive for Data Protection -->
+                    <style>
+                    @media (max-width: 768px) {
+                        .data-protection div[style*="grid-template-columns: 1fr 1fr"] {
+                            grid-template-columns: 1fr !important;
+                        }
+                        .data-protection div[style*="border-right"] {
+                            border-right: none !important;
+                            border-bottom: 2px solid #e9ecef !important;
+                        }
+                    }
+                    </style>
 
 
                     <div class="upload-area" id="uploadArea">
@@ -1624,7 +1725,7 @@
                         </div>
                         <div class="service-icon">🤖</div>
                         <h3>AI Detection Report</h3>
-                        <p>Shows AI-generated percentage, sentence-level analysis, and confidence scores for each section</p>
+                        <p>Shows AI-generated percentage with sentence-level detailed analysis and confidence scores for each section</p>
                         <button onclick="requestSampleReport('AI Content Detection Report'); event.stopPropagation();" class="btn-primary" style="margin-top: 1rem; width: 100%;">
                             📄 Request Full Sample →
                         </button>
@@ -1641,7 +1742,7 @@
                         </div>
                         <div class="service-icon">📈</div>
                         <h3>Combined Analysis Report</h3>
-                        <p>Complete report with BOTH plagiarism detection AND AI analysis in one comprehensive document</p>
+                        <p>Complete comprehensive report with BOTH plagiarism detection AND AI content analysis in one detailed document</p>
                         <button onclick="requestSampleReport('Combined Analysis Report'); event.stopPropagation();" class="btn-primary" style="margin-top: 1rem; width: 100%;">
                             📄 Request Full Sample →
                         </button>
@@ -1657,7 +1758,7 @@
         </section>
 
         <!-- Blog Section - WHITE BACKGROUND -->
-        <section class="services" id="blog" style="background: white;">
+        <section class="services" id="blog" style="background: #f8f9fa;">
             <div class="container">
                 <h2 class="section-title fade-in">Academic Integrity Blog</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 2rem;">Stay updated with the latest tips and insights on academic integrity.</p>
@@ -1700,7 +1801,7 @@
         </script>
 
         <!-- Live Activity Feed - NEW -->
-        <section class="services" style="background: white;">
+        <section class="services" id="live-activity" style="background: #f8f9fa;">
             <div class="container">
                 <h2 class="section-title fade-in">🔥 Live Activity</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 2rem;">
@@ -1772,7 +1873,7 @@
         </section>
 
         <!-- Before/After Success Story - NEW -->
-        <section class="services" style="background: white;">
+        <section class="services" id="success-stories" style="background: white;">
             <div class="container">
                 <h2 class="section-title fade-in">✨ Real Success Stories</h2>
                 <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 1rem;">
@@ -1875,20 +1976,22 @@
                         </div>
                     </div>
                     
-                    <!-- Student Testimonial -->
+                    <!-- Student Testimonial - WHITE TEXT + BIGGER AVATAR + GIRL IMAGE -->
                     <div class="service-card fade-in" style="margin-top: 3rem; background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; border: none;">
-                        <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-                            <img src="https://ui-avatars.com/api/?name=Sarah+Thompson&background=87cefa&color=0a5d8c&size=80&bold=true" 
-                                 alt="Student" 
-                                 style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid white;">
+                        <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                            <!-- GIRL IMAGE with fallback to ST -->
+                            <img src="girl-image-ST.png" 
+                                alt="ST" 
+                                style="width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; flex-shrink: 0; object-fit: cover;"
+                                onerror="this.src='https://ui-avatars.com/api/?name=Sarah+Thompson&background=87cefa&color=0a5d8c&size=120&bold=true'">
                             <div style="flex: 1; min-width: 250px;">
-                                <p style="font-size: 1.1rem; font-style: italic; margin-bottom: 1rem; line-height: 1.6;">
+                                <p style="font-size: 1.1rem; font-style: italic; margin-bottom: 1rem; line-height: 1.6; color: white;">
                                     "I was devastated when I saw 35% plagiarism in my dissertation. TurnitinPaperChecker's report showed me exactly what to fix. After making the changes, I resubmitted with confidence and got 82% - a distinction! This service literally saved my academic career."
                                 </p>
                                 <div>
-                                    <strong style="font-size: 1.1rem;">Sarah Thompson</strong>
-                                    <p style="margin: 0.3rem 0 0; opacity: 0.9; font-size: 0.95rem;">MSc International Business, Westminster University</p>
-                                    <div style="color: #ffc107; font-size: 1.2rem; margin-top: 0.5rem;">⭐⭐⭐⭐⭐</div>
+                                    <strong style="font-size: 1.2rem; color: white;">Sarah Thompson</strong>
+                                    <p style="margin: 0.5rem 0 0; opacity: 0.95; font-size: 1rem; color: white;">MSc International Business, Westminster University</p>
+                                    <div style="color: #ffc107; font-size: 1.3rem; margin-top: 0.8rem;">⭐⭐⭐⭐⭐</div>
                                 </div>
                             </div>
                         </div>
@@ -1911,8 +2014,8 @@
             </div>
         </section>
 
-        <!-- Real WhatsApp Conversations Section - NEW -->
-        <section class="services" id="whatsapp-reviews" style="background: white;">
+        <!-- Real WhatsApp Conversations Section - GREY BACKGROUND -->
+        <section class="services" id="whatsapp-reviews" style="background: #f8f9fa;">
             <div class="container">
                 <h2 class="section-title fade-in">💬 Real Customer Conversations</h2>
                 <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 0.5rem;">
@@ -2011,7 +2114,7 @@
         </section>
 
         <!-- Pricing Section - WHITE BACKGROUND -->
-        <section class="pricing" id="pricing" style="background: white;">
+        <section class="pricing" id="pricing" style="background: #f8f9fa;">
             <div class="container">
                 <h2 class="section-title fade-in">Choose Your Plan</h2>
                 <div class="pricing-grid">
@@ -2085,7 +2188,7 @@
 
 
         <!-- Interactive Price Calculator Section - NEW -->
-        <section class="services" id="price-calculator" style="background: #f8f9fa;">
+        <section class="services" id="price-calculator" style="background: white;">
             <div class="container">
                 <h2 class="section-title fade-in">💰 Calculate Your Cost Instantly</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto 2rem;">
@@ -3463,6 +3566,32 @@ Slug: ${newPost.slug}`);
             }
         });
 
+        // Active Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Set first link active on load
+        if (navLinks.length > 0) {
+            navLinks[0].classList.add('active');
+        }
+
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', function() {
             // Load country codes
@@ -3629,23 +3758,41 @@ Thank you!`;
         }
 
         // ===== LIVE STATS ANIMATION =====
+        // ===== LIVE STATS ANIMATION - ALWAYS INCREASING =====
         function animateLiveStats() {
             const ordersEl = document.getElementById('ordersToday');
             const usersEl = document.getElementById('waitingUsers');
             
             if (!ordersEl || !usersEl) return;
             
-            // Animate orders count between 200-300
-            setInterval(() => {
-                const randomOrders = 200 + Math.floor(Math.random() * 100);
-                ordersEl.textContent = randomOrders;
-            }, 15000); // Update every 15 seconds
+            // Get stored values or initialize
+            let dailyOrders = parseInt(localStorage.getItem('dailyOrders') || '200');
+            let lastUpdateDate = localStorage.getItem('lastUpdateDate') || new Date().toDateString();
             
-            // Animate waiting users between 8-18
+            // Reset counter at midnight
+            const today = new Date().toDateString();
+            if (lastUpdateDate !== today) {
+                dailyOrders = 200; // Reset to starting value
+                localStorage.setItem('lastUpdateDate', today);
+                localStorage.setItem('dailyOrders', '200');
+            }
+            
+            // Display current count
+            ordersEl.textContent = dailyOrders;
+            
+            // Increment orders count every 15 seconds (ALWAYS INCREASE)
+            setInterval(() => {
+                dailyOrders += Math.floor(Math.random() * 3) + 1; // Increase by 1-3
+                if (dailyOrders > 500) dailyOrders = 500; // Cap at 500
+                localStorage.setItem('dailyOrders', dailyOrders.toString());
+                ordersEl.textContent = dailyOrders;
+            }, 15000);
+            
+            // Animate waiting users between 8-18 (can fluctuate)
             setInterval(() => {
                 const randomUsers = 8 + Math.floor(Math.random() * 10);
                 usersEl.textContent = randomUsers;
-            }, 8000); // Update every 8 seconds
+            }, 8000);
 
             // Animate live viewers between 5-15
             const viewersEl = document.getElementById('liveViewers');
@@ -3653,23 +3800,89 @@ Thank you!`;
                 setInterval(() => {
                     const randomViewers = 5 + Math.floor(Math.random() * 10);
                     viewersEl.textContent = randomViewers;
-                }, 12000); // Update every 12 seconds
+                }, 12000);
             }
         }
 
         // ===== LIVE ACTIVITY FEED =====
-        const activities = [
-            { name: "Priya S.", action: "ordered plagiarism check", time: "2 min ago", city: "Delhi", avatar: "PS" },
-            { name: "Rahul M.", action: "got AI detection report", time: "5 min ago", city: "Mumbai", avatar: "RM" },
-            { name: "Sarah K.", action: "ordered combined report", time: "8 min ago", city: "Bangalore", avatar: "SK" },
-            { name: "John D.", action: "rated us 5 stars ⭐⭐⭐⭐⭐", time: "12 min ago", city: "Pune", avatar: "JD" },
-            { name: "Amit P.", action: "reordered for thesis", time: "15 min ago", city: "Kolkata", avatar: "AP" },
-            { name: "Emily R.", action: "requested sample report", time: "18 min ago", city: "Hyderabad", avatar: "ER" },
-            { name: "David K.", action: "ordered bulk package", time: "22 min ago", city: "Chennai", avatar: "DK" },
-            { name: "Lisa W.", action: "completed payment", time: "25 min ago", city: "Ahmedabad", avatar: "LW" },
-            { name: "Mohammed A.", action: "received report in 10 min", time: "28 min ago", city: "Jaipur", avatar: "MA" },
-            { name: "Sophia L.", action: "submitted dissertation", time: "32 min ago", city: "Lucknow", avatar: "SL" }
+        // ===== LIVE ACTIVITY FEED WITH RANDOM NAMES =====
+        const indianCities = ["Delhi", "Mumbai", "Bangalore", "Pune", "Kolkata", "Hyderabad", "Chennai", "Ahmedabad", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", "Thane", "Bhopal", "Visakhapatnam", "Patna", "Vadodara", "Ghaziabad"];
+
+        const firstNames = ["Priya", "Rahul", "Sarah", "John", "Amit", "Emily", "David", "Lisa", "Mohammed", "Sophia", "Arjun", "Maya", "Rohan", "Ananya", "Vikram", "Neha", "Karan", "Aisha", "Sanjay", "Riya", "Alex", "Nina", "Sam", "Diya", "Aryan", "Ishaan", "Zara", "Aarav", "Nisha", "Kabir"];
+
+        const lastNames = ["Sharma", "Kumar", "Singh", "Patel", "Shah", "Gupta", "Khan", "Reddy", "Rao", "Nair", "Mehta", "Joshi", "Das", "Thompson", "Wilson", "Chen", "Rodriguez", "Kim", "Lee", "Brown", "Martinez", "Garcia", "Anderson", "Taylor", "Verma", "Agarwal", "Malhotra", "Chopra", "Bansal"];
+
+        const actions = [
+            "ordered plagiarism check",
+            "got AI detection report",
+            "ordered combined report",
+            "rated us 5 stars ⭐⭐⭐⭐⭐",
+            "reordered for thesis",
+            "requested sample report",
+            "ordered bulk package",
+            "completed payment",
+            "received report in 10 min",
+            "submitted dissertation",
+            "got express delivery",
+            "recommended to friend"
         ];
+
+        let usedNames = JSON.parse(localStorage.getItem('usedActivityNames') || '[]');
+        let lastReset = localStorage.getItem('lastActivityReset') || new Date().toDateString();
+
+        // Reset used names monthly
+        const today = new Date();
+        const todayStr = today.toDateString();
+        if (lastReset !== todayStr) {
+            const lastDate = new Date(lastReset);
+            const daysDiff = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+            
+            if (daysDiff >= 30) {
+                usedNames = [];
+                localStorage.setItem('lastActivityReset', todayStr);
+                localStorage.setItem('usedActivityNames', '[]');
+            }
+        }
+
+        function generateUniqueName() {
+            let attempts = 0;
+            while (attempts < 100) {
+                const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                const fullName = `${firstName} ${lastName.charAt(0)}.`;
+                
+                if (!usedNames.includes(fullName)) {
+                    usedNames.push(fullName);
+                    if (usedNames.length > 100) usedNames.shift(); // Keep only last 100
+                    localStorage.setItem('usedActivityNames', JSON.stringify(usedNames));
+                    return {
+                        name: fullName,
+                        avatar: firstName.charAt(0) + lastName.charAt(0)
+                    };
+                }
+                attempts++;
+            }
+            // Fallback if all names used
+            return {
+                name: `User ${Math.floor(Math.random() * 9999)}`,
+                avatar: "U" + Math.floor(Math.random() * 99)
+            };
+        }
+
+        function generateActivity() {
+            const person = generateUniqueName();
+            const action = actions[Math.floor(Math.random() * actions.length)];
+            const city = indianCities[Math.floor(Math.random() * indianCities.length)];
+            const minutesAgo = Math.floor(Math.random() * 30) + 2;
+            
+            return {
+                name: person.name,
+                action: action,
+                time: `${minutesAgo} min ago`,
+                city: city,
+                avatar: person.avatar
+            };
+        }
 
         let currentActivityIndex = 0;
 
@@ -3677,13 +3890,13 @@ Thank you!`;
             const container = document.getElementById('activityContainer');
             if (!container) return;
             
-            const activity = activities[currentActivityIndex];
+            const activity = generateActivity();
             
             const html = `
                 <div class="activity-item">
                     <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(activity.avatar)}&background=0a9cfc&color=fff&size=50&bold=true" 
-                         class="avatar" 
-                         alt="${activity.name}">
+                        class="avatar" 
+                        alt="${activity.name}">
                     <div class="activity-content">
                         <strong>${activity.name}</strong> ${activity.action}
                         <p>📍 ${activity.city}, India</p>
@@ -3692,16 +3905,12 @@ Thank you!`;
                 </div>
             `;
             
-            // Insert at the top
             container.insertAdjacentHTML('afterbegin', html);
             
-            // Keep only last 6 activities visible
             const items = container.querySelectorAll('.activity-item');
             if (items.length > 6) {
                 items[items.length - 1].remove();
             }
-            
-            currentActivityIndex = (currentActivityIndex + 1) % activities.length;
         }
 
         function initializeActivityFeed() {
