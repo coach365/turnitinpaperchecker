@@ -80,7 +80,6 @@
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H0TD83HT60"></script>
     <script>
-        // GA ID - In production, load from environment variable
         const GA_ID = "G-H0TD83HT60";
         
         window.dataLayer = window.dataLayer || [];
@@ -113,7 +112,6 @@
     
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
-        // Clarity ID - In production, load from environment variable
         const CLARITY_ID = "utm8h0aasv";
         
         (function(c,l,a,r,i,t,y){
@@ -137,7 +135,6 @@
             background-color: #f9fbfa;
             padding-top: 70px;
         }
-
 
         .container {
             max-width: 1200px;
@@ -225,12 +222,20 @@
             gap: 10px;
         }
 
+        /* ========================================
+           NAVBAR - COMPLETE RESPONSIVE FIX
+           ======================================== */
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
-            flex-wrap: wrap;
+            gap: 1.2rem;
+            flex-wrap: nowrap;
             align-items: center;
+            justify-content: center;
+        }
+
+        .nav-menu li {
+            white-space: nowrap;
         }
 
         .nav-menu a {
@@ -239,11 +244,14 @@
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 0;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.95rem;
+            display: block;
         }
 
         .nav-menu a:hover {
             color: #87cefa;
+            transform: translateY(-2px);
         }
 
         .nav-menu a.active {
@@ -258,6 +266,96 @@
             width: 100%;
             height: 3px;
             background: #87cefa;
+        }
+
+        /* Navbar Responsive Breakpoints */
+        @media (max-width: 1600px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.7rem;
+            }
+        }
+
+        @media (max-width: 1400px) {
+            .nav-menu {
+                gap: 0.8rem;
+            }
+            .nav-menu a {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.6rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .nav-menu {
+                gap: 0.5rem;
+            }
+            .nav-menu a {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.5rem;
+            }
+            .cta-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+                flex-direction: column;
+                padding: 1.5rem 0;
+                gap: 0;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 1000;
+                animation: slideDown 0.3s ease-out;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding: 0;
+            }
+            
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-menu a {
+                width: 100%;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+                display: block;
+            }
+            
+            .nav-menu a:hover {
+                background: rgba(255,255,255,0.1);
+                transform: none;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cta-button {
@@ -357,13 +455,146 @@
             color: #0a5d8c;
         }
 
+        /* ========================================
+           HERO SECTION - ENHANCED MOBILE RESPONSIVENESS
+           ======================================== */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem !important;
+                text-align: center !important;
+            }
+            
+            .hero p {
+                font-size: 1.1rem !important;
+                text-align: center !important;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .hero .container > div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem !important;
+            }
+            
+            .hero p {
+                font-size: 1rem !important;
+            }
+            
+            /* Stats cards responsive */
+            .live-stats {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .live-stats > div {
+                padding: 1.2rem !important;
+            }
+            
+            .live-stats > div > div:first-child {
+                font-size: 2rem !important;
+            }
+            
+            /* Price comparison table mobile */
+            .price-comparison {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .price-comparison table {
+                font-size: 0.8rem !important;
+                min-width: 100%;
+            }
+            
+            .price-comparison th,
+            .price-comparison td {
+                padding: 0.7rem 0.5rem !important;
+                font-size: 0.8rem !important;
+            }
+            
+            .price-comparison tbody tr:first-child td {
+                font-size: 0.75rem !important;
+            }
+            
+            .price-comparison tbody tr:last-child td {
+                font-size: 0.85rem !important;
+            }
+            
+            /* Trust badges */
+            .trust-badges-hero {
+                justify-content: center !important;
+            }
+            
+            .trust-badges-hero > div {
+                font-size: 0.75rem !important;
+                padding: 0.6rem 1rem !important;
+            }
+            
+            /* Urgency indicator */
+            .urgency-indicator {
+                margin-top: 1rem !important;
+                padding: 0.8rem !important;
+            }
+            
+            .urgency-indicator div {
+                font-size: 0.85rem !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.75rem !important;
+                line-height: 1.3;
+            }
+            
+            .hero p {
+                font-size: 0.95rem !important;
+            }
+            
+            .hero-buttons {
+                flex-direction: column !important;
+                width: 100%;
+            }
+            
+            .hero-buttons a {
+                width: 100% !important;
+                text-align: center;
+            }
+            
+            .live-stats > div > div:first-child {
+                font-size: 1.8rem !important;
+            }
+            
+            .live-stats > div > div:last-child {
+                font-size: 0.75rem !important;
+            }
+            
+            .price-comparison table {
+                font-size: 0.7rem !important;
+            }
+            
+            .price-comparison th,
+            .price-comparison td {
+                padding: 0.5rem 0.3rem !important;
+                font-size: 0.7rem !important;
+            }
+            
+            .trust-badges-hero > div {
+                font-size: 0.7rem !important;
+                padding: 0.5rem 0.8rem !important;
+            }
+        }
+
         .services {
             padding: 80px 0;
             background: white;
             min-height: auto;
         }
 
-        /* Consistent Section Heights */
         .services .container,
         .pricing .container,
         .features .container {
@@ -440,6 +671,97 @@
         .service-price:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(10, 93, 140, 0.3);
+        }
+
+        /* ========================================
+           SERVICES COMPARISON TABLE - MOBILE FIX
+           ======================================== */
+        .table-scroll-container {
+            position: relative;
+            width: 100%;
+        }
+
+        @media (max-width: 992px) {
+            .service-comparison-chart table {
+                min-width: 750px !important;
+                font-size: 0.9rem;
+            }
+            
+            .service-comparison-chart th,
+            .service-comparison-chart td {
+                padding: 1rem 0.8rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .service-comparison-chart {
+                margin: 0 -20px;
+                padding: 0 20px;
+            }
+            
+            .table-scroll-container {
+                box-shadow: inset -15px 0 15px -15px rgba(0,0,0,0.15);
+                border-radius: 10px;
+                background: white;
+            }
+            
+            .service-comparison-chart table {
+                min-width: 700px !important;
+                font-size: 0.85rem;
+            }
+            
+            .service-comparison-chart th,
+            .service-comparison-chart td {
+                padding: 0.8rem 0.6rem !important;
+                font-size: 0.8rem !important;
+                white-space: nowrap;
+            }
+            
+            /* Scroll indicator */
+            .table-scroll-container::after {
+                content: "👉 Swipe to see more";
+                position: sticky;
+                left: 0;
+                right: 0;
+                bottom: -40px;
+                background: #fff3cd;
+                color: #856404;
+                text-align: center;
+                padding: 0.8rem;
+                font-size: 0.85rem;
+                font-weight: 600;
+                border-radius: 0 0 10px 10px;
+                border-top: 2px solid #ffc107;
+                display: block;
+                z-index: 5;
+            }
+            
+            .service-comparison-chart th {
+                position: sticky;
+                left: 0;
+                background: #f8f9fa;
+                z-index: 3;
+                box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .service-comparison-chart table {
+                min-width: 650px !important;
+                font-size: 0.75rem;
+            }
+            
+            .service-comparison-chart th,
+            .service-comparison-chart td {
+                padding: 0.6rem 0.4rem !important;
+                font-size: 0.75rem !important;
+            }
+            
+            .table-scroll-container::after {
+                font-size: 0.75rem;
+                padding: 0.6rem;
+            }
         }
 
         /* Upload Section */
@@ -543,7 +865,6 @@
             font-size: 1rem;
         }
 
-        /* Country Search Styling */
         .country-search-wrapper {
             position: relative;
             display: inline-block;
@@ -556,6 +877,49 @@
             font-size: 1rem;
             width: 220px;
             margin-bottom: 8px;
+        }
+
+        /* ========================================
+           UPLOAD SECTION - MOBILE FIX
+           ======================================== */
+        @media (max-width: 768px) {
+            .phone-input {
+                flex-direction: column !important;
+                gap: 15px !important;
+                align-items: stretch !important;
+            }
+            
+            .country-search-wrapper {
+                width: 100% !important;
+            }
+            
+            .country-search-wrapper input,
+            .country-search-wrapper select,
+            .phone-input input {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            #upload button[type="button"] {
+                width: 100% !important;
+                margin: 0.5rem 0 !important;
+            }
+            
+            .upload-container > div[style*="display: flex"] {
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+        }
+
+        /* Data Protection Grid Responsive */
+        @media (max-width: 768px) {
+            .data-protection div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+            .data-protection div[style*="border-right"] {
+                border-right: none !important;
+                border-bottom: 2px solid #e9ecef !important;
+            }
         }
 
         /* Features Section */
@@ -612,17 +976,26 @@
             color: #0a5d8c;
         }
 
-        /* Pricing Section */
+        /* ========================================
+        PRICING SECTION - FIXED LAYOUT
+        ======================================== */
         .pricing {
             padding: 80px 0;
             background: white;
         }
 
+        .pricing .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: flex;
+            justify-content: center;
+            align-items: stretch;  /* Critical: Makes all cards same height */
             gap: 2rem;
             margin-top: 3rem;
+            flex-wrap: wrap;
         }
 
         .pricing-card {
@@ -633,8 +1006,15 @@
             text-align: center;
             position: relative;
             transition: all 0.3s ease;
-            max-width: 380px; /* CONSISTENT WIDTH */
-            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            
+            /* FIXED: Consistent sizing */
+            flex: 0 1 350px;  /* Changed from flex: 1 1 320px */
+            max-width: 380px;
+            min-width: 320px;
+            
+            /* REMOVED min-height to allow natural height */
         }
 
         .pricing-card:hover {
@@ -647,6 +1027,15 @@
             border-color: #0a5d8c;
             background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
             color: white;
+            
+            /* FIXED: Remove scale on desktop, keep equal height */
+            flex: 0 1 360px;  /* Slightly wider but not scaled */
+            box-shadow: 0 15px 50px rgba(10, 93, 140, 0.3);
+            z-index: 10;
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-5px);  /* Only vertical movement, no scale */
         }
 
         .pricing-badge {
@@ -661,27 +1050,263 @@
             font-weight: bold;
             font-size: 0.9rem;
             white-space: nowrap;
-            z-index: 10;
+            z-index: 20;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
         }
+
+        .pricing-badge.most-popular-badge {
+            background: #ffc107;
+            color: #000;
+            animation: popularPulse 2s infinite;
+        }
+
+        /* FIXED: Removed font size from pricing-card.featured > div */
 
         .pricing-price {
             font-size: 2.5rem;
             font-weight: bold;
-            margin: 1rem 0;
+            margin: 1.5rem 0 1rem;
+            padding-top: 1rem;  /* Space for badge */
         }
 
         .pricing-features {
             list-style: none;
             margin: 1.5rem 0;
+            padding: 0;
+            text-align: left;
+            
+            /* CRITICAL FIX: This pushes buttons to bottom */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .pricing-features li {
-            padding: 0.5rem 0;
+            padding: 0.8rem 0;
             border-bottom: 1px solid #e9ecef;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         .featured .pricing-features li {
             border-bottom-color: rgba(255,255,255,0.2);
+        }
+
+        /* CRITICAL FIX: Button container auto margin pushes to bottom */
+        .pricing-card > div[style*="display: flex"] {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        /* Pricing Responsive Breakpoints */
+        @media (max-width: 1600px) {
+            .pricing-grid {
+                gap: 2rem;
+            }
+            
+            .pricing-card {
+                flex: 0 1 340px;
+                max-width: 370px;
+            }
+            
+            .pricing-card.featured {
+                flex: 0 1 350px;
+            }
+        }
+
+        @media (max-width: 1400px) {
+            .pricing-grid {
+                gap: 1.5rem;
+            }
+            
+            .pricing-card {
+                flex: 0 1 320px;
+                max-width: 360px;
+                min-width: 300px;
+            }
+            
+            .pricing-card.featured {
+                flex: 0 1 330px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .pricing-grid {
+                gap: 2rem;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .pricing-card {
+                flex: 1 1 calc(50% - 1rem);  /* Two columns */
+                max-width: 400px;
+                min-width: 280px;
+            }
+            
+            .pricing-card.featured {
+                flex: 1 1 calc(50% - 1rem);
+                /* Remove scale completely on this breakpoint */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+                max-width: 450px;
+                gap: 2rem;
+            }
+            
+            .pricing-card {
+                flex: 1 1 auto;
+                width: 100%;
+                max-width: 100%;
+                min-width: auto;
+            }
+            
+            .pricing-card.featured {
+                order: -1;  /* Move to top */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .pricing-card {
+                padding: 1.5rem;
+            }
+            
+            .pricing-price {
+                font-size: 2rem;
+            }
+            
+            .pricing-features li {
+                padding: 0.7rem 0;
+                font-size: 0.9rem;
+            }
+            
+            .pricing-badge {
+                font-size: 0.85rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        @keyframes popularPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        /* ========================================
+           SUCCESS STORY - RESPONSIVE FIX
+           ======================================== */
+        @media (max-width: 1100px) {
+            #success-stories .services-grid[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #success-stories .service-card {
+                padding: 1.5rem !important;
+            }
+            
+            #success-stories .service-card[style*="display: flex"] {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+            
+            #success-stories .service-card img[style*="140px"],
+            #success-stories .service-card img[alt="ST"] {
+                width: 120px !important;
+                height: 120px !important;
+                margin: 0 auto 1.5rem !important;
+                display: block !important;
+            }
+            
+            #success-stories .service-card div[style*="flex: 1"] {
+                text-align: center !important;
+                width: 100%;
+            }
+            
+            #success-stories .service-card div[style*="flex: 1"] p {
+                text-align: center !important;
+            }
+            
+            #success-stories .service-card div[style*="flex: 1"] > div {
+                text-align: center !important;
+            }
+            
+            #success-stories .service-card strong {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #success-stories .service-card img {
+                width: 100px !important;
+                height: 100px !important;
+            }
+            
+            #success-stories .service-card p[style*="font-size: 1.1rem"] {
+                font-size: 1rem !important;
+            }
+            
+            #success-stories .service-card strong[style*="font-size: 1.3rem"] {
+                font-size: 1.1rem !important;
+            }
+        }
+
+        /* ========================================
+           PRICE CALCULATOR - MOBILE IMPROVEMENTS
+           ======================================== */
+        @media (max-width: 768px) {
+            #price-calculator .form-group label {
+                font-size: 1.05rem !important;
+            }
+            
+            #wordCountSlider {
+                height: 12px !important;
+            }
+            
+            #wordCountSlider::-webkit-slider-thumb {
+                width: 32px;
+                height: 32px;
+            }
+            
+            #wordCountSlider::-moz-range-thumb {
+                width: 32px;
+                height: 32px;
+            }
+            
+            #serviceTypeSelector,
+            #deliverySpeedSelector {
+                font-size: 1rem !important;
+                padding: 1.2rem 1rem !important;
+            }
+            
+            #calculatedPrice {
+                font-size: 3.5rem !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #price-calculator .form-group label {
+                font-size: 1rem !important;
+            }
+            
+            #calculatedPrice {
+                font-size: 3rem !important;
+            }
         }
 
         /* Contact Section */
@@ -762,7 +1387,7 @@
             font-size: 0.9rem;
         }
 
-        /* Blog Management */
+        /* Blog Admin */
         .blog-admin {
             display: none;
             padding: 80px 0;
@@ -954,7 +1579,6 @@
             align-items: center;
         }
 
-        /* FIX #6: Footer Button Alignment */
         .footer-links a, .footer-links button {
             color: white;
             text-decoration: none;
@@ -991,7 +1615,6 @@
         }
 
         /* WhatsApp Floating Button */
-        /* WhatsApp Pulse Animation */
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
@@ -1020,13 +1643,13 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            animation: pulse 2s infinite; /* ✨ NEW: Continuous pulse */
+            animation: pulse 2s infinite;
         }
 
         .whatsapp-float:hover {
             transform: scale(1.1);
             box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.5);
-            animation: none; /* Pause pulse on hover */
+            animation: none;
         }
 
         .whatsapp-float i {
@@ -1041,32 +1664,6 @@
             border-radius: 5px;
             margin: 1rem 0;
             display: none;
-        }
-
-        /* Before/After Success Story Responsive */
-        @media (max-width: 768px) {
-            .services-grid[style*="grid-template-columns: 1fr 1fr"] {
-                grid-template-columns: 1fr !important;
-            }
-        }
-
-        /* Navbar Responsive Fix */
-        @media (max-width: 1400px) {
-            .nav-menu {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .nav-menu {
-                gap: 0.8rem;
-                font-size: 0.85rem;
-            }
-            .cta-button {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
         }
 
         /* Activity Feed Styles */
@@ -1164,30 +1761,6 @@
             transform: translateY(0);
         }
 
-        /* Hero Section Mobile Responsive */
-        @media (max-width: 968px) {
-            .hero .container > div[style*="grid-template-columns: 1fr 1fr"] {
-                grid-template-columns: 1fr !important;
-            }
-            .hero h1 {
-                font-size: 2rem !important;
-                text-align: center !important;
-            }
-            .hero p {
-                font-size: 1rem !important;
-                text-align: center !important;
-            }
-            .hero-buttons {
-                justify-content: center !important;
-            }
-            .trust-badges-hero {
-                justify-content: center !important;
-            }
-            .live-stats {
-                grid-template-columns: 1fr !important;
-            }
-        }
-
         /* Mobile Responsive */
         .mobile-menu-toggle {
             display: none;
@@ -1201,22 +1774,6 @@
         @media (max-width: 768px) {
             .mobile-menu-toggle {
                 display: block;
-            }
-
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #0a5d8c;
-                flex-direction: column;
-                padding: 1rem;
-                gap: 1rem;
-            }
-
-            .nav-menu.active {
-                display: flex;
             }
 
             .hero h1 {
@@ -1236,7 +1793,6 @@
                 gap: 1rem;
             }
         }
-
 
         /* Enhanced Slider Styling for Price Calculator */
         #wordCountSlider::-webkit-slider-thumb {
@@ -1284,18 +1840,6 @@
         #whatsapp-reviews .service-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 35px rgba(37, 211, 102, 0.3);
-        }
-
-        /* Email Provider Modal Styling */
-        @keyframes slideDown {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
     </style>
 </head>
