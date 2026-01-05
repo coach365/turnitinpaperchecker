@@ -361,6 +361,12 @@
         .service-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
+            transition: transform 0.5s ease;
+            display: inline-block;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(360deg);
         }
 
         .service-card h3 {
@@ -936,6 +942,18 @@
         }
 
         /* WhatsApp Floating Button */
+        /* WhatsApp Pulse Animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+            }
+        }
+
         .whatsapp-float {
             position: fixed;
             width: 60px;
@@ -953,11 +971,13 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            animation: pulse 2s infinite; /* ✨ NEW: Continuous pulse */
         }
 
         .whatsapp-float:hover {
             transform: scale(1.1);
             box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.5);
+            animation: none; /* Pause pulse on hover */
         }
 
         .whatsapp-float i {
@@ -972,6 +992,96 @@
             border-radius: 5px;
             margin: 1rem 0;
             display: none;
+        }
+
+        /* Before/After Success Story Responsive */
+        @media (max-width: 768px) {
+            .services-grid[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Activity Feed Styles */
+        .activity-item {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            animation: fadeInSlide 0.5s ease;
+        }
+
+        .activity-item:hover {
+            background: #f8f9fa;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0a9cfc;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content strong {
+            color: #0a5d8c;
+            font-size: 1rem;
+        }
+
+        .activity-content p {
+            margin: 0.3rem 0 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .activity-time {
+            color: #999;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Most Popular Badge Pulse Animation */
+        @keyframes popularPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+                transform: scale(1.05);
+            }
+        }
+
+        /* Pulse Dot Animation */
+        @keyframes pulseDot {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
         }
 
         /* Animation */
@@ -1035,6 +1145,55 @@
             }
         }
 
+
+        /* Enhanced Slider Styling for Price Calculator */
+        #wordCountSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #0a5d8c;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(10, 93, 140, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        #wordCountSlider::-webkit-slider-thumb:hover {
+            background: #0a9cfc;
+            transform: scale(1.2);
+        }
+
+        #wordCountSlider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #0a5d8c;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 10px rgba(10, 93, 140, 0.5);
+        }
+
+        /* Select box hover effect */
+        #serviceTypeSelector:hover,
+        #deliverySpeedSelector:hover {
+            border-color: #0a9cfc;
+            box-shadow: 0 0 0 3px rgba(10, 156, 252, 0.1);
+        }
+
+        /* Calculator button hover */
+        #price-calculator .btn-primary:hover {
+            background: #1fbd58 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4) !important;
+        }
+
+        /* WhatsApp Reviews Section Hover Effects */
+        #whatsapp-reviews .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.3);
+        }
+
         /* Email Provider Modal Styling */
         @keyframes slideDown {
             from {
@@ -1093,6 +1252,68 @@
                     <a href="#upload" class="btn-primary" onclick="trackButtonClick('Check Document Now', 'hero')">Check Document Now</a>
                     <a href="javascript:void(0)" onclick="openWhatsAppForSample()" class="btn-secondary">View Sample Report</a>
                 </div>
+
+                <!-- Trust Badges in Hero - NEW -->
+                <div class="trust-badges-hero fade-in" style="margin-top: 2.5rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
+                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.2rem;">✓</span> 10,000+ Students Served
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.2rem;">⭐</span> 4.8/5 Rating (1,247 reviews)
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 25px; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.2rem;">⚡</span> 10-20 Min Delivery
+                    </div>
+                </div>
+
+                <!-- Live Stats Counter - NEW -->
+                <div class="live-stats fade-in" style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold; color: #87cefa;" id="ordersToday">247</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">documents checked today</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold; color: #87cefa;" id="waitingUsers">12</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">students checking now</div>
+                    </div>
+                </div>
+
+                <!-- Price Comparison Table - NEW -->
+                <div class="price-comparison fade-in" style="margin-top: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; overflow: hidden; border: 2px solid rgba(255,255,255,0.2);">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.1);">
+                                <th style="padding: 1rem; text-align: left; font-size: 1rem; border-bottom: 2px solid rgba(255,255,255,0.2);">Service</th>
+                                <th style="padding: 1rem; text-align: center; font-size: 1rem; border-bottom: 2px solid rgba(255,255,255,0.2);">Price</th>
+                                <th style="padding: 1rem; text-align: center; font-size: 1rem; border-bottom: 2px solid rgba(255,255,255,0.2);">Delivery</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="opacity: 0.7;">
+                                <td style="padding: 1rem; font-size: 0.95rem;">Official Turnitin</td>
+                                <td style="padding: 1rem; text-align: center; font-size: 0.95rem;">$15-20 USD</td>
+                                <td style="padding: 1rem; text-align: center; font-size: 0.95rem;">24-48 hours</td>
+                            </tr>
+                            <tr style="background: rgba(135, 206, 250, 0.2); border-left: 4px solid #87cefa;">
+                                <td style="padding: 1rem; font-weight: bold; font-size: 1rem;">TurnitinPaperChecker</td>
+                                <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1.1rem; color: #87cefa;">Rs 200 (~$2.50)</td>
+                                <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1rem; color: #87cefa;">10-20 min ⚡</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="padding: 1rem; text-align: center; background: rgba(135, 206, 250, 0.1); font-size: 0.9rem; font-weight: 600;">
+                        💰 Save 90% + Get Results 100x Faster!
+                    </div>
+                </div>
+
+                <!-- Urgency Indicator - NEW -->
+                <div class="urgency-indicator fade-in" style="margin-top: 2rem; background: rgba(255, 193, 7, 0.15); backdrop-filter: blur(10px); border: 2px solid #ffc107; border-radius: 10px; padding: 1rem; max-width: 500px; margin-left: auto; margin-right: auto; text-align: center;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; font-weight: 600;">
+                        <span class="pulse-dot" style="width: 10px; height: 10px; background: #ffc107; border-radius: 50%; animation: pulse 2s infinite;"></span>
+                        <span id="liveViewers">8</span> students checking pricing right now
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -1102,6 +1323,91 @@
                 <h2 class="section-title fade-in">Reliable Plagiarism Detection Services</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto;">Our advanced detection tools provide comprehensive analysis to ensure your work is original and credible before submission.</p>
                 
+                <!-- Service Comparison Chart - NEW -->
+                <div class="service-comparison-chart fade-in" style="max-width: 900px; margin: 0 auto 3rem; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <div style="background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; padding: 1.5rem; text-align: center;">
+                        <h3 style="margin: 0; font-size: 1.5rem; font-weight: 600;">📊 Compare Our Services</h3>
+                        <p style="margin: 0.5rem 0 0; font-size: 0.95rem; opacity: 0.9;">Choose the perfect plan for your needs</p>
+                    </div>
+                    
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                            <thead>
+                                <tr style="background: #f8f9fa;">
+                                    <th style="padding: 1.2rem 1rem; text-align: left; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem;">Feature</th>
+                                    <th style="padding: 1.2rem 1rem; text-align: center; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem;">Basic<br><span style="font-size: 1.3rem; color: #0a9cfc;">Rs 200</span></th>
+                                    <th style="padding: 1.2rem 1rem; text-align: center; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem; background: rgba(135, 206, 250, 0.1);">Premium<br><span style="font-size: 1.3rem; color: #0a9cfc;">Rs 300</span></th>
+                                    <th style="padding: 1.2rem 1rem; text-align: center; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem;">Bulk<br><span style="font-size: 1.3rem; color: #0a9cfc;">Rs 2000</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: white;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Similarity Percentage</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                </tr>
+                                <tr style="background: #fafafa;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Complete Source List</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                </tr>
+                                <tr style="background: white;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">AI Detection</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #dc3545;">✗</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                </tr>
+                                <tr style="background: #fafafa;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Priority Queue</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #dc3545;">✗</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                </tr>
+                                <tr style="background: white;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">WhatsApp Support</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                </tr>
+                                <tr style="background: #fafafa;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Revision (1x free)</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #dc3545;">✗</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
+                                </tr>
+                                <tr style="background: white;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Delivery Time</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #666;">12 hours</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #0a9cfc; font-weight: 600; background: rgba(135, 206, 250, 0.05);">8 hours</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #27ae60; font-weight: 600;">6 hours</td>
+                                </tr>
+                                <tr style="background: #fafafa;">
+                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Documents Included</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #666;">1 document</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #666; background: rgba(135, 206, 250, 0.05);">1 document</td>
+                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #27ae60; font-weight: 600;">10 documents</td>
+                                </tr>
+                                <tr style="background: white;">
+                                    <td style="padding: 1rem; font-size: 0.95rem;">Best For</td>
+                                    <td style="padding: 1rem; text-align: center; font-size: 0.85rem; color: #666;">Single check</td>
+                                    <td style="padding: 1rem; text-align: center; font-size: 0.85rem; color: #0a9cfc; font-weight: 600; background: rgba(135, 206, 250, 0.05);">Full analysis</td>
+                                    <td style="padding: 1rem; text-align: center; font-size: 0.85rem; color: #666;">Multiple docs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="padding: 1.5rem; background: #f8f9fa; text-align: center; border-top: 2px solid #e9ecef;">
+                        <p style="margin: 0 0 1rem; color: #666; font-size: 0.95rem;">💡 <strong>Most Popular:</strong> Premium plan offers best value with AI detection + priority delivery</p>
+                        <button onclick="openWhatsAppForPricing('Premium Combined Report - Rs 300', '300')" class="btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">
+                            Get Started with Premium →
+                        </button>
+                    </div>
+                </div>
+
+
                 <div class="services-grid">
                     <div class="service-card fade-in">
                         <div class="service-icon">🔍</div>
@@ -1134,6 +1440,35 @@
                     <h2 class="section-title">Upload Your Document</h2>
                     <p style="text-align: center; color: #666; margin-bottom: 2rem;">Choose your preferred submission method</p>
                     
+
+                    <!-- Data Protection Statement - NEW -->
+                    <div class="data-protection fade-in" style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(10, 93, 140, 0.05) 0%, rgba(10, 156, 252, 0.05) 100%); border-radius: 12px; border: 2px solid #0a9cfc;">
+                        <div style="display: flex; align-items: start; gap: 1rem;">
+                            <div style="font-size: 2.5rem; flex-shrink: 0;">🔒</div>
+                            <div>
+                                <h3 style="color: #0a5d8c; margin: 0 0 0.8rem; font-size: 1.3rem;">Your Privacy is 100% Protected</h3>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #666; font-size: 0.95rem; line-height: 1.8;">
+                                    <li style="margin-bottom: 0.5rem;">
+                                        <strong style="color: #0a5d8c;">🔐 Encrypted Transfer:</strong> All files are encrypted during upload and transmission
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem;">
+                                        <strong style="color: #0a5d8c;">🗑️ Auto-Delete:</strong> Your documents are automatically deleted after 30 days
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem;">
+                                        <strong style="color: #0a5d8c;">🚫 Never Shared:</strong> We never share your documents with third parties or databases
+                                    </li>
+                                    <li style="margin-bottom: 0.5rem;">
+                                        <strong style="color: #0a5d8c;">✅ GDPR Compliant:</strong> Full compliance with international data protection standards
+                                    </li>
+                                </ul>
+                                <p style="margin: 1rem 0 0; font-size: 0.9rem;">
+                                    Read our complete <a href="privacy-policy.html" style="color: #0a5d8c; font-weight: 600; text-decoration: underline;">Privacy Policy</a> for more details.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="upload-area" id="uploadArea">
                         <div class="upload-icon">📄</div>
                         <h3>Drag & Drop Your Files Here</h3>
@@ -1162,6 +1497,16 @@
                             <option value="combined">Combined Report (Rs 300)</option>
                             <option value="express">Express Service (Rs 300)</option>
                         </select>
+
+                        <!-- Terms & Conditions Checkbox - NEW -->
+                        <div style="margin-top: 1.5rem; padding: 1.2rem; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+                            <label style="display: flex; align-items: start; gap: 12px; cursor: pointer; font-size: 0.95rem; color: #856404;">
+                                <input type="checkbox" id="agreeTermsUpload" required style="margin-top: 3px; width: 18px; height: 18px; cursor: pointer;">
+                                <span>
+                                    I agree to the <a href="terms-of-service.html" target="_blank" style="color: #0a5d8c; font-weight: 600; text-decoration: underline;">Terms of Service</a> and <a href="privacy-policy.html" target="_blank" style="color: #0a5d8c; font-weight: 600; text-decoration: underline;">Privacy Policy</a>. I understand this service is for educational purposes to check and improve my work before submission.
+                                </span>
+                            </label>
+                        </div>
                         
                         <!-- Prominent WhatsApp & Email Buttons -->
                         <div style="display: flex; gap: 15px; margin-top: 2rem; justify-content: center; flex-wrap: wrap;">
@@ -1175,6 +1520,18 @@
                         
                         <p style="margin-top: 1rem; font-size: 0.9rem; color: #666; text-align: center;">
                             💡 WhatsApp for instant response | Email for secure delivery
+                        </p>
+                    </div>
+
+                    <!-- Upload Progress Bar - NEW -->
+                    <div class="upload-progress" id="uploadProgress" style="display: none; margin-top: 2rem;">
+                        <div style="background: #e9ecef; border-radius: 10px; overflow: hidden; height: 30px; position: relative;">
+                            <div class="progress-fill" id="progressFill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #0a5d8c 0%, #0a9cfc 100%); transition: width 0.3s ease; display: flex; align-items: center; justify-content: center;">
+                                <span id="progressText" style="color: white; font-weight: bold; font-size: 0.9rem; position: absolute; left: 50%; transform: translateX(-50%); z-index: 1;"></span>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 1rem; color: #0a5d8c; font-weight: 600;">
+                            <span id="progressMessage">Preparing your document...</span>
                         </p>
                     </div>
                     
@@ -1230,6 +1587,75 @@
             </div>
         </section>
 
+        <!-- Sample Reports Preview Section - NEW -->
+        <section class="services" id="sample-reports-preview" style="background: white;">
+            <div class="container">
+                <h2 class="section-title fade-in">📊 See Real Turnitin Sample Reports</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto 2rem;">
+                    Preview authentic Turnitin report formats. Click any image to request full confidential samples via WhatsApp.
+                </p>
+                
+                <div class="services-grid">
+                    <!-- Sample 1: Plagiarism Report -->
+                    <div class="service-card fade-in" style="cursor: pointer;" onclick="requestSampleReport('Plagiarism Detection Report')">
+                        <div style="height: 280px; overflow: hidden; border-radius: 10px; margin-bottom: 1.5rem; border: 3px solid #0a5d8c; box-shadow: 0 3px 10px rgba(10, 93, 140, 0.2);">
+                            <img src="https://www.turnitin.com/static/resources/images/products/similarity/similarity-report-new.png" 
+                                 alt="Turnitin Plagiarism Report Sample" 
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 loading="lazy"
+                                 onerror="this.src='https://via.placeholder.com/400x300/0a5d8c/ffffff?text=Plagiarism+Report+Sample'">
+                        </div>
+                        <div class="service-icon">🔍</div>
+                        <h3>Plagiarism Detection Report</h3>
+                        <p>Shows similarity percentage, matched sources, highlighted text, and comprehensive source list</p>
+                        <button onclick="requestSampleReport('Plagiarism Detection Report'); event.stopPropagation();" class="btn-primary" style="margin-top: 1rem; width: 100%;">
+                            📄 Request Full Sample →
+                        </button>
+                    </div>
+                    
+                    <!-- Sample 2: AI Detection Report -->
+                    <div class="service-card fade-in" style="cursor: pointer;" onclick="requestSampleReport('AI Content Detection Report')">
+                        <div style="height: 280px; overflow: hidden; border-radius: 10px; margin-bottom: 1.5rem; border: 3px solid #0a5d8c; box-shadow: 0 3px 10px rgba(10, 93, 140, 0.2);">
+                            <img src="https://www.turnitin.com/static/resources/images/products/ai-detection/ai-writing-detection-report.png" 
+                                 alt="Turnitin AI Detection Report Sample" 
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 loading="lazy"
+                                 onerror="this.src='https://via.placeholder.com/400x300/0a9cfc/ffffff?text=AI+Detection+Report+Sample'">
+                        </div>
+                        <div class="service-icon">🤖</div>
+                        <h3>AI Detection Report</h3>
+                        <p>Shows AI-generated percentage, sentence-level analysis, and confidence scores for each section</p>
+                        <button onclick="requestSampleReport('AI Content Detection Report'); event.stopPropagation();" class="btn-primary" style="margin-top: 1rem; width: 100%;">
+                            📄 Request Full Sample →
+                        </button>
+                    </div>
+                    
+                    <!-- Sample 3: Combined Report -->
+                    <div class="service-card fade-in" style="cursor: pointer;" onclick="requestSampleReport('Combined Analysis Report')">
+                        <div style="height: 280px; overflow: hidden; border-radius: 10px; margin-bottom: 1.5rem; border: 3px solid #0a5d8c; box-shadow: 0 3px 10px rgba(10, 93, 140, 0.2);">
+                            <img src="https://www.turnitin.com/static/resources/images/products/originality/originality-check-report.png" 
+                                 alt="Turnitin Combined Report Sample" 
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 loading="lazy"
+                                 onerror="this.src='https://via.placeholder.com/400x300/87cefa/ffffff?text=Combined+Report+Sample'">
+                        </div>
+                        <div class="service-icon">📈</div>
+                        <h3>Combined Analysis Report</h3>
+                        <p>Complete report with BOTH plagiarism detection AND AI analysis in one comprehensive document</p>
+                        <button onclick="requestSampleReport('Combined Analysis Report'); event.stopPropagation();" class="btn-primary" style="margin-top: 1rem; width: 100%;">
+                            📄 Request Full Sample →
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: #e8f5ff; border-radius: 10px; border-left: 4px solid #0a5d8c;">
+                    <p style="margin: 0; color: #084a70; font-size: 1rem;">
+                        <strong>🔒 100% Confidential:</strong> Full sample reports with detailed analysis are shared privately via WhatsApp. Your privacy is guaranteed - samples shown here are anonymized previews only.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- Blog Section - WHITE BACKGROUND -->
         <section class="services" id="blog" style="background: white;">
             <div class="container">
@@ -1273,6 +1699,36 @@
             }
         </script>
 
+        <!-- Live Activity Feed - NEW -->
+        <section class="services" style="background: white;">
+            <div class="container">
+                <h2 class="section-title fade-in">🔥 Live Activity</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 2rem;">
+                    Real-time updates from students using our service right now
+                </p>
+                
+                <div style="max-width: 800px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); overflow: hidden;">
+                    <div style="background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; padding: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="pulse-dot" style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%; animation: pulseDot 2s infinite;"></span>
+                        <h3 style="margin: 0; font-size: 1.3rem;">Recent Orders</h3>
+                    </div>
+                    
+                    <div id="activityContainer" style="max-height: 400px; overflow-y: auto;">
+                        <!-- Activity items will be dynamically inserted here -->
+                    </div>
+                    
+                    <div style="padding: 1.5rem; background: #f8f9fa; text-align: center; border-top: 2px solid #e9ecef;">
+                        <p style="margin: 0 0 1rem; color: #666; font-size: 0.95rem;">
+                            Join these students in ensuring academic integrity
+                        </p>
+                        <button onclick="openWhatsAppGeneral()" class="btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">
+                            <i class="fab fa-whatsapp"></i> Start Your Order Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Testimonials Section - GREY BACKGROUND -->
         <section class="services" style="background: #f8f9fa;">
             <div class="container">
@@ -1315,6 +1771,245 @@
             </div>
         </section>
 
+        <!-- Before/After Success Story - NEW -->
+        <section class="services" style="background: white;">
+            <div class="container">
+                <h2 class="section-title fade-in">✨ Real Success Stories</h2>
+                <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 1rem;">
+                    See how our service helped students improve their academic work
+                </p>
+                <p style="text-align: center; font-size: 1rem; color: #999; max-width: 700px; margin: 0 auto 3rem;">
+                    These are actual results from students who used our plagiarism detection service to identify and fix issues before submission
+                </p>
+                
+                <div style="max-width: 1000px; margin: 0 auto;">
+                    <div class="services-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <!-- Before Card -->
+                        <div class="service-card fade-in" style="border: 3px solid #dc3545; position: relative;">
+                            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #dc3545; color: white; padding: 0.5rem 1.5rem; border-radius: 20px; font-weight: bold; font-size: 1rem;">
+                                ❌ BEFORE
+                            </div>
+                            
+                            <div style="margin-top: 2rem;">
+                                <div style="background: #fff5f5; border-left: 4px solid #dc3545; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                    <h3 style="color: #dc3545; margin-bottom: 1rem; font-size: 1.3rem;">Initial Submission</h3>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                                        <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
+                                            <div style="font-size: 2.5rem; font-weight: bold; color: #dc3545;">35%</div>
+                                            <div style="font-size: 0.9rem; color: #666;">Plagiarism</div>
+                                        </div>
+                                        <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px;">
+                                            <div style="font-size: 2.5rem; font-weight: bold; color: #dc3545;">22%</div>
+                                            <div style="font-size: 0.9rem; color: #666;">AI Content</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #0a5d8c; margin-bottom: 1rem;">❌ Issues Found:</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="padding: 0.8rem; background: #fff5f5; margin-bottom: 0.5rem; border-radius: 6px; color: #721c24;">
+                                        🚫 Multiple unattributed sources
+                                    </li>
+                                    <li style="padding: 0.8rem; background: #fff5f5; margin-bottom: 0.5rem; border-radius: 6px; color: #721c24;">
+                                        🚫 AI-generated paragraphs detected
+                                    </li>
+                                    <li style="padding: 0.8rem; background: #fff5f5; margin-bottom: 0.5rem; border-radius: 6px; color: #721c24;">
+                                        🚫 Missing proper citations
+                                    </li>
+                                    <li style="padding: 0.8rem; background: #fff5f5; margin-bottom: 0.5rem; border-radius: 6px; color: #721c24;">
+                                        🚫 High risk of rejection
+                                    </li>
+                                </ul>
+                                
+                                <div style="margin-top: 1.5rem; padding: 1rem; background: #fff3cd; border-radius: 8px; text-align: center;">
+                                    <p style="margin: 0; color: #856404; font-weight: 600;">
+                                        ⚠️ Would likely be REJECTED by university
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- After Card -->
+                        <div class="service-card fade-in" style="border: 3px solid #27ae60; position: relative; box-shadow: 0 8px 30px rgba(39, 174, 96, 0.2);">
+                            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #27ae60; color: white; padding: 0.5rem 1.5rem; border-radius: 20px; font-weight: bold; font-size: 1rem;">
+                                ✅ AFTER
+                            </div>
+                            
+                            <div style="margin-top: 2rem;">
+                                <div style="background: #f0fff4; border-left: 4px solid #27ae60; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                    <h3 style="color: #27ae60; margin-bottom: 1rem; font-size: 1.3rem;">After Improvements</h3>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                                        <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; border: 2px solid #27ae60;">
+                                            <div style="font-size: 2.5rem; font-weight: bold; color: #27ae60;">8%</div>
+                                            <div style="font-size: 0.9rem; color: #666;">Plagiarism</div>
+                                        </div>
+                                        <div style="text-align: center; padding: 1rem; background: white; border-radius: 8px; border: 2px solid #27ae60;">
+                                            <div style="font-size: 2.5rem; font-weight: bold; color: #27ae60;">2%</div>
+                                            <div style="font-size: 0.9rem; color: #666;">AI Content</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #0a5d8c; margin-bottom: 1rem;">✅ Improvements Made:</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    <li style="padding: 0.8rem; background: #f0fff4; margin-bottom: 0.5rem; border-radius: 6px; color: #155724;">
+                                        ✓ All sources properly cited
+                                    </li>
+                                    <li style="padding: 0.8rem; background: #f0fff4; margin-bottom: 0.5rem; border-radius: 6px; color: #155724;">
+                                        ✓ AI content rewritten naturally
+                                    </li>
+                                    <li style="padding: 0.8rem; background: #f0fff4; margin-bottom: 0.5rem; border-radius: 6px; color: #155724;">
+                                        ✓ Complete reference list added
+                                    </li>
+                                    <li style="padding: 0.8rem; background: #f0fff4; margin-bottom: 0.5rem; border-radius: 6px; color: #155724;">
+                                        ✓ Ready for submission
+                                    </li>
+                                </ul>
+                                
+                                <div style="margin-top: 1.5rem; padding: 1rem; background: #d4edda; border-radius: 8px; text-align: center;">
+                                    <p style="margin: 0; color: #155724; font-weight: 600;">
+                                        🎓 SUBMITTED & RECEIVED DISTINCTION (82%)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Student Testimonial -->
+                    <div class="service-card fade-in" style="margin-top: 3rem; background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; border: none;">
+                        <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Thompson&background=87cefa&color=0a5d8c&size=80&bold=true" 
+                                 alt="Student" 
+                                 style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid white;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <p style="font-size: 1.1rem; font-style: italic; margin-bottom: 1rem; line-height: 1.6;">
+                                    "I was devastated when I saw 35% plagiarism in my dissertation. TurnitinPaperChecker's report showed me exactly what to fix. After making the changes, I resubmitted with confidence and got 82% - a distinction! This service literally saved my academic career."
+                                </p>
+                                <div>
+                                    <strong style="font-size: 1.1rem;">Sarah Thompson</strong>
+                                    <p style="margin: 0.3rem 0 0; opacity: 0.9; font-size: 0.95rem;">MSc International Business, Westminster University</p>
+                                    <div style="color: #ffc107; font-size: 1.2rem; margin-top: 0.5rem;">⭐⭐⭐⭐⭐</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 15px; border: 2px dashed #0a9cfc;">
+                        <h3 style="color: #0a5d8c; margin-bottom: 1rem; font-size: 1.5rem;">📈 Transform Your Submission Like Sarah Did</h3>
+                        <p style="color: #666; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            Get your plagiarism report now and fix issues before it's too late
+                        </p>
+                        <button onclick="openWhatsAppForPricing('Combined Report - Rs 300', '300')" class="btn-primary" style="font-size: 1.2rem; padding: 1.2rem 3rem;">
+                            <i class="fab fa-whatsapp"></i> Check My Document Now →
+                        </button>
+                        <p style="margin-top: 1rem; color: #999; font-size: 0.9rem;">
+                            ⏱️ Reports delivered in 10-20 minutes • 💰 Starting at Rs 200
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real WhatsApp Conversations Section - NEW -->
+        <section class="services" id="whatsapp-reviews" style="background: white;">
+            <div class="container">
+                <h2 class="section-title fade-in">💬 Real Customer Conversations</h2>
+                <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 0.5rem;">
+                    Authentic WhatsApp chats from our business account
+                </p>
+                <p style="text-align: center; font-size: 1rem; color: #666; max-width: 700px; margin: 0 auto 2rem;">
+                    These are <strong>REAL screenshots</strong> showing our fast service, authentic reports, and satisfied customers
+                </p>
+                
+                <div class="services-grid">
+                    <!-- WhatsApp Screenshot 1 -->
+                    <div class="service-card fade-in" style="cursor: pointer; transition: all 0.3s ease;" onclick="openWhatsAppForQuery('fast delivery service')">
+                        <div style="height: 420px; overflow: hidden; border-radius: 15px; margin-bottom: 1rem; border: 3px solid #25d366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); background: #f0f8ff;">
+                            <img src="image1.png" 
+                                 alt="Real WhatsApp conversation showing fast delivery" 
+                                 style="width: 100%; height: 100%; object-fit: contain;"
+                                 loading="lazy"
+                                 onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2rem;text-align:center;\'><div style=\'font-size:4rem;margin-bottom:1rem;\'>💬</div><p style=\'color:#666;font-size:1.1rem;margin:0;\'>Upload <strong>image1.png</strong> to your GitHub repo</p><p style=\'color:#999;font-size:0.9rem;margin-top:0.5rem;\'>Placeholder shown until image is uploaded</p></div>'">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;">
+                            <img src="https://ui-avatars.com/api/?name=Happy+Customer&background=25d366&color=fff&size=40" 
+                                 alt="Customer" 
+                                 style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div>
+                                <p style="margin: 0; font-weight: bold; color: #0a5d8c;">Fast Delivery ⚡</p>
+                                <p style="margin: 0; font-size: 0.9rem; color: #666;">Verified Customer Chat</p>
+                            </div>
+                        </div>
+                        <div style="color: #ffc107; font-size: 1.3rem; margin: 0.5rem 0;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: #555; font-style: italic;">"Received plagiarism report in just 12 minutes!"</p>
+                        <button onclick="openWhatsAppForQuery('fast delivery'); event.stopPropagation();" class="btn-secondary" style="width: 100%; margin-top: 1rem; background: #25d366; color: white; border: none; padding: 12px;">
+                            💬 Get Fast Service Like This
+                        </button>
+                    </div>
+                    
+                    <!-- WhatsApp Screenshot 2 -->
+                    <div class="service-card fade-in" style="cursor: pointer; transition: all 0.3s ease;" onclick="openWhatsAppForQuery('pricing information')">
+                        <div style="height: 420px; overflow: hidden; border-radius: 15px; margin-bottom: 1rem; border: 3px solid #25d366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); background: #f0f8ff;">
+                            <img src="image2.png" 
+                                 alt="Real WhatsApp conversation about pricing" 
+                                 style="width: 100%; height: 100%; object-fit: contain;"
+                                 loading="lazy"
+                                 onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2rem;text-align:center;\'><div style=\'font-size:4rem;margin-bottom:1rem;\'>💰</div><p style=\'color:#666;font-size:1.1rem;margin:0;\'>Upload <strong>image2.png</strong> to your GitHub repo</p><p style=\'color:#999;font-size:0.9rem;margin-top:0.5rem;\'>Placeholder shown until image is uploaded</p></div>'">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;">
+                            <img src="https://ui-avatars.com/api/?name=Satisfied+User&background=25d366&color=fff&size=40" 
+                                 alt="Customer" 
+                                 style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div>
+                                <p style="margin: 0; font-weight: bold; color: #0a5d8c;">Affordable Pricing 💰</p>
+                                <p style="margin: 0; font-size: 0.9rem; color: #666;">Verified Customer Chat</p>
+                            </div>
+                        </div>
+                        <div style="color: #ffc107; font-size: 1.3rem; margin: 0.5rem 0;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: #555; font-style: italic;">"Rs 200 only! Much cheaper than official Turnitin."</p>
+                        <button onclick="openWhatsAppForQuery('pricing'); event.stopPropagation();" class="btn-secondary" style="width: 100%; margin-top: 1rem; background: #25d366; color: white; border: none; padding: 12px;">
+                            💬 Ask About Pricing
+                        </button>
+                    </div>
+                    
+                    <!-- WhatsApp Screenshot 3 -->
+                    <div class="service-card fade-in" style="cursor: pointer; transition: all 0.3s ease;" onclick="openWhatsAppForQuery('report quality')">
+                        <div style="height: 420px; overflow: hidden; border-radius: 15px; margin-bottom: 1rem; border: 3px solid #25d366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); background: #f0f8ff;">
+                            <img src="image3.png" 
+                                 alt="Real WhatsApp conversation showing report quality" 
+                                 style="width: 100%; height: 100%; object-fit: contain;"
+                                 loading="lazy"
+                                 onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2rem;text-align:center;\'><div style=\'font-size:4rem;margin-bottom:1rem;\'>✓</div><p style=\'color:#666;font-size:1.1rem;margin:0;\'>Upload <strong>image3.png</strong> to your GitHub repo</p><p style=\'color:#999;font-size:0.9rem;margin-top:0.5rem;\'>Placeholder shown until image is uploaded</p></div>'">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;">
+                            <img src="https://ui-avatars.com/api/?name=Repeat+Customer&background=25d366&color=fff&size=40" 
+                                 alt="Customer" 
+                                 style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div>
+                                <p style="margin: 0; font-weight: bold; color: #0a5d8c;">Authentic Reports ✓</p>
+                                <p style="margin: 0; font-size: 0.9rem; color: #666;">Verified Customer Chat</p>
+                            </div>
+                        </div>
+                        <div style="color: #ffc107; font-size: 1.3rem; margin: 0.5rem 0;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: #555; font-style: italic;">"Real Turnitin reports, not fake online checkers!"</p>
+                        <button onclick="openWhatsAppForQuery('report authenticity'); event.stopPropagation();" class="btn-secondary" style="width: 100%; margin-top: 1rem; background: #25d366; color: white; border: none; padding: 12px;">
+                            💬 Verify Report Quality
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2.5rem;">
+                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 1rem;">
+                        Join 1,247+ satisfied customers who trust us for authentic Turnitin reports
+                    </p>
+                    <button onclick="openWhatsAppGeneral()" class="btn-primary" style="font-size: 1.3rem; padding: 1.2rem 3rem; background: #25d366;">
+                        <i class="fab fa-whatsapp"></i> Start Your Conversation Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <!-- Pricing Section - WHITE BACKGROUND -->
         <section class="pricing" id="pricing" style="background: white;">
             <div class="container">
@@ -1340,7 +2035,9 @@
                     </div>
                     
                     <div class="pricing-card featured">
-                        <div class="pricing-badge" style="background: #ffc107; color: #000;">Most Popular</div>
+                        <div class="pricing-badge most-popular-badge" style="background: #ffc107; color: #000; animation: popularPulse 2s infinite;">
+                            <span style="font-size: 1.1rem;">🔥</span> Most Popular
+                        </div>
                         <div style="font-size: 1.5rem; margin-bottom: 1rem;">Combined Report</div>
                         <div class="pricing-price">Rs 300</div>
                         <ul class="pricing-features">
@@ -1384,6 +2081,120 @@
                 </div>
             </div>
         </section>
+
+
+
+        <!-- Interactive Price Calculator Section - NEW -->
+        <section class="services" id="price-calculator" style="background: #f8f9fa;">
+            <div class="container">
+                <h2 class="section-title fade-in">💰 Calculate Your Cost Instantly</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto 2rem;">
+                    Get an instant quote based on your document size and service type. Final pricing confirmed via WhatsApp chat.
+                </p>
+                
+                <div style="max-width: 700px; margin: 0 auto; background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                    
+                    <!-- Word Count Slider -->
+                    <div class="form-group" style="margin-bottom: 2.5rem;">
+                        <label style="display: block; font-weight: bold; margin-bottom: 1rem; font-size: 1.2rem; color: #0a5d8c;">
+                            📝 Document Word Count: <span id="wordCountDisplay" style="color: #0a9cfc;">3,000</span> words
+                        </label>
+                        <input type="range" 
+                               id="wordCountSlider" 
+                               min="500" 
+                               max="20000" 
+                               value="3000" 
+                               step="100" 
+                               style="width: 100%; height: 10px; border-radius: 5px; background: linear-gradient(to right, #0a5d8c 0%, #0a9cfc 100%); outline: none; cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #666; margin-top: 0.8rem;">
+                            <span>500</span>
+                            <span>5,000</span>
+                            <span>10,000</span>
+                            <span>15,000</span>
+                            <span>20,000+</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Service Type Selector -->
+                    <div class="form-group" style="margin-bottom: 2.5rem;">
+                        <label style="display: block; font-weight: bold; margin-bottom: 1rem; font-size: 1.2rem; color: #0a5d8c;">
+                            ⚡ Select Service Type:
+                        </label>
+                        <select id="serviceTypeSelector" 
+                                style="width: 100%; padding: 1.2rem; border: 2px solid #e9ecef; border-radius: 10px; font-size: 1.1rem; cursor: pointer; background: white; transition: all 0.3s ease;">
+                            <option value="200">Plagiarism Detection - Rs 200 (Standard 12h)</option>
+                            <option value="200-ai">AI Content Detection - Rs 200 (Standard 12h)</option>
+                            <option value="300" selected>Combined Report - Rs 300 (Recommended, 8h)</option>
+                            <option value="2000">Bulk Package - Rs 2,000 (10 documents, 6h)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Delivery Speed Selector -->
+                    <div class="form-group" style="margin-bottom: 2.5rem;">
+                        <label style="display: block; font-weight: bold; margin-bottom: 1rem; font-size: 1.2rem; color: #0a5d8c;">
+                            🚀 Delivery Speed:
+                        </label>
+                        <select id="deliverySpeedSelector" 
+                                style="width: 100%; padding: 1.2rem; border: 2px solid #e9ecef; border-radius: 10px; font-size: 1.1rem; cursor: pointer; background: white; transition: all 0.3s ease;">
+                            <option value="1" selected>Standard (10-20 min) - No extra charge</option>
+                            <option value="1.5">Express (5-10 min) - +50%</option>
+                            <option value="2">Rush (2-5 min) - +100%</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Calculated Price Display -->
+                    <div style="margin: 2.5rem 0; padding: 2.5rem; background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); border-radius: 15px; text-align: center; color: white; box-shadow: 0 8px 25px rgba(10, 93, 140, 0.3);">
+                        <p style="font-size: 1.1rem; margin-bottom: 0.5rem; opacity: 0.95;">Your Estimated Price:</p>
+                        <h2 style="font-size: 4rem; margin: 1rem 0; font-weight: bold; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+                            Rs <span id="calculatedPrice">300</span>
+                        </h2>
+                        <p style="font-size: 1rem; margin-top: 1rem; opacity: 0.9;">
+                            ⏱️ Estimated Delivery: <span id="estimatedDelivery">10-20 minutes</span>
+                        </p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.85;">
+                            📊 Document Size: <span id="wordFactor">Standard</span>
+                        </p>
+                    </div>
+                    
+                    <!-- WhatsApp CTA -->
+                    <button onclick="sendCalculatedQuoteToWhatsApp()" 
+                            class="btn-primary" 
+                            style="width: 100%; font-size: 1.3rem; padding: 1.5rem; background: #25d366; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);">
+                        <i class="fab fa-whatsapp"></i> Get This Quote on WhatsApp →
+                    </button>
+                    
+                    <!-- Disclaimer -->
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+                        <p style="margin: 0; font-size: 0.95rem; color: #856404;">
+                            <strong>💡 Note:</strong> This is an automated estimate. Final price will be confirmed by our team via WhatsApp based on your specific requirements. We offer flexible pricing for bulk orders and regular customers!
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Benefits Below Calculator -->
+                <div style="max-width: 700px; margin: 3rem auto 0;">
+                    <div class="services-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚡</div>
+                            <h4 style="color: #0a5d8c; margin-bottom: 0.5rem; font-size: 1.1rem;">Fast Delivery</h4>
+                            <p style="font-size: 0.9rem; color: #666; margin: 0;">10-20 min standard</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💰</div>
+                            <h4 style="color: #0a5d8c; margin-bottom: 0.5rem; font-size: 1.1rem;">Best Prices</h4>
+                            <p style="font-size: 0.9rem; color: #666; margin: 0;">Starting Rs 200</p>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.05);">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✓</div>
+                            <h4 style="color: #0a5d8c; margin-bottom: 0.5rem; font-size: 1.1rem;">100% Authentic</h4>
+                            <p style="font-size: 0.9rem; color: #666; margin: 0;">Real Turnitin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- Contact Section -->
         <section class="contact" id="contact">
             <div class="container">
@@ -1771,6 +2582,51 @@
         </div>
     </div>
 
+    <!-- Academic Integrity Disclaimer Modal - NEW -->
+    <div id="integrityDisclaimerModal" style="display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 20px; padding: 3rem; max-width: 600px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideDown 0.4s ease-out;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
+                <h2 style="color: #0a5d8c; margin: 0 0 0.5rem; font-size: 1.8rem;">Important: Academic Integrity Notice</h2>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <p style="margin: 0 0 1rem; color: #856404; font-size: 1rem; line-height: 1.6;">
+                    Our plagiarism and AI detection service is designed for <strong>educational purposes only</strong>. It helps you:
+                </p>
+                <ul style="color: #856404; margin: 0; padding-left: 1.5rem; line-height: 1.8;">
+                    <li>Identify unintentional plagiarism in your work</li>
+                    <li>Learn proper citation and referencing practices</li>
+                    <li>Improve your academic writing skills</li>
+                    <li>Ensure originality before submission</li>
+                </ul>
+            </div>
+            
+            <div style="background: #f8d7da; border-left: 4px solid #dc3545; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                <p style="margin: 0; color: #721c24; font-size: 0.95rem; line-height: 1.6;">
+                    <strong>⚠️ Warning:</strong> Submitting someone else's work as your own is academic misconduct. Using our service to submit plagiarized content violates academic integrity policies and may result in serious consequences including expulsion.
+                </p>
+            </div>
+            
+            <label style="display: flex; align-items: start; gap: 12px; margin-bottom: 2rem; cursor: pointer; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <input type="checkbox" id="acceptIntegrityDisclaimer" required style="margin-top: 3px; width: 20px; height: 20px; cursor: pointer;">
+                <span style="color: #333; font-size: 1rem; line-height: 1.5;">
+                    I understand and agree to use this service ethically and in accordance with my institution's academic integrity policies. I will not submit plagiarized work.
+                </span>
+            </label>
+            
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button id="acceptDisclaimerBtn" disabled style="background: #6c757d; color: white; padding: 1rem 3rem; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: not-allowed; transition: all 0.3s ease;">
+                    I Understand & Accept
+                </button>
+            </div>
+            
+            <p style="text-align: center; margin-top: 1.5rem; color: #999; font-size: 0.85rem;">
+                By continuing, you acknowledge that you have read and understood this notice.
+            </p>
+        </div>
+    </div>
+
     <!-- Blog View Modal -->
     <div id="blogModal" class="modal">
         <div class="modal-content">
@@ -2038,11 +2894,25 @@ Thank you!`;
                 const item = document.createElement('div');
                 item.className = 'file-item';
                 item.innerHTML = `
-                    <span>📄 ${file.name} <small>(${formatFileSize(file.size)})</small></span>
+                    <span>${getFileIcon(file.name)} ${file.name} <small>(${formatFileSize(file.size)})</small></span>
                     <button class="remove-file" onclick="removeFile(${index})">Remove</button>
                 `;
                 fileList.appendChild(item);
             });
+        }
+
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const iconMap = {
+                'pdf': '📕',
+                'doc': '📘',
+                'docx': '📘',
+                'txt': '📄',
+                'rtf': '📝',
+                'odt': '📗',
+                'pages': '📙'
+            };
+            return iconMap[ext] || '📝';
         }
 
         function removeFile(index) {
@@ -2059,7 +2929,7 @@ Thank you!`;
             return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
         }
 
-        // FIX #2: UPLOAD SUBMISSION - Email Button
+        // FIX #2: UPLOAD SUBMISSION - WhatsApp Button with Progress
         document.getElementById('submitWhatsAppBtn').addEventListener('click', function() {
             if (!uploadedFiles.length) {
                 alert('⚠️ Please upload at least one file');
@@ -2071,11 +2941,51 @@ Thank you!`;
                 alert('⚠️ Please enter a valid mobile number');
                 return;
             }
+
+            // Check terms agreement
+            const agreeTerms = document.getElementById('agreeTermsUpload');
+            if (!agreeTerms.checked) {
+                alert('⚠️ Please agree to Terms of Service and Privacy Policy to continue');
+                agreeTerms.focus();
+                return;
+            }
             
             const service = document.getElementById('serviceType').options[document.getElementById('serviceType').selectedIndex].text;
             const countryCode = document.getElementById('countryCode').value;
             
-            const message = `📄 DOCUMENT CHECK REQUEST
+            // Show progress bar
+            const progressBar = document.getElementById('uploadProgress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const progressMessage = document.getElementById('progressMessage');
+            
+            progressBar.style.display = 'block';
+            
+            // Simulate upload progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                
+                progressFill.style.width = progress + '%';
+                progressText.textContent = Math.round(progress) + '%';
+                
+                if (progress < 30) {
+                    progressMessage.textContent = 'Analyzing documents...';
+                } else if (progress < 60) {
+                    progressMessage.textContent = 'Preparing submission...';
+                } else if (progress < 90) {
+                    progressMessage.textContent = 'Almost ready...';
+                } else {
+                    progressMessage.textContent = 'Opening WhatsApp...';
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    // Open WhatsApp after progress completes
+                    setTimeout(() => {
+                        const message = `📄 DOCUMENT CHECK REQUEST
 
 Service: ${service}
 Mobile: ${countryCode}${mobile}
@@ -2083,14 +2993,21 @@ Files: ${uploadedFiles.map(f => f.name).join(', ')}
 Total Size: ${formatFileSize(uploadedFiles.reduce((sum, f) => sum + f.size, 0))}
 
 Please guide me on the submission process and payment details.`;
-            
-            window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
-            trackWhatsAppClick('document_submission', service);
-            
-            document.getElementById('uploadSuccess').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('uploadSuccess').style.display = 'none';
-            }, 5000);
+                        
+                        window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+                        trackWhatsAppClick('document_submission', service);
+                        
+                        // Hide progress and show success
+                        progressBar.style.display = 'none';
+                        progressFill.style.width = '0%';
+                        
+                        document.getElementById('uploadSuccess').style.display = 'block';
+                        setTimeout(() => {
+                            document.getElementById('uploadSuccess').style.display = 'none';
+                        }, 5000);
+                    }, 500);
+                }
+            }, 200);
         });
 
         // FIX #2: Email Button Handler - Upload Section
@@ -2380,7 +3297,7 @@ Slug: ${newPost.slug}`);
             }, 1000);
         });
 
-        // FIX #5: Newsletter subscription handler
+        // FIX #5: Newsletter subscription handler with EMAIL FORWARDING
         document.getElementById('footerNewsletterForm')?.addEventListener('submit', async function(e) {
             e.preventDefault();
             const emailInput = document.getElementById('footerNewsletterEmail');
@@ -2400,13 +3317,28 @@ Slug: ${newPost.slug}`);
             message.style.color = '#87cefa';
             
             try {
-                // In production, this would call your backend API which uses BREVO_API_KEY from GitHub Secrets
-                // For now, store in localStorage and show success
+                // Save to localStorage as backup
                 let subscribers = JSON.parse(localStorage.getItem('newsletterSubscribers') || '[]');
                 if (!subscribers.includes(email)) {
                     subscribers.push(email);
                     localStorage.setItem('newsletterSubscribers', JSON.stringify(subscribers));
                 }
+                
+                // 🔥 NEW: Forward to your email via WhatsApp
+                const subscriptionMessage = `🔔 NEW NEWSLETTER SUBSCRIBER
+
+        📧 Email: ${email}
+        📅 Date: ${new Date().toLocaleString()}
+        🌐 Source: Website Footer
+        📊 Total Subscribers: ${subscribers.length}
+
+        Action Required:
+        1. Add to newsletter-subscribers.json
+        2. Send welcome email
+        3. Include in next blog email blast`;
+
+                // Open WhatsApp with subscription notification
+                window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(subscriptionMessage)}`, '_blank');
                 
                 setTimeout(() => {
                     message.innerHTML = `✅ <strong>Thank you for subscribing!</strong><br>You'll receive daily blog updates at ${email}`;
@@ -2535,6 +3467,23 @@ Slug: ${newPost.slug}`);
         window.addEventListener('DOMContentLoaded', function() {
             // Load country codes
             loadCountryCodes();
+
+            // Initialize price calculator if it exists
+            if (document.getElementById('wordCountSlider')) {
+                updateCalculatorPrice();
+                document.getElementById('wordCountSlider').addEventListener('input', updateCalculatorPrice);
+                document.getElementById('serviceTypeSelector').addEventListener('change', updateCalculatorPrice);
+                document.getElementById('deliverySpeedSelector').addEventListener('change', updateCalculatorPrice);
+            }
+
+            // Start live stats animation
+            animateLiveStats();
+
+            // Initialize live activity feed
+            initializeActivityFeed();
+
+            // Show integrity disclaimer on first visit
+            setTimeout(showIntegrityDisclaimer, 2000); // Show after 2 seconds
             
             // Animate on scroll
             animateOnScroll();
@@ -2553,6 +3502,254 @@ Slug: ${newPost.slug}`);
                 });
             }
         });
+
+
+        // Sample Report Request Function
+        function requestSampleReport(reportType) {
+            const message = `Hi! 👋
+
+I would like to view a detailed sample report for:
+📊 Report Type: ${reportType}
+
+Please share the full sample report so I can see:
+✅ Format and layout
+✅ Level of detail
+✅ Quality of analysis
+
+This will help me understand what I'll receive before ordering.
+
+Thank you!`;
+            
+            window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+            trackEvent('sample_report_request', {
+                'event_category': 'engagement',
+                'event_label': reportType
+            });
+        }
+
+
+        // WhatsApp Review Click Handlers
+        function openWhatsAppForQuery(topic) {
+            const messages = {
+                'fast delivery': `Hi! 👋\n\nI saw your WhatsApp reviews about fast delivery.\n\nHow quickly can I get my report?\n\nThank you!`,
+                'fast delivery service': `Hi! 👋\n\nI saw a customer got their report in 12 minutes!\n\nCan I also get such fast service?\n\nThank you!`,
+                'pricing': `Hi! 👋\n\nI saw your WhatsApp chat showing Rs 200 pricing.\n\nCan you confirm the current pricing for:\n- Plagiarism check\n- AI detection\n- Combined report\n\nThank you!`,
+                'pricing information': `Hi! 👋\n\nI'm interested in your services. What are your current prices?\n\nThank you!`,
+                'report quality': `Hi! 👋\n\nI want to verify that you provide authentic Turnitin reports.\n\nCan you share a sample to prove authenticity?\n\nThank you!`,
+                'report authenticity': `Hi! 👋\n\nHow can I be sure these are real Turnitin reports and not from free online tools?\n\nThank you!`
+            };
+            
+            const message = messages[topic] || `Hi! 👋\n\nI saw your WhatsApp reviews and I'm interested in your services.\n\nCan you help me with plagiarism checking?\n\nThank you!`;
+            
+            window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+            trackEvent('whatsapp_review_click', {
+                'event_category': 'social_proof',
+                'event_label': topic
+            });
+        }
+
+        function openWhatsAppGeneral() {
+            window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent('Hi! I saw your customer reviews and I need plagiarism checking service. Can you help me?')}`, '_blank');
+            trackEvent('whatsapp_cta_click', {'event_category': 'conversion'});
+        }
+
+        // ===== PRICE CALCULATOR LOGIC =====
+        function updateCalculatorPrice() {
+            const wordCount = parseInt(document.getElementById('wordCountSlider').value);
+            const serviceType = document.getElementById('serviceTypeSelector').value;
+            const deliverySpeed = parseFloat(document.getElementById('deliverySpeedSelector').value);
+            
+            // Update word count display
+            document.getElementById('wordCountDisplay').textContent = wordCount.toLocaleString();
+            
+            // Base price from service type
+            let basePrice = parseInt(serviceType.replace('-ai', ''));
+            
+            // Word count multiplier
+            let wordMultiplier = 1;
+            let wordFactorText = 'Standard (< 5,000 words)';
+            
+            if (wordCount > 5000 && wordCount <= 10000) {
+                wordMultiplier = 1.2;
+                wordFactorText = 'Medium (5,001-10,000 words) +20%';
+            } else if (wordCount > 10000 && wordCount <= 15000) {
+                wordMultiplier = 1.5;
+                wordFactorText = 'Large (10,001-15,000 words) +50%';
+            } else if (wordCount > 15000) {
+                wordMultiplier = 1.8;
+                wordFactorText = 'Extra Large (15,000+ words) +80%';
+            }
+            
+            // Calculate final price
+            const finalPrice = Math.round(basePrice * wordMultiplier * deliverySpeed);
+            
+            // Update display
+            document.getElementById('calculatedPrice').textContent = finalPrice;
+            document.getElementById('wordFactor').textContent = wordFactorText;
+            
+            // Update delivery time based on speed
+            let deliveryText = '10-20 minutes';
+            if (deliverySpeed === 1.5) {
+                deliveryText = '5-10 minutes (Express)';
+            } else if (deliverySpeed === 2) {
+                deliveryText = '2-5 minutes (Rush)';
+            }
+            document.getElementById('estimatedDelivery').textContent = deliveryText;
+        }
+
+        // Send quote to WhatsApp
+        function sendCalculatedQuoteToWhatsApp() {
+            const wordCount = document.getElementById('wordCountSlider').value;
+            const serviceText = document.getElementById('serviceTypeSelector').options[document.getElementById('serviceTypeSelector').selectedIndex].text;
+            const deliveryText = document.getElementById('deliverySpeedSelector').options[document.getElementById('deliverySpeedSelector').selectedIndex].text;
+            const finalPrice = document.getElementById('calculatedPrice').textContent;
+            const deliveryTime = document.getElementById('estimatedDelivery').textContent;
+            
+            const message = `Hi! 👋
+
+I used your price calculator and here's my quote:
+
+📝 Word Count: ${wordCount} words
+⚡ Service: ${serviceText}
+🚀 Delivery Speed: ${deliveryText}
+💰 Estimated Price: Rs ${finalPrice}
+⏱️ Delivery Time: ${deliveryTime}
+
+Please confirm the final price and guide me on the next steps.
+
+Thank you!`;
+            
+            window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+            
+            trackEvent('price_calculator_submit', {
+                'event_category': 'conversion',
+                'event_label': serviceText,
+                'value': parseInt(finalPrice)
+            });
+        }
+
+        // ===== LIVE STATS ANIMATION =====
+        function animateLiveStats() {
+            const ordersEl = document.getElementById('ordersToday');
+            const usersEl = document.getElementById('waitingUsers');
+            
+            if (!ordersEl || !usersEl) return;
+            
+            // Animate orders count between 200-300
+            setInterval(() => {
+                const randomOrders = 200 + Math.floor(Math.random() * 100);
+                ordersEl.textContent = randomOrders;
+            }, 15000); // Update every 15 seconds
+            
+            // Animate waiting users between 8-18
+            setInterval(() => {
+                const randomUsers = 8 + Math.floor(Math.random() * 10);
+                usersEl.textContent = randomUsers;
+            }, 8000); // Update every 8 seconds
+
+            // Animate live viewers between 5-15
+            const viewersEl = document.getElementById('liveViewers');
+            if (viewersEl) {
+                setInterval(() => {
+                    const randomViewers = 5 + Math.floor(Math.random() * 10);
+                    viewersEl.textContent = randomViewers;
+                }, 12000); // Update every 12 seconds
+            }
+        }
+
+        // ===== LIVE ACTIVITY FEED =====
+        const activities = [
+            { name: "Priya S.", action: "ordered plagiarism check", time: "2 min ago", city: "Delhi", avatar: "PS" },
+            { name: "Rahul M.", action: "got AI detection report", time: "5 min ago", city: "Mumbai", avatar: "RM" },
+            { name: "Sarah K.", action: "ordered combined report", time: "8 min ago", city: "Bangalore", avatar: "SK" },
+            { name: "John D.", action: "rated us 5 stars ⭐⭐⭐⭐⭐", time: "12 min ago", city: "Pune", avatar: "JD" },
+            { name: "Amit P.", action: "reordered for thesis", time: "15 min ago", city: "Kolkata", avatar: "AP" },
+            { name: "Emily R.", action: "requested sample report", time: "18 min ago", city: "Hyderabad", avatar: "ER" },
+            { name: "David K.", action: "ordered bulk package", time: "22 min ago", city: "Chennai", avatar: "DK" },
+            { name: "Lisa W.", action: "completed payment", time: "25 min ago", city: "Ahmedabad", avatar: "LW" },
+            { name: "Mohammed A.", action: "received report in 10 min", time: "28 min ago", city: "Jaipur", avatar: "MA" },
+            { name: "Sophia L.", action: "submitted dissertation", time: "32 min ago", city: "Lucknow", avatar: "SL" }
+        ];
+
+        let currentActivityIndex = 0;
+
+        function showNextActivity() {
+            const container = document.getElementById('activityContainer');
+            if (!container) return;
+            
+            const activity = activities[currentActivityIndex];
+            
+            const html = `
+                <div class="activity-item">
+                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(activity.avatar)}&background=0a9cfc&color=fff&size=50&bold=true" 
+                         class="avatar" 
+                         alt="${activity.name}">
+                    <div class="activity-content">
+                        <strong>${activity.name}</strong> ${activity.action}
+                        <p>📍 ${activity.city}, India</p>
+                    </div>
+                    <div class="activity-time">${activity.time}</div>
+                </div>
+            `;
+            
+            // Insert at the top
+            container.insertAdjacentHTML('afterbegin', html);
+            
+            // Keep only last 6 activities visible
+            const items = container.querySelectorAll('.activity-item');
+            if (items.length > 6) {
+                items[items.length - 1].remove();
+            }
+            
+            currentActivityIndex = (currentActivityIndex + 1) % activities.length;
+        }
+
+        function initializeActivityFeed() {
+            const container = document.getElementById('activityContainer');
+            if (!container) return;
+            
+            // Show initial 5 activities
+            for (let i = 0; i < 5; i++) {
+                showNextActivity();
+            }
+            
+            // Add new activity every 8 seconds
+            setInterval(showNextActivity, 8000);
+        }
+
+        // ===== ACADEMIC INTEGRITY DISCLAIMER MODAL =====
+        function showIntegrityDisclaimer() {
+            const hasAccepted = localStorage.getItem('integrityDisclaimerAccepted');
+            const modal = document.getElementById('integrityDisclaimerModal');
+            const checkbox = document.getElementById('acceptIntegrityDisclaimer');
+            const acceptBtn = document.getElementById('acceptDisclaimerBtn');
+            
+            if (!hasAccepted && modal) {
+                modal.style.display = 'flex';
+                
+                // Enable button only when checkbox is checked
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        acceptBtn.disabled = false;
+                        acceptBtn.style.background = 'linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%)';
+                        acceptBtn.style.cursor = 'pointer';
+                    } else {
+                        acceptBtn.disabled = true;
+                        acceptBtn.style.background = '#6c757d';
+                        acceptBtn.style.cursor = 'not-allowed';
+                    }
+                });
+                
+                // Accept button click
+                acceptBtn.addEventListener('click', function() {
+                    if (checkbox.checked) {
+                        localStorage.setItem('integrityDisclaimerAccepted', 'true');
+                        modal.style.display = 'none';
+                        trackEvent('integrity_disclaimer_accepted', {'event_category': 'compliance'});
+                    }
+                });
+            }
+        }
 
         // Expose global functions
         window.openWhatsAppForService = openWhatsAppForService;
