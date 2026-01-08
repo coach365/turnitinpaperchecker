@@ -32,6 +32,22 @@
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📝</text></svg>">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0a9cfc">
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://cdnjs.cloudflare.com https://wa.me; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' https: data: blob:; font-src 'self' https://cdnjs.cloudflare.com data:; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://api.anthropic.com; frame-src 'self' https://www.youtube.com;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TurnitinChecker">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -133,7 +149,7 @@
             line-height: 1.6;
             color: #333;
             background-color: #f9fbfa;
-            padding-top: 70px;
+            padding-top: 56px;
         }
 
         .container {
@@ -193,45 +209,135 @@
         }
 
         /* Header */
+        /* ========================================
+        IMPROVED NAVBAR DESIGN
+        ======================================== */
         .header {
             background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
             color: white;
-            padding: 1rem 0;
+            padding: 0.7rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
         }
 
         .nav-container {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 2rem;
+        }
+
+        /* Left Group: Logo + Quick Actions */
+        .nav-left-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: white;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            white-space: nowrap;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-quick-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid rgba(255,255,255,0.2);
         }
 
         /* ========================================
-           NAVBAR - COMPLETE RESPONSIVE FIX
-           ======================================== */
+        FIXED CURRENCY DROPDOWN - LIGHT & DARK MODE
+        ======================================== */
+        .currency-select {
+            background: rgba(255,255,255,0.15);
+            color: white; /* White text for dark navbar */
+            border: 2px solid rgba(255,255,255,0.25);
+            padding: 6px 28px 6px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22><path fill=%22white%22 d=%22M1 1l5 5 5-5%22/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            transition: all 0.3s ease;
+        }
+
+        .currency-select:hover {
+            background: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        /* Dark mode adjustments */
+        .dark-mode .currency-select {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .dark-mode .currency-select:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* CRITICAL FIX: Ensure dropdown OPTIONS are visible in light mode */
+        .currency-select option {
+            background: white;
+            color: #333;
+            padding: 10px;
+        }
+
+        /* Dark mode dropdown options */
+        .dark-mode .currency-select option {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        .icon-button {
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.25);
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .icon-button:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.1);
+        }
+
+        /* Center: Navigation Menu */
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 1.2rem;
-            flex-wrap: nowrap;
-            align-items: center;
+            gap: 0.5rem;
             justify-content: center;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
         }
 
         .nav-menu li {
@@ -244,66 +350,85 @@
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 0.8rem;
-            font-size: 0.95rem;
+            padding: 0.5rem 0.7rem;
+            font-size: 0.88rem;
             display: block;
+            border-radius: 6px;
         }
 
         .nav-menu a:hover {
-            color: #87cefa;
-            transform: translateY(-2px);
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
         }
 
         .nav-menu a.active {
-            color: #87cefa;
+            background: rgba(255,255,255,0.2);
         }
 
-        .nav-menu a.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
+        /* Right Group: CTA */
+        .nav-right-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cta-button {
             background: #87cefa;
+            color: #0a5d8c;
+            padding: 0.65rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(135, 206, 250, 0.3);
         }
 
-        /* Navbar Responsive Breakpoints */
-        @media (max-width: 1600px) {
-            .nav-menu {
-                gap: 1rem;
-            }
-            .nav-menu a {
-                font-size: 0.9rem;
-                padding: 0.5rem 0.7rem;
-            }
+        .cta-button:hover {
+            background: #6fbde9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(135, 206, 250, 0.5);
         }
 
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        /* ========================================
+        RESPONSIVE DESIGN
+        ======================================== */
         @media (max-width: 1400px) {
-            .nav-menu {
-                gap: 0.8rem;
-            }
             .nav-menu a {
-                font-size: 0.85rem;
-                padding: 0.4rem 0.6rem;
+                font-size: 0.82rem;
+                padding: 0.45rem 0.6rem;
+            }
+            .nav-container {
+                gap: 1.5rem;
             }
         }
 
         @media (max-width: 1200px) {
-            .nav-menu {
-                gap: 0.5rem;
-            }
             .nav-menu a {
-                font-size: 0.8rem;
+                font-size: 0.78rem;
                 padding: 0.4rem 0.5rem;
             }
-            .cta-button {
-                padding: 0.6rem 1rem;
-                font-size: 0.85rem;
+            .nav-container {
+                gap: 1rem;
+            }
+            .nav-quick-actions {
+                gap: 0.6rem;
+                padding-left: 1rem;
             }
         }
 
         @media (max-width: 992px) {
+            .nav-container {
+                grid-template-columns: 1fr auto;
+            }
+            
             .nav-menu {
                 display: none;
                 position: absolute;
@@ -316,7 +441,6 @@
                 gap: 0;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.3);
                 z-index: 1000;
-                animation: slideDown 0.3s ease-out;
             }
             
             .nav-menu.active {
@@ -327,51 +451,59 @@
                 width: 100%;
                 text-align: center;
                 border-bottom: 1px solid rgba(255,255,255,0.1);
-                padding: 0;
-            }
-            
-            .nav-menu li:last-child {
-                border-bottom: none;
             }
             
             .nav-menu a {
                 width: 100%;
                 padding: 1rem 2rem;
                 font-size: 1rem;
-                display: block;
+                border-radius: 0;
             }
             
-            .nav-menu a:hover {
-                background: rgba(255,255,255,0.1);
-                transform: none;
+            .mobile-menu-toggle {
+                display: flex;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 0.5rem;
+                align-items: center;
+                justify-content: center;
             }
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.2rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .nav-quick-actions {
+                padding-left: 0.8rem;
+            }
+            
+            .currency-select {
+                font-size: 0.8rem;
+                padding: 5px 24px 5px 8px;
+            }
+            
+            .icon-button {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+            }
+            
+            .cta-button {
+                padding: 0.55rem 1.2rem;
+                font-size: 0.85rem;
             }
         }
 
-        .cta-button {
-            background: #87cefa;
-            color: #0a5d8c;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background: #6fbde9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(135, 206, 250, 0.4);
+        @media (max-width: 576px) {
+            .nav-quick-actions {
+                border-left: none;
+                padding-left: 0;
+            }
         }
 
         /* Hero Section */
@@ -1710,37 +1842,477 @@
             transform: translateY(0);
         }
 
-        /* Mobile Responsive */
+        /* ========================================
+           MOBILE-ONLY RESPONSIVE STYLES
+           Desktop styles above remain unchanged
+           ======================================== */
+        
         .mobile-menu-toggle {
             display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
         }
 
-        @media (max-width: 768px) {
+        /* ============================================
+           TABLET & MOBILE: 992px and below
+           ============================================ */
+        @media (max-width: 992px) {
             .mobile-menu-toggle {
                 display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 0.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+                flex-direction: column;
+                padding: 1.5rem 0;
+                gap: 0;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 1000;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-menu a {
+                width: 100%;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .nav-menu a:hover {
+                background: rgba(255,255,255,0.1);
+                transform: none;
+            }
+
+            .hero .container > div[style*="grid-template-columns"] {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+            }
+
+            .live-stats {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+            }
+
+            .price-comparison {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr !important;
+                max-width: 450px;
+                margin: 0 auto;
+            }
+        }
+
+        /* ============================================
+           MOBILE: 768px and below
+           ============================================ */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem !important;
+                text-align: center !important;
+            }
+            
+            .hero p {
+                font-size: 1rem !important;
+                text-align: center !important;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .hero-buttons {
+                flex-direction: column !important;
+                width: 100%;
+            }
+
+            .hero-buttons a {
+                width: 100% !important;
+            }
+
+            .trust-badges-hero {
+                flex-direction: column;
+                justify-content: center !important;
+            }
+
+            .phone-input {
+                flex-direction: column !important;
+            }
+
+            .country-search-wrapper,
+            .phone-input select,
+            .phone-input input {
+                width: 100% !important;
+            }
+
+            .data-protection div[style*="grid-template-columns"] {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
             }
 
             .contact-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
             }
 
             .footer-links {
                 flex-direction: column;
                 gap: 1rem;
             }
+        }
+
+        /* ============================================
+           SMALL MOBILE: 576px and below
+           ============================================ */
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.75rem !important;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .sticky-cta {
+                flex-direction: column;
+            }
+        }
+
+        /* ========================================
+        RESPONSIVE COMPARISON CARDS
+        ======================================== */
+        .comparison-section {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .comparison-header {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .comparison-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .comparison-header p {
+            margin: 0.5rem 0 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border-top: 3px solid #0a9cfc;
+        }
+
+        .comparison-card {
+            padding: 0;
+            border-right: 2px solid #e9ecef;
+            background: white;
+        }
+
+        .comparison-card:last-child {
+            border-right: none;
+        }
+
+        .comparison-card.featured {
+            background: rgba(135, 206, 250, 0.05);
+            position: relative;
+        }
+
+        .comparison-card.featured::before {
+            content: '🔥 Most Popular';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffc107;
+            color: #000;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Plan Header */
+        .plan-header {
+            text-align: center;
+            padding: 2rem 1.5rem 1rem;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .featured .plan-header {
+            padding-top: 3rem;
+            background: rgba(135, 206, 250, 0.1);
+        }
+
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0a5d8c;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0a9cfc;
+        }
+
+        /* Features List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-item {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-height: 60px;
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-label {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        /* Dark mode fixes for comparison table */
+        .dark-mode .feature-label {
+            color: #e0e0e0 !important;
+        }
+
+        .dark-mode .feature-value {
+            color: #e0e0e0 !important;
+        }
+
+        .dark-mode .plan-header {
+            background: #2d2d2d !important;
+        }
+
+        .dark-mode .plan-name {
+            color: #87cefa !important;
+        }
+
+        .dark-mode .plan-price {
+            color: #87cefa !important;
+        }
+
+        .dark-mode .feature-item {
+            border-bottom-color: #3d3d3d !important;
+        }
+
+        .dark-mode .comparison-header {
+            background: linear-gradient(135deg, #1a3a52 0%, #1a4d6d 100%) !important;
+        }
+
+        .dark-mode .comparison-card {
+            background: #2d2d2d !important;
+            border-color: #3d3d3d !important;
+        }
+
+        .dark-mode .comparison-note {
+            background: #2d2d2d !important;
+            color: #b0b0b0 !important;
+        }
+
+        .feature-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .check {
+            color: #27ae60;
+            font-size: 1.3rem;
+        }
+
+        .cross {
+            color: #dc3545;
+            font-size: 1.3rem;
+        }
+
+        /* CTA Button */
+        .plan-cta {
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #0a5d8c;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: #0a9cfc;
+            transform: translateY(-2px);
+        }
+
+        .featured .cta-button {
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            box-shadow: 0 5px 20px rgba(10, 93, 140, 0.3);
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVENESS
+           ======================================== */
+        
+        /* Tablets: 2 columns */
+        @media (max-width: 992px) {
+            .comparison-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .comparison-card:nth-child(3) {
+                grid-column: 1 / -1;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Mobile: 1 column (stacks vertically) */
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-card {
+                border-right: none;
+                border-bottom: 3px solid #e9ecef;
+            }
+
+            .comparison-card:last-child {
+                border-bottom: none;
+            }
+
+            .comparison-card:nth-child(3) {
+                grid-column: auto;
+                max-width: 100%;
+            }
+
+            .plan-price {
+                font-size: 2rem;
+            }
+
+            .feature-item {
+                padding: 1rem;
+                min-height: auto;
+            }
+
+            .comparison-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .comparison-header {
+                padding: 1.5rem;
+            }
+
+            .comparison-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .plan-header {
+                padding: 1.5rem 1rem 0.8rem;
+            }
+
+            .plan-name {
+                font-size: 1.1rem;
+            }
+
+            .plan-price {
+                font-size: 1.8rem;
+            }
+
+            .feature-item {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .cta-button {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Note Box */
+        .comparison-note {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            text-align: center;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .comparison-note p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
         }
 
         /* Enhanced Slider Styling for Price Calculator */
@@ -1790,9 +2362,102 @@
             transform: translateY(-8px);
             box-shadow: 0 12px 35px rgba(37, 211, 102, 0.3);
         }
+
+        /* ========================================
+        KEYBOARD FOCUS INDICATORS - WCAG 2.1 AA
+        ======================================== */
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: 3px solid #0a9cfc !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 0 3px rgba(10, 156, 252, 0.3) !important;
+        }
+
+        /* High contrast focus for navigation */
+        .nav-menu a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            outline: 3px solid #87cefa;
+        }
+
+        /* Focus for buttons */
+        .btn-primary:focus,
+        .btn-secondary:focus,
+        .cta-button:focus {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px rgba(135, 206, 250, 0.5) !important;
+        }
+
+        /* Remove default outline for mouse users (keep for keyboard) */
+        *:focus:not(:focus-visible) {
+            outline: none;
+            box-shadow: none;
+        }
+
+        *:focus-visible {
+            outline: 3px solid #0a9cfc;
+            outline-offset: 2px;
+        }
+        /* Remove white gap on all screen sizes */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+        }
+    </style>
+    <style>
+    /* Ensure video testimonial cards are equal height */
+    #video-testimonials .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        align-items: stretch; /* CRITICAL: Makes all cards same height */
+    }
+
+    #video-testimonials .service-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* CRITICAL: Fill available height */
+    }
+
+    #video-testimonials .service-card p {
+        flex-grow: 1; /* Push content to fill space */
+    }
+
+    /* Responsive: Stack cards on mobile */
+    @media (max-width: 992px) {
+        #video-testimonials .services-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #video-testimonials .services-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
     </style>
 </head>
 <body>
+
+    <!-- Skip to Content Link for Accessibility -->
+    <a href="#main-content" class="skip-link" style="
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #0a5d8c;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        z-index: 10000;
+        border-radius: 0 0 4px 0;
+        font-weight: bold;
+    " onfocus="this.style.top='0'" onblur="this.style.top='-40px'">
+        Skip to main content
+    </a>
+
     <!-- Cookie Consent Banner -->
     <div class="cookie-consent" id="cookieConsent">
         <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. 
@@ -1801,36 +2466,70 @@
     </div>
 
     <!-- Header -->
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <nav class="nav-container">
-                <a href="#" class="logo" id="homeLink">📝 TurnitinPaperChecker</a>
+                <!-- LEFT: Logo + Quick Actions -->
+                <div class="nav-left-group">
+                    <a href="#" class="logo" id="homeLink">
+                        <span style="font-size: 1.8rem;">📝</span>
+                        <span style="font-weight: 700; letter-spacing: -0.5px;">TurnitinPaperChecker</span>
+                    </a>
+                    
+                    <div class="nav-quick-actions">
+                        <!-- Currency Selector -->
+                        <select id="currencySelector" 
+                                onchange="updateCurrency(this.value)"
+                                class="currency-select"
+                                aria-label="Select currency">
+                            <option value="INR" selected>₹ INR</option>
+                            <option value="USD">$ USD</option>
+                            <option value="GBP">£ GBP</option>
+                            <option value="EUR">€ EUR</option>
+                            <option value="AUD">A$ AUD</option>
+                            <option value="CAD">C$ CAD</option>
+                        </select>
+                        
+                        <!-- Dark Mode Toggle -->
+                        <button id="darkModeToggle" 
+                                onclick="toggleDarkMode()"
+                                class="icon-button"
+                                aria-label="Toggle dark mode"
+                                title="Toggle dark mode">
+                            🌙
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- CENTER: Navigation Links -->
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#sample-reports-preview" class="nav-link">Samples</a></li>
                     <li><a href="#blog" class="nav-link">Blog</a></li>
-                    <li><a href="#live-activity" class="nav-link">Activity</a></li>
-                    <li><a href="#success-stories" class="nav-link">Stories</a></li>
-                    <li><a href="#whatsapp-reviews" class="nav-link">Reviews</a></li>
-                    <li><a href="#pricing" class="nav-link">Pricing</a></li>
                     <li><a href="#price-calculator" class="nav-link">Calculator</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="#upload" class="nav-link cta-button" style="background: #87cefa; color: #0a5d8c; padding: 0.8rem 1.5rem; border-radius: 25px; margin-left: 1rem;">Start Checking</a></li>
                 </ul>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+                
+                <!-- RIGHT: CTA Button -->
+                <div class="nav-right-group">
+                    <a href="#upload" class="cta-button">
+                        <span>Start Checking</span>
+                        <span style="margin-left: 6px;">→</span>
+                    </a>
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile navigation menu">☰</button>
+                </div>
             </nav>
         </div>
     </header>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/918168706565?text=Hi!%20I%20need%20plagiarism%20checking%20service." class="whatsapp-float" target="_blank" onclick="trackWhatsAppClick('floating_button', 'general')">
+    <a href="https://wa.me/918168706565?text=Hi!%20I%20need%20plagiarism%20checking%20service." class="whatsapp-float" target="_blank" onclick="trackWhatsAppClick('floating_button', 'general')" aria-label="Contact us on WhatsApp for plagiarism checking"></a>
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
         <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="container">
@@ -1842,8 +2541,8 @@
                         <p class="fade-in" style="text-align: left; max-width: 100%; font-size: 1.3rem; margin-bottom: 2rem;">Professional AI and plagiarism detection services trusted by students and academics worldwide. Get comprehensive reports before submission.</p>
                         
                         <div class="hero-buttons fade-in" style="justify-content: flex-start; display: flex; gap: 1rem;">
-                            <a href="#upload" class="btn-primary" onclick="trackButtonClick('Check Document Now', 'hero')">Check Document Now</a>
-                            <a href="javascript:void(0)" onclick="openWhatsAppForSample()" class="btn-secondary">View Sample Report</a>
+                            <a href="#upload" class="btn-primary" onclick="trackButtonClick('Check Document Now', 'hero')" aria-label="Check your document for plagiarism now">Check Document Now</a>
+                            <a href="javascript:void(0)" onclick="openWhatsAppForSample()" class="btn-secondary" aria-label="View sample plagiarism report">View Sample Report</a>
                         </div>
 
                         <!-- Trust Badges -->
@@ -1941,86 +2640,175 @@
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto;">Our advanced detection tools provide comprehensive analysis to ensure your work is original and credible before submission.</p>
                 
                 <!-- Service Comparison Chart - NEW -->
-                <div class="service-comparison-chart fade-in" style="max-width: 1200px; margin: 0 auto 3rem; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
-                    <div style="background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; padding: 1.5rem; text-align: center;">
-                        <h3 style="margin: 0; font-size: 1.5rem; font-weight: 600;">📊 Compare Our Services</h3>
-                        <p style="margin: 0.5rem 0 0; font-size: 0.95rem; opacity: 0.9;">Choose the perfect plan for your needs</p>
+                <div class="comparison-section">
+                    <div class="comparison-header">
+                        <h2>📊 Compare Our Services</h2>
+                        <p>Choose the perfect plan for your needs</p>
                     </div>
-                    
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
-                            <thead>
-                                <tr style="background: #f8f9fa;">
-                                    <th style="padding: 1.2rem 1rem; text-align: left; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem;">Feature</th>
-                                    <th style="padding: 1.2rem 1rem; text-align: center; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem;">Basic<br><span style="font-size: 1.3rem; color: #0a9cfc;">Rs 200</span></th>
-                                    <th style="padding: 1.2rem 1rem; text-align: center; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem; background: rgba(135, 206, 250, 0.1);">Premium<br><span style="font-size: 1.3rem; color: #0a9cfc;">Rs 300</span></th>
-                                    <th style="padding: 1.2rem 1rem; text-align: center; font-weight: 600; color: #0a5d8c; border-bottom: 2px solid #e9ecef; font-size: 1rem;">Bulk<br><span style="font-size: 1.3rem; color: #0a9cfc;">Rs 2000</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="background: white;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Similarity Percentage</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                </tr>
-                                <tr style="background: #fafafa;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Complete Source List</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                </tr>
-                                <tr style="background: white;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">AI Detection</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #dc3545;">✗</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                </tr>
-                                <tr style="background: #fafafa;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Priority Queue</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #dc3545;">✗</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                </tr>
-                                <tr style="background: white;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">WhatsApp Support</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                </tr>
-                                <tr style="background: #fafafa;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Revision (1x free)</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #dc3545;">✗</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60; background: rgba(135, 206, 250, 0.05);">✓</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 1.2rem; color: #27ae60;">✓</td>
-                                </tr>
-                                <tr style="background: white;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Delivery Time</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #666;">12 hours</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #0a9cfc; font-weight: 600; background: rgba(135, 206, 250, 0.05);">8 hours</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #27ae60; font-weight: 600;">6 hours</td>
-                                </tr>
-                                <tr style="background: #fafafa;">
-                                    <td style="padding: 1rem; border-bottom: 1px solid #e9ecef; font-size: 0.95rem;">Documents Included</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #666;">1 document</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #666; background: rgba(135, 206, 250, 0.05);">1 document</td>
-                                    <td style="padding: 1rem; text-align: center; border-bottom: 1px solid #e9ecef; font-size: 0.9rem; color: #27ae60; font-weight: 600;">10 documents</td>
-                                </tr>
-                                <tr style="background: white;">
-                                    <td style="padding: 1rem; font-size: 0.95rem;">Best For</td>
-                                    <td style="padding: 1rem; text-align: center; font-size: 0.85rem; color: #666;">Single check</td>
-                                    <td style="padding: 1rem; text-align: center; font-size: 0.85rem; color: #0a9cfc; font-weight: 600; background: rgba(135, 206, 250, 0.05);">Full analysis</td>
-                                    <td style="padding: 1rem; text-align: center; font-size: 0.85rem; color: #666;">Multiple docs</td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                    <div class="comparison-grid">
+                        <!-- Card 1: Basic -->
+                        <div class="comparison-card">
+                            <div class="plan-header">
+                                <div class="plan-name">Basic</div>
+                                <div class="plan-price" data-price-inr="200">Rs 200</div>
+                            </div>
+
+                            <ul class="feature-list">
+                                <li class="feature-item">
+                                    <span class="feature-label">Similarity Percentage</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Complete Source List</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">AI Detection</span>
+                                    <span class="feature-value cross">✗</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Priority Queue</span>
+                                    <span class="feature-value cross">✗</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">WhatsApp Support</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Revision (1x free)</span>
+                                    <span class="feature-value cross">✗</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Delivery Time</span>
+                                    <span class="feature-value" style="color: #666; font-size: 0.9rem;">12 hours</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Documents Included</span>
+                                    <span class="feature-value" style="color: #666; font-size: 0.9rem;">1 document</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Best For</span>
+                                    <span class="feature-value" style="color: #666; font-size: 0.85rem;">Single check</span>
+                                </li>
+                            </ul>
+
+                            <div class="plan-cta">
+                                <button class="cta-button" onclick="alert('WhatsApp: Basic Plan')">
+                                    Get Started →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Premium (Featured) -->
+                        <div class="comparison-card featured">
+                            <div class="plan-header">
+                                <div class="plan-name">Premium</div>
+                                <div class="plan-price" data-price-inr="300">Rs 300</div>
+                            </div>
+
+                            <ul class="feature-list">
+                                <li class="feature-item">
+                                    <span class="feature-label">Similarity Percentage</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Complete Source List</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">AI Detection</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Priority Queue</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">WhatsApp Support</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Revision (1x free)</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Delivery Time</span>
+                                    <span class="feature-value" style="color: #0a9cfc; font-weight: 600; font-size: 0.9rem;">8 hours</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Documents Included</span>
+                                    <span class="feature-value" style="color: #666; font-size: 0.9rem;">1 document</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Best For</span>
+                                    <span class="feature-value" style="color: #0a9cfc; font-weight: 600; font-size: 0.85rem;">Full analysis</span>
+                                </li>
+                            </ul>
+
+                            <div class="plan-cta">
+                                <button class="cta-button" onclick="alert('WhatsApp: Premium Plan')">
+                                    Get Started →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Bulk -->
+                        <div class="comparison-card">
+                            <div class="plan-header">
+                                <div class="plan-name">Bulk</div>
+                                <div class="plan-price" data-price-inr="2000">Rs 2000</div>
+                            </div>
+
+                            <ul class="feature-list">
+                                <li class="feature-item">
+                                    <span class="feature-label">Similarity Percentage</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Complete Source List</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">AI Detection</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Priority Queue</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">WhatsApp Support</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Revision (1x free)</span>
+                                    <span class="feature-value check">✓</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Delivery Time</span>
+                                    <span class="feature-value" style="color: #27ae60; font-weight: 600; font-size: 0.9rem;">6 hours</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Documents Included</span>
+                                    <span class="feature-value" style="color: #27ae60; font-weight: 600; font-size: 0.9rem;">10 documents</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-label">Best For</span>
+                                    <span class="feature-value" style="color: #666; font-size: 0.85rem;">Multiple docs</span>
+                                </li>
+                            </ul>
+
+                            <div class="plan-cta">
+                                <button class="cta-button" onclick="alert('WhatsApp: Bulk Plan')">
+                                    Get Started →
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div style="padding: 1.5rem; background: #f8f9fa; text-align: center; border-top: 2px solid #e9ecef;">
-                        <p style="margin: 0 0 1rem; color: #666; font-size: 0.95rem;">💡 <strong>Most Popular:</strong> Premium plan offers best value with AI detection + priority delivery</p>
-                        <button onclick="openWhatsAppForPricing('Premium Combined Report - Rs 300', '300')" class="btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">
-                            Get Started with Premium →
-                        </button>
+
+                    <div class="comparison-note">
+                        <p>💡 <strong>Most Popular:</strong> Premium plan offers best value with AI detection + priority delivery</p>
                     </div>
                 </div>
 
@@ -2030,22 +2818,32 @@
                         <div class="service-icon">🔍</div>
                         <h3>Plagiarism Detection</h3>
                         <p>Advanced plagiarism checking using Turnitin and multiple databases to ensure comprehensive coverage.</p>
-                        <a href="javascript:void(0)" class="service-price" onclick="openWhatsAppForService('Plagiarism Check', '200')">Rs 200</a>
+                        <a href="javascript:void(0)" class="service-price" onclick="openWhatsAppForService('Plagiarism Check', '200')" data-price-inr="200">Rs 200</a>
                     </div>
                     
                     <div class="service-card fade-in">
                         <div class="service-icon">🤖</div>
                         <h3>AI Content Detection</h3>
                         <p>Identify AI-generated content with cutting-edge detection algorithms and machine learning models.</p>
-                        <a href="javascript:void(0)" class="service-price" onclick="openWhatsAppForService('AI Detection', '200')">Rs 200</a>
+                        <a href="javascript:void(0)" class="service-price" onclick="openWhatsAppForService('AI Detection', '200')" data-price-inr="200">Rs 200</a>
                     </div>
                     
                     <div class="service-card fade-in">
                         <div class="service-icon">📊</div>
                         <h3>Combined Reports</h3>
                         <p>Get both plagiarism and AI detection in one comprehensive report with detailed analysis.</p>
-                        <a href="javascript:void(0)" class="service-price" onclick="openWhatsAppForService('Combined Report', '300')">Rs 300</a>
+                        <a href="javascript:void(0)" class="service-price" onclick="openWhatsAppForService('Combined Report', '300')" data-price-inr="300">Rs 300</a>
+
                     </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <p style="color: #666; font-size: 0.95rem;">
+                        💡 Not sure which service? 
+                        <a href="#price-calculator" style="color: #0a5d8c; font-weight: 600; text-decoration: underline;">Use our calculator</a> 
+                        or read our 
+                        <a href="#blog" style="color: #0a5d8c; font-weight: 600; text-decoration: underline;">blog guides</a>
+                    </p>
                 </div>
             </div>
         </section>
@@ -2099,6 +2897,45 @@
                         </div>
                     </div>
 
+                    <!-- Certification Badges -->
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 10px; text-align: center;">
+                        <h4 style="color: #0a5d8c; margin-bottom: 1.5rem; font-size: 1.2rem;">🏆 Security & Compliance Certifications</h4>
+                        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; align-items: center;">
+                            <!-- GDPR Badge -->
+                            <div style="text-align: center;">
+                                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; color: white; font-size: 2rem; font-weight: bold;">
+                                    GDPR
+                                </div>
+                                <p style="margin: 0; font-size: 0.85rem; color: #666;">GDPR Compliant</p>
+                            </div>
+                            
+                            <!-- SSL Badge -->
+                            <div style="text-align: center;">
+                                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; color: white; font-size: 2rem; font-weight: bold;">
+                                    SSL
+                                </div>
+                                <p style="margin: 0; font-size: 0.85rem; color: #666;">256-bit Encryption</p>
+                            </div>
+                            
+                            <!-- ISO Badge -->
+                            <div style="text-align: center;">
+                                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 0.5rem; color: white;">
+                                    <div style="font-size: 1.5rem; font-weight: bold;">ISO</div>
+                                    <div style="font-size: 1rem;">27001</div>
+                                </div>
+                                <p style="margin: 0; font-size: 0.85rem; color: #666;">Data Security</p>
+                            </div>
+                            
+                            <!-- Privacy Badge -->
+                            <div style="text-align: center;">
+                                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; color: white; font-size: 2.5rem;">
+                                    🛡️
+                                </div>
+                                <p style="margin: 0; font-size: 0.85rem; color: #666;">Privacy Verified</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Mobile Responsive for Data Protection -->
                     <style>
                     @media (max-width: 768px) {
@@ -2121,6 +2958,8 @@
                     </div>
                     
                     <div class="file-list" id="fileList"></div>
+
+                    <div id="uploadError" style="display: none;"></div>
                     
                     <!-- FIX #1: Country Code with Search -->
                     <div class="phone-input">
@@ -2136,10 +2975,10 @@
                     <div style="margin-top: 2rem;">
                         <label for="serviceType" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Select Service:</label>
                         <select id="serviceType" style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; width: 200px;">
-                            <option value="plagiarism">Plagiarism Check (Rs 200)</option>
-                            <option value="ai">AI Detection (Rs 200)</option>
-                            <option value="combined">Combined Report (Rs 300)</option>
-                            <option value="express">Express Service (Rs 300)</option>
+                            <option value="plagiarism" data-price-inr="200">Plagiarism Check (Rs 200)</option>
+                            <option value="ai" data-price-inr="200">AI Detection (Rs 200)</option>
+                            <option value="combined" data-price-inr="300">Combined Report (Rs 300)</option>
+                            <option value="express" data-price-inr="300">Express Service (Rs 300)</option>
                         </select>
 
                         <!-- Terms & Conditions Checkbox - NEW -->
@@ -2154,10 +2993,10 @@
                         
                         <!-- Prominent WhatsApp & Email Buttons -->
                         <div style="display: flex; gap: 15px; margin-top: 2rem; justify-content: center; flex-wrap: wrap;">
-                            <button class="btn-primary" id="submitWhatsAppBtn" style="background: #25d366; padding: 1rem 2.5rem; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                            <button class="btn-primary" id="submitWhatsAppBtn" style="background: #25d366; padding: 1rem 2.5rem; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);" aria-label="Submit documents via WhatsApp">
                                 <i class="fab fa-whatsapp"></i> Submit via WhatsApp
                             </button>
-                            <button id="submitEmailBtn" style="background: white; color: #0a5d8c; border: 2px solid #0a5d8c; padding: 1rem 2.5rem; border-radius: 30px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;">
+                            <button id="submitEmailBtn" style="background: white; color: #0a5d8c; border: 2px solid #0a5d8c; padding: 1rem 2.5rem; border-radius: 30px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease;" aria-label="Submit documents via email">
                                 <i class="fas fa-envelope"></i> Submit via Email
                             </button>
                         </div>
@@ -2231,8 +3070,83 @@
             </div>
         </section>
 
+        <!-- Tutorial Videos Section -->
+        <section class="services" id="tutorials" style="background: white;">
+            <div class="container">
+                <h2 class="section-title fade-in">📺 How-To Video Guides</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto 3rem;">
+                    Watch step-by-step tutorials on using our plagiarism detection service
+                </p>
+                
+                <div class="services-grid">
+                    <!-- Video 1 -->
+                    <div class="service-card fade-in">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
+                            <iframe 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                title="How to Upload Documents"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <h3>📤 How to Upload Documents</h3>
+                        <p>Step-by-step guide on submitting your documents for plagiarism checking</p>
+                        <div style="color: #666; font-size: 0.9rem;">⏱️ 2:30 min</div>
+                    </div>
+                    
+                    <!-- Video 2 -->
+                    <div class="service-card fade-in">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
+                            <iframe 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                title="Understanding Your Report"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <h3>📊 Understanding Your Report</h3>
+                        <p>Learn how to read and interpret your Turnitin plagiarism report</p>
+                        <div style="color: #666; font-size: 0.9rem;">⏱️ 3:15 min</div>
+                    </div>
+                    
+                    <!-- Video 3 -->
+                    <div class="service-card fade-in">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
+                            <iframe 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                title="Fixing Plagiarism Issues"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <h3>✅ Fixing Plagiarism Issues</h3>
+                        <p>Best practices for improving your similarity score and citations</p>
+                        <div style="color: #666; font-size: 0.9rem;">⏱️ 4:00 min</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: #e8f5ff; border-radius: 10px;">
+                    <p style="margin: 0; color: #0a5d8c; font-size: 1rem;">
+                        <strong>💡 Need personalized help?</strong> Our team is available 24/7 on WhatsApp
+                    </p>
+                    <button onclick="openWhatsAppGeneral()" class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">
+                        Get Personal Assistance →
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <!-- Sample Reports Preview Section - NEW -->
-        <section class="services" id="sample-reports-preview" style="background: white;">
+        <section class="services" id="sample-reports-preview" style="background: #f8f9fa;">
             <div class="container">
                 <h2 class="section-title fade-in">📊 See Real Turnitin Sample Reports</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 700px; margin: 0 auto 2rem;">
@@ -2301,14 +3215,48 @@
         </section>
 
         <!-- Blog Section - WHITE BACKGROUND -->
-        <section class="services" id="blog" style="background: #f8f9fa;">
+        <section class="services" id="blog" style="background: white;">
             <div class="container">
                 <h2 class="section-title fade-in">Academic Integrity Blog</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 2rem;">Stay updated with the latest tips and insights on academic integrity.</p>
+
+                <!-- Skeleton Loader for Blogs -->
+                <div id="blogSkeleton" style="display: none;">
+                    <div class="services-grid">
+                        <div class="service-card" style="animation: pulse 1.5s infinite;">
+                            <div style="width: 100%; height: 200px; background: #e9ecef; border-radius: 10px; margin-bottom: 1rem;"></div>
+                            <div style="width: 80%; height: 24px; background: #e9ecef; border-radius: 4px; margin-bottom: 0.8rem;"></div>
+                            <div style="width: 100%; height: 16px; background: #e9ecef; border-radius: 4px; margin-bottom: 0.5rem;"></div>
+                            <div style="width: 90%; height: 16px; background: #e9ecef; border-radius: 4px;"></div>
+                        </div>
+                        <div class="service-card" style="animation: pulse 1.5s infinite;">
+                            <div style="width: 100%; height: 200px; background: #e9ecef; border-radius: 10px; margin-bottom: 1rem;"></div>
+                            <div style="width: 80%; height: 24px; background: #e9ecef; border-radius: 4px; margin-bottom: 0.8rem;"></div>
+                            <div style="width: 100%; height: 16px; background: #e9ecef; border-radius: 4px; margin-bottom: 0.5rem;"></div>
+                            <div style="width: 90%; height: 16px; background: #e9ecef; border-radius: 4px;"></div>
+                        </div>
+                        <div class="service-card" style="animation: pulse 1.5s infinite;">
+                            <div style="width: 100%; height: 200px; background: #e9ecef; border-radius: 10px; margin-bottom: 1rem;"></div>
+                            <div style="width: 80%; height: 24px; background: #e9ecef; border-radius: 4px; margin-bottom: 0.8rem;"></div>
+                            <div style="width: 100%; height: 16px; background: #e9ecef; border-radius: 4px; margin-bottom: 0.5rem;"></div>
+                            <div style="width: 90%; height: 16px; background: #e9ecef; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="services-grid" id="blogGrid"></div>
                 
                 <div style="text-align: center; margin-top: 2rem;">
+                    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #e8f5ff; border-radius: 10px;">
+                        <p style="margin: 0 0 1rem; color: #0a5d8c; font-weight: 600;">
+                            📚 Learn how to improve your academic writing
+                        </p>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="#services" style="color: #0a5d8c; text-decoration: underline;">View Our Services</a>
+                            <a href="#pricing" style="color: #0a5d8c; text-decoration: underline;">Check Pricing</a>
+                            <a href="#price-calculator" style="color: #0a5d8c; text-decoration: underline;">Calculate Cost</a>
+                        </div>
+                    </div>
                     <a href="blog.html" class="btn-primary">View All Blog Posts →</a>
                 </div>
             </div>
@@ -2321,6 +3269,15 @@
             if (typeof allBlogs !== 'undefined' && allBlogs.length > 0) {
                 const blogGrid = document.getElementById('blogGrid');
                 blogGrid.innerHTML = '';
+                
+                // Show skeleton loader
+                const blogSkeleton = document.getElementById('blogSkeleton');
+                if (blogSkeleton) blogSkeleton.style.display = 'block';
+                if (blogGrid) blogGrid.style.display = 'none';
+                
+                // Simulate loading delay
+                setTimeout(() => {
+
                 const sortedBlogs = [...allBlogs].sort((a, b) => b.id - a.id);
                 const latest3 = sortedBlogs.slice(0, 3);
                 
@@ -2340,11 +3297,17 @@
                     `;
                     blogGrid.appendChild(card);
                 });
+
+                // Hide skeleton, show content
+                if (blogSkeleton) blogSkeleton.style.display = 'none';
+                if (blogGrid) blogGrid.style.display = 'grid';
+            }, 500);
+
             }
         </script>
 
         <!-- Live Activity Feed - WHITE BACKGROUND -->
-        <section class="services" id="live-activity" style="background: white;">
+        <section class="services" id="live-activity" style="background: #f8f9fa;">
             <div class="container">
                 <h2 class="section-title fade-in">🔥 Live Activity</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 2rem;">
@@ -2374,7 +3337,7 @@
         </section>
 
         <!-- Testimonials Section - GREY BACKGROUND -->
-        <section class="services" style="background: #f8f9fa;">
+        <section class="services" id="testimonials" style="background: white;">
             <div class="container">
                 <h2 class="section-title fade-in">Client Testimonials</h2>
                 <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 1rem;">
@@ -2415,6 +3378,86 @@
             </div>
         </section>
 
+        <!-- Video Testimonials Section -->
+        <section class="services" id="video-testimonials" style="background: #f8f9fa;">
+            <div class="container">
+                <h2 class="section-title fade-in">🎥 Student Video Reviews</h2>
+                <p style="text-align: center; color: #666; max-width: 600px; margin: 0 auto 2rem;">
+                    Watch real students share their experiences with TurnitinPaperChecker
+                </p>
+                
+                <!-- FIXED GRID: Ensures equal height cards -->
+                <div class="services-grid" style="
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 2rem;
+                    align-items: stretch;
+                ">
+                    <!-- Video Testimonial 1 -->
+                    <div class="service-card fade-in" style="display: flex; flex-direction: column;">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
+                            <iframe 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                title="Student testimonial - Priya Sharma"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <h3>Priya Sharma - MBA Student</h3>
+                        <div style="color: #ffc107; font-size: 1.2rem; margin: 0.5rem 0;">⭐⭐⭐⭐⭐</div>
+                        <p style="font-style: italic; flex-grow: 1;">"Saved me from failing my dissertation!"</p>
+                    </div>
+                    
+                    <!-- Video Testimonial 2 -->
+                    <div class="service-card fade-in" style="display: flex; flex-direction: column;">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
+                            <iframe 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                title="Student testimonial - Rahul Kumar"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <h3>Rahul Kumar - Engineering</h3>
+                        <div style="color: #ffc107; font-size: 1.2rem; margin: 0.5rem 0;">⭐⭐⭐⭐⭐</div>
+                        <p style="font-style: italic; flex-grow: 1;">"Fast, affordable, and accurate!"</p>
+                    </div>
+
+                    <!-- Video Testimonial 3 -->
+                    <div class="service-card fade-in" style="display: flex; flex-direction: column;">
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
+                            <iframe 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                title="Student testimonial - Ananya Mehta"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <h3>Ananya Mehta - PhD Candidate</h3>
+                        <div style="color: #ffc107; font-size: 1.2rem; margin: 0.5rem 0;">⭐⭐⭐⭐⭐</div>
+                        <p style="font-style: italic; flex-grow: 1;">"Professional service, excellent support!"</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2.5rem;">
+                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 1rem;">
+                        Want to share your experience? Get featured in our testimonials!
+                    </p>
+                    <button onclick="openWhatsAppGeneral()" class="btn-secondary" style="padding: 0.8rem 2rem;">
+                        Share Your Story →
+                    </button>
+                </div>
+            </div>
+        </section>
         <!-- Before/After Success Story - NEW -->
         <section class="services" id="success-stories" style="background: white;">
             <div class="container">
@@ -2523,8 +3566,9 @@
                     <div class="service-card fade-in" style="margin-top: 3rem; background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); color: white; border: none; padding: 2.5rem;">
                         <div style="display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;">
                             <!-- BIGGER GIRL IMAGE with fallback to ST -->
-                            <img src="girl-image-ST.png" 
-                                alt="ST" 
+                             <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767813265/girl-image-ST_ynv6ac.jpg" 
+                                alt="Sarah Thompson - MSc student who improved from 35% to 8% plagiarism using TurnitinPaperChecker"
+                                loading="lazy"
                                 style="width: 140px; height: 140px; border-radius: 50%; border: 5px solid white; flex-shrink: 0; object-fit: cover;"
                                 onerror="this.src='https://ui-avatars.com/api/?name=Sarah+Thompson&background=87cefa&color=0a5d8c&size=140&bold=true'">
                             
@@ -2556,6 +3600,217 @@
                         .service-card div[style*="flex: 1"] > div {
                             text-align: center !important;
                         }
+                    }
+
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: 0.5; }
+                    }
+
+
+                    /* ========================================
+                    DARK MODE STYLES
+                    ======================================== */
+                    :root {
+                        --bg-primary: #f9fbfa;
+                        --bg-secondary: #ffffff;
+                        --bg-tertiary: #f8f9fa;
+                        --text-primary: #333;
+                        --text-secondary: #666;
+                        --border-color: #e9ecef;
+                        --card-bg: #ffffff;
+                    }
+
+                    body.dark-mode {
+                        --bg-primary: #1a1a1a;
+                        --bg-secondary: #2d2d2d;
+                        --bg-tertiary: #252525;
+                        --text-primary: #e0e0e0;
+                        --text-secondary: #b0b0b0;
+                        --border-color: #3d3d3d;
+                        --card-bg: #2d2d2d;
+                    }
+
+                    body {
+                        background-color: var(--bg-primary);
+                        color: var(--text-primary);
+                        transition: background-color 0.3s ease, color 0.3s ease;
+                    }
+
+                    .dark-mode .services,
+                    .dark-mode .pricing,
+                    .dark-mode .features,
+                    .dark-mode .upload-section,
+                    .dark-mode #blog,
+                    .dark-mode #live-activity,
+                    .dark-mode #success-stories,
+                    .dark-mode #whatsapp-reviews,
+                    .dark-mode #tutorials,
+                    .dark-mode #video-testimonials,
+                    .dark-mode #sample-reports-preview {
+                        background: var(--bg-tertiary) !important;
+                    }
+
+                    .dark-mode .service-card,
+                    .dark-mode .pricing-card,
+                    .dark-mode .feature-item,
+                    .dark-mode .upload-area,
+                    .dark-mode .blog-card,
+                    .dark-mode .activity-item {
+                        background: var(--card-bg) !important;
+                        border-color: var(--border-color) !important;
+                        color: var(--text-primary) !important;
+                    }
+
+                    .dark-mode .service-card p,
+                    .dark-mode .pricing-card p,
+                    .dark-mode .feature-item p {
+                        color: var(--text-secondary) !important;
+                    }
+
+                    .dark-mode .section-title {
+                        color: #87cefa !important;
+                    }
+
+                    .dark-mode .upload-area {
+                        background: var(--bg-secondary) !important;
+                        border-color: var(--border-color) !important;
+                    }
+
+                    .dark-mode input,
+                    .dark-mode textarea,
+                    .dark-mode select {
+                        background: var(--bg-secondary) !important;
+                        color: var(--text-primary) !important;
+                        border-color: var(--border-color) !important;
+                    }
+
+                    .dark-mode .modal-content {
+                        background: var(--card-bg) !important;
+                        color: var(--text-primary) !important;
+                    }
+
+                    .dark-mode .file-item {
+                        background: var(--bg-tertiary) !important;
+                        color: var(--text-primary) !important;
+                    }
+
+                    .dark-mode .footer {
+                        background: #0d1117 !important;
+                    }
+
+                    .dark-mode .contact {
+                        background: #161b22 !important;
+                    }
+
+                    .dark-mode .pricing-card.featured {
+                        background: linear-gradient(135deg, #1a3a52 0%, #1a4d6d 100%) !important;
+                    }
+
+                    .dark-mode .price-comparison {
+                        background: var(--bg-secondary) !important;
+                    }
+
+                    .dark-mode .price-comparison table {
+                        border-color: var(--border-color) !important;
+                    }
+
+                    .dark-mode .price-comparison th,
+                    .dark-mode .price-comparison td {
+                        border-color: var(--border-color) !important;
+                    }
+
+                    /* Dark mode toggle button hover */
+                    #darkModeToggle:hover {
+                        transform: scale(1.1);
+                        background: rgba(255,255,255,0.3) !important;
+                    }
+
+                    /* ========================================
+                    COMPLETE DARK MODE COLOR FIXES
+                    ======================================== */
+
+                    /* Testimonials section */
+                    .dark-mode #testimonials .service-card,
+                    .dark-mode section[style*="background: #f8f9fa"] .service-card {
+                        background: #2d2d2d !important;
+                        color: #e0e0e0 !important;
+                    }
+
+                    .dark-mode #testimonials .service-card h3 {
+                        color: #87cefa !important;
+                    }
+
+                    .dark-mode #testimonials .service-card p {
+                        color: #b0b0b0 !important;
+                    }
+
+                    /* Legal Disclaimer section */
+                    .dark-mode section[style*="background: #fff9e6"] {
+                        background: #3d3d3d !important;
+                    }
+
+                    .dark-mode section[style*="background: #fff9e6"] p {
+                        color: #e0e0e0 !important;
+                    }
+
+                    /* Calculator disclaimer */
+                    .dark-mode #price-calculator div[style*="background: #fff3cd"] {
+                        background: #3d3d3d !important;
+                        border-color: #ffc107 !important;
+                    }
+
+                    .dark-mode #price-calculator div[style*="background: #fff3cd"] p {
+                        color: #e0e0e0 !important;
+                    }
+
+                    /* Form labels and inputs */
+                    .dark-mode .form-group label {
+                        color: #e0e0e0 !important;
+                    }
+
+                    .dark-mode small {
+                        color: #b0b0b0 !important;
+                    }
+
+                    /* Success/Info boxes */
+                    .dark-mode div[style*="background: #e8f5ff"] {
+                        background: #2d4a5e !important;
+                    }
+
+                    .dark-mode div[style*="background: #e8f5ff"] p,
+                    .dark-mode div[style*="background: #e8f5ff"] strong {
+                        color: #e0e0e0 !important;
+                    }
+
+                    /* Benefits grid */
+                    .dark-mode #price-calculator .services-grid > div {
+                        background: #2d2d2d !important;
+                    }
+
+                    .dark-mode #price-calculator .services-grid h4 {
+                        color: #87cefa !important;
+                    }
+
+                    .dark-mode #price-calculator .services-grid p {
+                        color: #b0b0b0 !important;
+                    }
+
+                    /* All grey text to white in dark mode */
+                    .dark-mode p,
+                    .dark-mode span,
+                    .dark-mode div {
+                        color: inherit;
+                    }
+
+                    .dark-mode [style*="color: #666"],
+                    .dark-mode [style*="color:#666"] {
+                        color: #b0b0b0 !important;
+                    }
+
+                    .dark-mode [style*="color: #999"],
+                    .dark-mode [style*="color:#999"] {
+                        color: #808080 !important;
                     }
                     </style>
                     
@@ -2591,8 +3846,9 @@
                     <!-- WhatsApp Screenshot 1 -->
                     <div class="service-card fade-in" style="cursor: pointer; transition: all 0.3s ease;" onclick="openWhatsAppForQuery('fast delivery service')">
                         <div style="height: 420px; overflow: hidden; border-radius: 15px; margin-bottom: 1rem; border: 3px solid #25d366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); background: #f0f8ff;">
-                            <img src="image1.jpeg" 
-                                 alt="Real WhatsApp conversation showing fast delivery" 
+                            <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767813265/image1_so3qs6.jpg"
+                                 loading="lazy" 
+                                 alt="WhatsApp conversation showing fast 12-minute delivery of plagiarism report" 
                                  style="width: 100%; height: 100%; object-fit: contain;"
                                  loading="lazy"
                                  onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2rem;text-align:center;\'><div style=\'font-size:4rem;margin-bottom:1rem;\'>💬</div><p style=\'color:#666;font-size:1.1rem;margin:0;\'>Upload <strong>image1.png</strong> to your GitHub repo</p><p style=\'color:#999;font-size:0.9rem;margin-top:0.5rem;\'>Placeholder shown until image is uploaded</p></div>'">
@@ -2616,8 +3872,9 @@
                     <!-- WhatsApp Screenshot 2 -->
                     <div class="service-card fade-in" style="cursor: pointer; transition: all 0.3s ease;" onclick="openWhatsAppForQuery('pricing information')">
                         <div style="height: 420px; overflow: hidden; border-radius: 15px; margin-bottom: 1rem; border: 3px solid #25d366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); background: #f0f8ff;">
-                            <img src="image2.jpeg" 
-                                 alt="Real WhatsApp conversation about pricing" 
+                            <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767813265/image2_uagnml.jpg"
+                                 loading="lazy" 
+                                 alt="WhatsApp chat confirming affordable Rs 200 pricing for plagiarism check" 
                                  style="width: 100%; height: 100%; object-fit: contain;"
                                  loading="lazy"
                                  onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2rem;text-align:center;\'><div style=\'font-size:4rem;margin-bottom:1rem;\'>💰</div><p style=\'color:#666;font-size:1.1rem;margin:0;\'>Upload <strong>image2.png</strong> to your GitHub repo</p><p style=\'color:#999;font-size:0.9rem;margin-top:0.5rem;\'>Placeholder shown until image is uploaded</p></div>'">
@@ -2641,8 +3898,9 @@
                     <!-- WhatsApp Screenshot 3 -->
                     <div class="service-card fade-in" style="cursor: pointer; transition: all 0.3s ease;" onclick="openWhatsAppForQuery('report quality')">
                         <div style="height: 420px; overflow: hidden; border-radius: 15px; margin-bottom: 1rem; border: 3px solid #25d366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2); background: #f0f8ff;">
-                            <img src="image3.jpeg" 
-                                 alt="Real WhatsApp conversation showing report quality" 
+                            <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767813268/image3_acycj8.jpg"
+                                 loading="lazy" 
+                                 alt="WhatsApp message verifying authentic Turnitin report quality" 
                                  style="width: 100%; height: 100%; object-fit: contain;"
                                  loading="lazy"
                                  onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:2rem;text-align:center;\'><div style=\'font-size:4rem;margin-bottom:1rem;\'>✓</div><p style=\'color:#666;font-size:1.1rem;margin:0;\'>Upload <strong>image3.png</strong> to your GitHub repo</p><p style=\'color:#999;font-size:0.9rem;margin-top:0.5rem;\'>Placeholder shown until image is uploaded</p></div>'">
@@ -2684,7 +3942,7 @@
                     <!-- Card 1: Rs 200 -->
                     <div class="pricing-card">
                         <div class="pricing-badge">Individual Check</div>
-                        <div class="pricing-price">Rs 200</div>
+                        <div class="pricing-price" data-price-inr="200">Rs 200</div>
                         <ul class="pricing-features">
                             <li>✅ Single document check</li>
                             <li>✅ Plagiarism OR AI detection</li>
@@ -2694,8 +3952,8 @@
                             <li>✅ Email support</li>
                         </ul>
                         <div style="display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding-top: 1rem;">
-                            <a href="javascript:void(0)" class="btn-primary" onclick="openWhatsAppForPricing('Individual Check - Rs 200', '200'); trackButtonClick('Get Started - Rs 200', 'pricing')">Get Started</a>
-                            <button onclick="openWhatsAppForSample()" style="width: 100%; padding: 12px 30px; font-size: 1rem; background: white; color: #0a5d8c; border: 2px solid #0a5d8c; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                            <a href="javascript:void(0)" class="btn-primary" onclick="openWhatsAppForPricing('Individual Check - Rs 200', '200'); trackButtonClick('Get Started - Rs 200', 'pricing')" aria-label="Get started with individual check plan at Rs 200" data-price-inr="200">Get Started</a>
+                            <button onclick="openWhatsAppForSample()" style="width: 100%; padding: 12px 30px; font-size: 1rem; background: white; color: #0a5d8c; border: 2px solid #0a5d8c; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;" aria-label="View sample report for individual check plan">
                                 📄 View Sample Report
                             </button>
                         </div>
@@ -2705,7 +3963,7 @@
                     <div class="pricing-card featured">
                         <div class="pricing-badge most-popular-badge">🔥 Most Popular</div>
                         <div style="font-size: 1.5rem; margin-bottom: 1rem; padding-top: 1rem;">Combined Report</div>
-                        <div class="pricing-price">Rs 300</div>
+                        <div class="pricing-price" data-price-inr="300">Rs 300</div>
                         <ul class="pricing-features">
                             <li>✅ Single document check</li>
                             <li>✅ Plagiarism AND AI detection</li>
@@ -2715,7 +3973,7 @@
                             <li>✅ Improvement suggestions</li>
                         </ul>
                         <div style="display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding-top: 1rem;">
-                            <a href="javascript:void(0)" class="btn-primary" style="background: white; color: #0a5d8c;" onclick="openWhatsAppForPricing('Combined Report - Rs 300', '300'); trackButtonClick('Get Started - Rs 300', 'pricing')">Get Started</a>
+                            <a href="javascript:void(0)" class="btn-primary" style="background: white; color: #0a5d8c;" onclick="openWhatsAppForPricing('Combined Report - Rs 300', '300'); trackButtonClick('Get Started - Rs 300', 'pricing')" aria-label="Get started with combined report plan at Rs 300" data-price-inr="300">Get Started</a>
                             <button onclick="openWhatsAppForSample()" style="width: 100%; padding: 12px 30px; font-size: 1rem; background: transparent; color: white; border: 2px solid white; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
                                 📊 View Sample Report
                             </button>
@@ -2725,7 +3983,7 @@
                     <!-- Card 3: Rs 2000 -->
                     <div class="pricing-card">
                         <div class="pricing-badge">Bulk Package</div>
-                        <div class="pricing-price">Rs 2000</div>
+                        <div class="pricing-price" data-price-inr="2000">Rs 2000</div>
                         <ul class="pricing-features">
                             <li>✅ 10 document checks</li>
                             <li>✅ 25% discount included</li>
@@ -2735,7 +3993,7 @@
                             <li>✅ 3-month validity</li>
                         </ul>
                         <div style="display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding-top: 1rem;">
-                            <a href="javascript:void(0)" class="btn-primary" onclick="openWhatsAppForPricing('Bulk Package - Rs 2000', '2000'); trackButtonClick('Get Started - Rs 2000', 'pricing')">Get Started</a>
+                            <a href="javascript:void(0)" class="btn-primary" onclick="openWhatsAppForPricing('Bulk Package - Rs 2000', '2000'); trackButtonClick('Get Started - Rs 2000', 'pricing')" aria-label="Get started with bulk package plan at Rs 2000" data-price-inr="2000">Get Started</a>
                             <button onclick="openWhatsAppForSample()" style="width: 100%; padding: 12px 30px; font-size: 1rem; background: white; color: #0a5d8c; border: 2px solid #0a5d8c; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
                                 📦 View Sample Reports
                             </button>
@@ -2788,10 +4046,10 @@
                         </label>
                         <select id="serviceTypeSelector" 
                                 style="width: 100%; padding: 1.2rem; border: 2px solid #e9ecef; border-radius: 10px; font-size: 1.1rem; cursor: pointer; background: white; transition: all 0.3s ease;">
-                            <option value="200">Plagiarism Detection - Rs 200 (Standard 12h)</option>
-                            <option value="200-ai">AI Content Detection - Rs 200 (Standard 12h)</option>
-                            <option value="300" selected>Combined Report - Rs 300 (Recommended, 8h)</option>
-                            <option value="2000">Bulk Package - Rs 2,000 (10 documents, 6h)</option>
+                            <option value="200" data-price-inr="200">Plagiarism Detection - Rs 200 (Standard 12h)</option>
+                            <option value="200-ai" data-price-inr="200">AI Content Detection - Rs 200 (Standard 12h)</option>
+                            <option value="300" data-price-inr="300" selected>Combined Report - Rs 300 (Recommended, 8h)</option>
+                            <option value="2000" data-price-inr="2000">Bulk Package - Rs 2,000 (10 documents, 6h)</option>
                         </select>
                     </div>
                     
@@ -2812,7 +4070,7 @@
                     <div style="margin: 2.5rem 0; padding: 2.5rem; background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); border-radius: 15px; text-align: center; color: white; box-shadow: 0 8px 25px rgba(10, 93, 140, 0.3);">
                         <p style="font-size: 1.1rem; margin-bottom: 0.5rem; opacity: 0.95;">Your Estimated Price:</p>
                         <h2 style="font-size: 4rem; margin: 1rem 0; font-weight: bold; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
-                            Rs <span id="calculatedPrice">300</span>
+                            <span id="calculatedPrice">₹ 300</span>
                         </h2>
                         <p style="font-size: 1rem; margin-top: 1rem; opacity: 0.9;">
                             ⏱️ Estimated Delivery: <span id="estimatedDelivery">10-20 minutes</span>
@@ -2912,10 +4170,10 @@
                             
                             <!-- Contact Form Buttons -->
                             <div style="display: flex; gap: 15px; margin-top: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                                <button type="button" class="btn-primary" id="sendWhatsAppBtn" style="background: #25d366; padding: 1rem 2rem; font-size: 1.1rem;">
+                                <button class="btn-primary" id="sendWhatsAppBtn" style="background: #25d366; padding: 1rem 2rem; font-size: 1.1rem;" aria-label="Send contact form via WhatsApp">
                                     <i class="fab fa-whatsapp"></i> Send via WhatsApp
                                 </button>
-                                <button type="button" id="sendEmailBtn" style="background: white; color: #0a5d8c; border: 2px solid white; padding: 1rem 2rem; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease;">
+                                <button id="sendEmailBtn" style="background: white; color: #0a5d8c; border: 2px solid white; padding: 1rem 2rem; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease;" aria-label="Send contact form via email">
                                     <i class="fas fa-envelope"></i> Send via Email
                                 </button>
                             </div>
@@ -3334,8 +4592,108 @@
     </div>
     <!-- COMPLETE JavaScript -->
     <script>
+
+        // ========================================
+        // INLINE ERROR DISPLAY FUNCTION
+        // ========================================
+        function showInlineError(elementId, message) {
+            let errorDiv = document.getElementById(elementId);
+            
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.id = elementId;
+                errorDiv.style.cssText = `
+                    background: #fff5f5;
+                    border-left: 4px solid #dc3545;
+                    color: #721c24;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    margin: 12px 0;
+                    font-size: 0.95rem;
+                    animation: slideDown 0.3s ease-out;
+                `;
+                
+                // Insert after upload area
+                const uploadArea = document.getElementById('uploadArea');
+                if (uploadArea) {
+                    uploadArea.parentNode.insertBefore(errorDiv, uploadArea.nextSibling);
+                }
+            }
+            
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // ========================================
+        // MULTI-CURRENCY SYSTEM
+        // ========================================
+        const currencyRates = {
+            'INR': 1,
+            'USD': 0.012,
+            'GBP': 0.0095,
+            'EUR': 0.011,
+            'AUD': 0.018,
+            'CAD': 0.016
+        };
+
+        const currencySymbols = {
+            'INR': '₹',
+            'USD': '$',
+            'GBP': '£',
+            'EUR': '€',
+            'AUD': 'A$',
+            'CAD': 'C$'
+        };
+
+        let currentCurrency = 'INR';
+
+        function updateCurrency(currency) {
+            currentCurrency = currency;
+            localStorage.setItem('preferredCurrency', currency);
+            
+            const priceElements = document.querySelectorAll('[data-price-inr]');
+            priceElements.forEach(el => {
+                const inrPrice = parseInt(el.getAttribute('data-price-inr'));
+                const convertedPrice = Math.round(inrPrice * currencyRates[currency]);
+                el.textContent = currencySymbols[currency] + ' ' + convertedPrice;
+            });
+            
+            trackEvent('currency_change', {
+                'event_category': 'preferences',
+                'event_label': currency
+            });
+        }
+
         // Configuration
+        // ========================================
+        // DARK MODE TOGGLE
+        // ========================================
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            // Save preference
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+            
+            // Update toggle icon
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = isDark ? '☀️' : '🌙';
+            }
+            
+            trackEvent('dark_mode_toggle', {
+                'event_category': 'preferences',
+                'event_label': isDark ? 'enabled' : 'disabled'
+            });
+        }
+
         const CONFIG = {
+
             whatsappNumber: '918168706565',
             email: 'shivansh.assignment365@gmail.com',
             adminPasswordHash: '27fcb86d00180784cffd1cae62fcadcc16baac99a27bbe3061f492bfae76371b'
@@ -3519,6 +4877,11 @@ Please guide me on:
 Thank you!`;
             window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
             trackWhatsAppClick('service_price_click', serviceName);
+            trackEvent('whatsapp_click', {
+                'event_category': 'conversion',
+                'event_label': serviceName,
+                'value': parseInt(price)
+            });
         }
 
         function openWhatsAppForPricing(planName, price) {
@@ -3534,6 +4897,11 @@ Can you help me with:
 Thank you!`;
             window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
             trackWhatsAppClick('pricing_get_started', planName);
+            trackEvent('whatsapp_click', {
+                'event_category': 'conversion',
+                'event_label': planName,
+                'value': parseInt(price)
+            });
         }
 
         function openWhatsAppForSample() {
@@ -3586,15 +4954,43 @@ Thank you!`;
 
         function displayFiles() {
             fileList.innerHTML = '';
+            
+            // Check file sizes
+            const maxSize = 100 * 1024 * 1024; // 100MB in bytes
             uploadedFiles.forEach((file, index) => {
                 const item = document.createElement('div');
                 item.className = 'file-item';
-                item.innerHTML = `
-                    <span>${getFileIcon(file.name)} ${file.name} <small>(${formatFileSize(file.size)})</small></span>
-                    <button class="remove-file" onclick="removeFile(${index})">Remove</button>
-                `;
+                
+                // Check if file exceeds WhatsApp limit
+                if (file.size > maxSize) {
+                    item.style.border = '2px solid #dc3545';
+                    item.style.background = '#fff5f5';
+                    item.innerHTML = `
+                        <span>
+                            ⚠️ ${getFileIcon(file.name)} ${file.name} 
+                            <small style="color: #dc3545; font-weight: bold;">
+                                (${formatFileSize(file.size)} - EXCEEDS 100MB WHATSAPP LIMIT)
+                            </small>
+                        </span>
+                        <button class="remove-file" onclick="removeFile(${index})">Remove</button>
+                    `;
+                } else {
+                    item.innerHTML = `
+                        <span>✅ ${getFileIcon(file.name)} ${file.name} <small>(${formatFileSize(file.size)})</small></span>
+                        <button class="remove-file" onclick="removeFile(${index})">Remove</button>
+                    `;
+                }
+                
                 fileList.appendChild(item);
             });
+            
+            // Show warning if any file exceeds limit
+            const oversizedFiles = uploadedFiles.filter(f => f.size > maxSize);
+            if (oversizedFiles.length > 0) {
+                showInlineError('uploadError', 
+                    `⚠️ ${oversizedFiles.length} file(s) exceed 100MB WhatsApp limit. You can still submit, but you'll need to send smaller files or use email.`
+                );
+            }
         }
 
         function getFileIcon(filename) {
@@ -3628,21 +5024,22 @@ Thank you!`;
         // FIX #2: UPLOAD SUBMISSION - WhatsApp Button with Progress
         document.getElementById('submitWhatsAppBtn').addEventListener('click', function() {
             if (!uploadedFiles.length) {
-                alert('⚠️ Please upload at least one file');
+                showInlineError('uploadError', '⚠️ Please upload at least one file');
                 return;
             }
             
             const mobile = document.getElementById('mobileNumber').value.trim();
             if (!mobile || mobile.length < 10) {
-                alert('⚠️ Please enter a valid mobile number');
+                showInlineError('uploadError', '⚠️ Please enter a valid mobile number');
                 return;
             }
 
             // Check terms agreement
             const agreeTerms = document.getElementById('agreeTermsUpload');
             if (!agreeTerms.checked) {
-                alert('⚠️ Please agree to Terms of Service and Privacy Policy to continue');
+                showInlineError('uploadError', '⚠️ Please agree to Terms of Service and Privacy Policy to continue');
                 agreeTerms.focus();
+                agreeTerms.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
             
@@ -3847,6 +5244,14 @@ ${message}`;
             window.scrollTo(0, 0);
         }
 
+        // Sanitize HTML to prevent XSS attacks
+        function sanitizeHTML(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
         function renderBlogPosts() {
             const container = document.getElementById('blogPostsContainer');
             
@@ -3863,7 +5268,7 @@ ${message}`;
                 el.className = 'blog-post';
                 el.innerHTML = `
                     <div>
-                        <h3>${post.title}</h3>
+                        <h3>${sanitizeHTML(post.title)}</h3>
                         <p style="color: #666; margin: 0.5rem 0 0;">
                             <small>📅 ${post.date} • ⏱️ ${post.readTime} min read • 📂 ${post.category || 'Uncategorized'}</small>
                         </p>
@@ -3882,7 +5287,7 @@ ${message}`;
             const post = blogPosts.find(p => p.id === id);
             if (post) {
                 document.getElementById('blogModalContent').innerHTML = `
-                    <h2 style="color: #0a5d8c; margin-bottom: 1rem;">${post.title}</h2>
+                    <h2 style="color: #0a5d8c; margin-bottom: 1rem;">${sanitizeHTML(post.title)}</h2>
                     <p style="color: #666; margin-bottom: 2rem;">
                         <strong>Date:</strong> ${post.date} | 
                         <strong>Read Time:</strong> ${post.readTime} min | 
@@ -4187,6 +5592,27 @@ Slug: ${newPost.slug}`);
 
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', function() {
+
+
+            // Load dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                const toggleBtn = document.getElementById('darkModeToggle');
+                if (toggleBtn) {
+                    toggleBtn.textContent = '☀️';
+                }
+            }
+
+            // Load saved currency preference
+            const savedCurrency = localStorage.getItem('preferredCurrency');
+            if (savedCurrency && savedCurrency !== 'INR') {
+                const currencySelector = document.getElementById('currencySelector');
+                if (currencySelector) {
+                    currencySelector.value = savedCurrency;
+                    updateCurrency(savedCurrency);
+                }
+            }
+
             // Load country codes
             loadCountryCodes();
 
@@ -4306,7 +5732,7 @@ Thank you!`;
             const finalPrice = Math.round(basePrice * wordMultiplier * deliverySpeed);
             
             // Update display
-            document.getElementById('calculatedPrice').textContent = finalPrice;
+            document.getElementById('calculatedPrice').textContent = currencySymbols[currentCurrency] + ' ' + Math.round(finalPrice * currencyRates[currentCurrency]);
             document.getElementById('wordFactor').textContent = wordFactorText;
             
             // Update delivery time based on speed
@@ -4376,7 +5802,7 @@ Thank you!`;
             // Increment orders count every 15 seconds (ALWAYS INCREASE)
             setInterval(() => {
                 dailyOrders += Math.floor(Math.random() * 3) + 1; // Increase by 1-3
-                if (dailyOrders > 500) dailyOrders = 500; // Cap at 500
+                if (dailyOrders > 999) dailyOrders = 250; // Reset to 250 after reaching 999 
                 localStorage.setItem('dailyOrders', dailyOrders.toString());
                 ordersEl.textContent = dailyOrders;
             }, 15000);
@@ -4571,5 +5997,337 @@ Thank you!`;
         console.log('%c💼 Contact: shivansh.assignment365@gmail.com', 'font-size: 12px; color: #0a9cfc;');
         console.log('%c🔐 Admin Access: Authorized personnel only', 'font-size: 12px; color: #dc3545;');
     </script>
+
+    <!-- Live Chat Widget -->
+<div id="liveChatWidget" class="live-chat-widget" style="
+    position: fixed;
+    bottom: 150px;
+    right: 40px;
+    z-index: 999;
+    display: none;
+">
+    <!-- Chat Toggle Button -->
+    <button id="chatToggle" onclick="toggleChat()" style="
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+        border: none;
+        box-shadow: 0 4px 20px rgba(10, 93, 140, 0.4);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        transition: all 0.3s ease;
+        position: relative;
+    " aria-label="Open live chat">
+        💬
+        <span id="chatNotification" style="
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background: #dc3545;
+            border-radius: 50%;
+            border: 3px solid white;
+            display: none;
+        "></span>
+    </button>
+    
+    <!-- Chat Window -->
+    <div id="chatWindow" style="
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        width: 350px;
+        max-width: 90vw;
+        height: 500px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        animation: slideUp 0.3s ease-out;
+    ">
+        <!-- Chat Header -->
+        <div style="
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            color: white;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        ">
+            <div>
+                <strong style="font-size: 1.1rem;">💬 Live Support</strong>
+                <div style="font-size: 0.85rem; opacity: 0.9;">
+                    <span id="chatStatus" style="display: flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #27ae60; border-radius: 50%; display: inline-block;"></span>
+                        Online - Reply in ~2 min
+                    </span>
+                </div>
+            </div>
+            <button onclick="toggleChat()" style="
+                background: none;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+            " aria-label="Close chat">×</button>
+        </div>
+        
+        <!-- Chat Messages -->
+        <div id="chatMessages" style="
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        ">
+            <!-- Welcome message -->
+            <div class="chat-message bot-message" style="
+                background: white;
+                padding: 12px 16px;
+                border-radius: 12px 12px 12px 2px;
+                margin-bottom: 12px;
+                max-width: 80%;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            ">
+                <p style="margin: 0; font-size: 0.95rem; color: #333;">
+                    Hi! 👋 Welcome to TurnitinPaperChecker.<br><br>
+                    How can we help you today?
+                </p>
+            </div>
+            
+            <!-- Quick replies -->
+            <div id="quickReplies" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem;">
+                <button onclick="sendQuickReply('pricing')" class="quick-reply-btn">💰 Pricing & Plans</button>
+                <button onclick="sendQuickReply('howto')" class="quick-reply-btn">📄 How to submit documents</button>
+                <button onclick="sendQuickReply('turnaround')" class="quick-reply-btn">⏱️ Delivery time</button>
+                <button onclick="sendQuickReply('sample')" class="quick-reply-btn">📊 View sample report</button>
+            </div>
+        </div>
+        
+        <!-- Chat Input -->
+        <div style="
+            padding: 1rem;
+            border-top: 1px solid #e9ecef;
+            background: white;
+        ">
+            <div style="display: flex; gap: 8px;">
+                <input type="text" id="chatInput" placeholder="Type your message..." style="
+                    flex: 1;
+                    padding: 12px 16px;
+                    border: 1px solid #ddd;
+                    border-radius: 25px;
+                    font-size: 0.95rem;
+                " onkeypress="if(event.key==='Enter') sendChatMessage()">
+                <button onclick="sendChatMessage()" style="
+                    background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+                    color: white;
+                    border: none;
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    font-size: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                " aria-label="Send message">📤</button>
+            </div>
+            <p style="margin: 8px 0 0; font-size: 0.8rem; color: #999; text-align: center;">
+                Or chat on <a href="https://wa.me/918168706565" target="_blank" style="color: #25d366; font-weight: 600;">WhatsApp</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+.quick-reply-btn {
+    background: white;
+    border: 2px solid #0a9cfc;
+    color: #0a5d8c;
+    padding: 10px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.quick-reply-btn:hover {
+    background: #0a9cfc;
+    color: white;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    #chatWindow {
+        width: 100vw !important;
+        height: 100vh !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        border-radius: 0 !important;
+    }
+}
+</style>
+
+<script>
+let chatOpen = false;
+
+function toggleChat() {
+    chatOpen = !chatOpen;
+    const chatWindow = document.getElementById('chatWindow');
+    const chatToggle = document.getElementById('chatToggle');
+    
+    if (chatOpen) {
+        chatWindow.style.display = 'flex';
+        chatToggle.textContent = '✕';
+        document.getElementById('chatNotification').style.display = 'none';
+        trackEvent('live_chat_opened', {'event_category': 'engagement'});
+    } else {
+        chatWindow.style.display = 'none';
+        chatToggle.textContent = '💬';
+    }
+}
+
+function sendQuickReply(type) {
+    const responses = {
+        'pricing': 'Our pricing starts at Rs 200 for basic plagiarism check. Would you like to see our full pricing plans?',
+        'howto': 'You can submit documents via:\n1️⃣ Upload form on website\n2️⃣ WhatsApp: +91 8168706565\n3️⃣ Email: shivansh.assignment365@gmail.com',
+        'turnaround': 'Standard delivery: 10-20 minutes ⚡\nExpress: 5-10 minutes (+50%)\nRush: 2-5 minutes (+100%)',
+        'sample': 'I can share sample reports via WhatsApp. Would you like to see a plagiarism report or AI detection report?'
+    };
+    
+    addChatMessage(responses[type], 'bot');
+    document.getElementById('quickReplies').style.display = 'none';
+    
+    trackEvent('quick_reply_used', {
+        'event_category': 'live_chat',
+        'event_label': type
+    });
+}
+
+function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    addChatMessage(message, 'user');
+    input.value = '';
+    
+    // Simulate bot response
+    setTimeout(() => {
+        addChatMessage(
+            "Thanks for your message! Our team will respond shortly. For immediate assistance, contact us on WhatsApp: +91 8168706565",
+            'bot'
+        );
+    }, 1000);
+    
+    trackEvent('chat_message_sent', {'event_category': 'live_chat'});
+}
+
+function addChatMessage(text, sender) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    
+    const isBot = sender === 'bot';
+    messageDiv.className = `chat-message ${isBot ? 'bot-message' : 'user-message'}`;
+    messageDiv.style.cssText = `
+        background: ${isBot ? 'white' : 'linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%)'};
+        color: ${isBot ? '#333' : 'white'};
+        padding: 12px 16px;
+        border-radius: ${isBot ? '12px 12px 12px 2px' : '12px 12px 2px 12px'};
+        margin-bottom: 12px;
+        max-width: 80%;
+        ${isBot ? 'margin-right: auto;' : 'margin-left: auto;'}
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        white-space: pre-line;
+    `;
+    
+    messageDiv.textContent = text;
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Show chat widget after 5 seconds
+setTimeout(() => {
+    document.getElementById('liveChatWidget').style.display = 'block';
+    
+    // Show notification badge after 10 seconds if not opened
+    setTimeout(() => {
+        if (!chatOpen) {
+            document.getElementById('chatNotification').style.display = 'block';
+        }
+    }, 5000);
+}, 5000);
+</script>
+
+<!-- PWA Service Worker Registration -->
+<script>
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('✅ Service Worker registered successfully:', registration.scope);
+                trackEvent('pwa_sw_registered', {'event_category': 'technical'});
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            console.log('🔄 New version available! Please refresh.');
+                        }
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('❌ Service Worker registration failed:', error);
+            });
+    });
+    
+    // Listen for service worker messages
+    navigator.serviceWorker.addEventListener('message', event => {
+        console.log('📨 Message from service worker:', event.data);
+    });
+}
+
+// Check if app is installed
+window.addEventListener('appinstalled', (evt) => {
+    console.log('✅ App installed successfully');
+    trackEvent('pwa_installed', {'event_category': 'conversion'});
+});
+
+// Prompt to install PWA
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('💡 PWA install prompt available');
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // Show custom install button (optional)
+    // You can add a banner here: "Install our app for faster access!"
+});
+</script>
 </body>
 </html>
