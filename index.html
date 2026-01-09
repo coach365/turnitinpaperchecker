@@ -19,6 +19,7 @@
     <meta property="og:url" content="https://www.turnitinpaperchecker.com/">
     <meta property="og:image" content="https://www.turnitinpaperchecker.com/images/og-image.jpg">
     <meta property="og:image:alt" content="TurnitinPaperChecker - Academic Integrity Solutions">
+    <meta property="og:site_name" content="TurnitinPaperChecker">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -144,18 +145,35 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             background-color: #f9fbfa;
             padding-top: 55px;
+            margin: 0;
+            padding-left: 0;
+            padding-right: 0;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+                max-width: 100%;
+            }
         }
 
         /* Consistent Width for All Cards and Boxes */
@@ -481,25 +499,46 @@
 
         @media (max-width: 768px) {
             .logo {
-                font-size: 1rem !important; /* Smaller logo on mobile */
+                font-size: 1rem !important;
             }
             
             .logo span:last-child {
-                display: none; /* Hide "TurnitinPaperChecker" text */
+                display: none;
             }
             
             .logo::after {
-                content: "TurnitinPaperChecker"; /* Show abbreviated version */
+                content: "TPC";
                 font-weight: 700;
-                margin-left: auto;
+                margin-left: 8px;
             }
             
             .nav-quick-actions {
-                display: none !important; /* Hide currency/dark mode on mobile */
+                display: none !important;
             }
             
             .nav-right-group .cta-button {
-                display: none !important; /* Hide CTA button, keep only hamburger */
+                display: none !important;
+            }
+            
+            /* Show mobile currency selector only in dropdown */
+            .mobile-currency-selector,
+            .mobile-dark-toggle {
+                display: block;
+            }
+            
+            /* Style mobile currency dropdown options */
+            #mobileCurrencySelector option {
+                background: #2d2d2d;
+                color: white;
+                padding: 10px;
+            }
+        }
+
+        /* Hide mobile currency on desktop */
+        @media (min-width: 769px) {
+            .mobile-currency-selector,
+            .mobile-dark-toggle {
+                display: none !important;
             }
         }
 
@@ -548,6 +587,13 @@
                 url('https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
             background-size: cover;
             background-position: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero .container > div {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
         }
 
         .hero-content {
@@ -2011,6 +2057,19 @@
                 justify-content: center !important;
             }
 
+            /* ⭐ FIX: CENTER STATS ON MOBILE */
+            .hero .container > div > div:last-child {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .live-stats {
+                max-width: 100% !important;
+            }
+
             .phone-input {
                 flex-direction: column !important;
             }
@@ -2177,7 +2236,7 @@
         .feature-label {
             flex: 1;
             font-size: 0.95rem;
-            color: #333;
+            color: #000;
         }
 
         /* Dark mode fixes for comparison table */
@@ -2447,10 +2506,52 @@
             outline: 3px solid #0a9cfc;
             outline-offset: 2px;
         }
-        /* Remove white gap on all screen sizes */
+        /* CRITICAL: Prevent horizontal scroll and gaps */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
+        }
+
         @media (max-width: 768px) {
             body {
-                padding-top: 60px;
+                padding-top: 55px;
+            }
+            
+            /* Fix all sections to prevent overflow */
+            section {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            /* Fix all containers */
+            .container,
+            .hero .container,
+            .services .container,
+            .pricing .container {
+                max-width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+                box-sizing: border-box;
+            }
+            
+            /* Fix grids */
+            .services-grid,
+            .pricing-grid,
+            .features-grid {
+                width: 100%;
+                max-width: 100%;
             }
         }
     </style>
@@ -2556,6 +2657,32 @@
                     <li><a href="#blog" class="nav-link">Blog</a></li>
                     <li><a href="#price-calculator" class="nav-link">Calculator</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
+                    
+                    <!-- Mobile-only Currency Selector -->
+                    <li class="mobile-currency-selector" style="border-top: 2px solid rgba(255,255,255,0.2); padding-top: 1rem; margin-top: 1rem;">
+                        <div style="padding: 0 2rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Currency:</label>
+                            <select id="mobileCurrencySelector" 
+                                    onchange="updateCurrency(this.value); document.getElementById('currencySelector').value = this.value;"
+                                    style="width: 100%; padding: 0.8rem; border: 2px solid rgba(255,255,255,0.3); border-radius: 10px; background: rgba(255,255,255,0.15); color: white; font-size: 1rem; font-weight: 600;">
+                                <option value="INR" selected>₹ INR - Indian Rupee</option>
+                                <option value="USD">$ USD - US Dollar</option>
+                                <option value="GBP">£ GBP - British Pound</option>
+                                <option value="EUR">€ EUR - Euro</option>
+                                <option value="AUD">A$ AUD - Australian Dollar</option>
+                                <option value="CAD">C$ CAD - Canadian Dollar</option>
+                            </select>
+                        </div>
+                    </li>
+                    
+                    <!-- Mobile-only Dark Mode Toggle -->
+                    <li class="mobile-dark-toggle" style="padding: 1rem 2rem;">
+                        <button onclick="toggleDarkMode()" 
+                                style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 10px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <span id="mobileDarkModeIcon">🌙</span>
+                            <span>Toggle Dark Mode</span>
+                        </button>
+                    </li>
                 </ul>
                 
                 <!-- RIGHT: CTA Button -->
@@ -2612,11 +2739,11 @@
                         <!-- Live Stats -->
                         <div class="live-stats fade-in" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
                             <div style="background: white; color: #0a5d8c; padding: 1.5rem; border-radius: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-                                <div style="font-size: 2.5rem; font-weight: bold;" id="ordersToday">247</div>
+                                <div style="font-size: 2.5rem; font-weight: bold; font-family: 'Courier New', monospace; min-width: 100px; display: inline-block;" id="ordersToday">247</div>
                                 <div style="font-size: 0.85rem;">documents checked today</div>
                             </div>
                             <div style="background: white; color: #0a5d8c; padding: 1.5rem; border-radius: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-                                <div style="font-size: 2.5rem; font-weight: bold;" id="waitingUsers">12</div>
+                                <div style="font-size: 2.5rem; font-weight: bold; font-family: 'Courier New', monospace; min-width: 60px; display: inline-block;" id="waitingUsers">12</div>
                                 <div style="font-size: 0.85rem;">students checking now</div>
                             </div>
                         </div>
@@ -2634,12 +2761,12 @@
                                 <tbody>
                                     <tr style="background: white;">
                                         <td style="padding: 1rem; font-size: 0.9rem; border: 2px solid #0a5d8c; color: #0a5d8c;">Official Turnitin</td>
-                                        <td style="padding: 1rem; text-align: center; font-size: 0.9rem; border: 2px solid #0a5d8c; color: #0a5d8c;">$15-20 USD</td>
+                                        <td style="padding: 1rem; text-align: center; font-size: 0.9rem; border: 2px solid #0a5d8c; color: #0a5d8c;" data-price-usd="15">$15-20 USD</td>
                                         <td style="padding: 1rem; text-align: center; font-size: 0.9rem; border: 2px solid #0a5d8c; color: #0a5d8c;">24-48 hours</td>
                                     </tr>
                                     <tr style="background: #0a5d8c;">
                                         <td style="padding: 1rem; font-weight: bold; font-size: 1rem; border: 2px solid #0a5d8c; color: white;">TurnitinPaperChecker</td>
-                                        <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1.1rem; color: #87cefa; border: 2px solid #0a5d8c;">Rs 200 (~$2.50)</td>
+                                        <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1.1rem; color: #87cefa; border: 2px solid #0a5d8c;" data-price-inr="200"><span class="hero-price-display">Rs 200</span></td>
                                         <td style="padding: 1rem; text-align: center; font-weight: bold; font-size: 1rem; border: 2px solid #0a5d8c; color: white;">10-20 min ⚡</td>
                                     </tr>
                                 </tbody>
@@ -2651,9 +2778,12 @@
 
                         <!-- Urgency Indicator -->
                         <div class="urgency-indicator fade-in" style="margin-top: 1.5rem; background: rgba(255, 193, 7, 0.2); border: 2px solid #ffc107; border-radius: 10px; padding: 1rem;">
-                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.95rem; font-weight: 600; color: white;">
-                                <span class="pulse-dot" style="width: 10px; height: 10px; background: #ffc107; border-radius: 50%; animation: pulseDot 2s infinite;"></span>
-                                <span id="liveViewers">8</span> students checking pricing right now
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.95rem; font-weight: 600; color: white; flex-wrap: wrap; text-align: center;">
+                                <span style="display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+                                    <span class="pulse-dot" style="width: 10px; height: 10px; background: #ffc107; border-radius: 50%; animation: pulseDot 2s infinite;"></span>
+                                    <span id="liveViewers">8</span> students
+                                </span>
+                                <span style="white-space: nowrap;">checking pricing right now</span>
                             </div>
                         </div>
                     </div>
@@ -3132,7 +3262,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                src="https://youtu.be/olI3uG-y7hs"
                                 title="How to Upload Documents"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3150,7 +3280,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                src="https://youtu.be/6PC0RpeDHq0"
                                 title="Understanding Your Report"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3168,7 +3298,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                src="https://youtu.be/8S7rWqKlKCE"
                                 title="Fixing Plagiarism Issues"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3205,7 +3335,7 @@
                     <!-- Sample 1: Plagiarism Report -->
                     <div class="service-card fade-in" style="cursor: pointer;" onclick="requestSampleReport('Plagiarism Detection Report')">
                         <div style="height: 280px; overflow: hidden; border-radius: 10px; margin-bottom: 1.5rem; border: 3px solid #0a5d8c; box-shadow: 0 3px 10px rgba(10, 93, 140, 0.2);">
-                            <img src="https://www.turnitin.com/static/resources/images/products/similarity/similarity-report-new.png" 
+                            <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767922328/similarty_w2woff.png" 
                                  alt="Turnitin Plagiarism Report Sample" 
                                  style="width: 100%; height: 100%; object-fit: cover;"
                                  loading="lazy"
@@ -3222,7 +3352,7 @@
                     <!-- Sample 2: AI Detection Report -->
                     <div class="service-card fade-in" style="cursor: pointer;" onclick="requestSampleReport('AI Content Detection Report')">
                         <div style="height: 280px; overflow: hidden; border-radius: 10px; margin-bottom: 1.5rem; border: 3px solid #0a5d8c; box-shadow: 0 3px 10px rgba(10, 93, 140, 0.2);">
-                            <img src="https://www.turnitin.com/static/resources/images/products/ai-detection/ai-writing-detection-report.png" 
+                            <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767922328/AI_nzrowx.png" 
                                  alt="Turnitin AI Detection Report Sample" 
                                  style="width: 100%; height: 100%; object-fit: cover;"
                                  loading="lazy"
@@ -3239,7 +3369,7 @@
                     <!-- Sample 3: Combined Report -->
                     <div class="service-card fade-in" style="cursor: pointer;" onclick="requestSampleReport('Combined Analysis Report')">
                         <div style="height: 280px; overflow: hidden; border-radius: 10px; margin-bottom: 1.5rem; border: 3px solid #0a5d8c; box-shadow: 0 3px 10px rgba(10, 93, 140, 0.2);">
-                            <img src="https://www.turnitin.com/static/resources/images/products/originality/originality-check-report.png" 
+                            <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767922340/combined_yekwd5.jpg" 
                                  alt="Turnitin Combined Report Sample" 
                                  style="width: 100%; height: 100%; object-fit: cover;"
                                  loading="lazy"
@@ -3446,7 +3576,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                src="https://youtube.com/shorts/Ytn_ofmgGHo?feature=share"
                                 title="Student testimonial - Priya Sharma"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3464,7 +3594,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                src="https://youtube.com/shorts/EqEXY5PecD4"
                                 title="Student testimonial - Rahul Kumar"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3482,7 +3612,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                src="https://youtu.be/U6el1rzayEQ"
                                 title="Student testimonial - Ananya Mehta"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -4186,8 +4316,8 @@
                     <!-- Card 1: QR Code Scanner -->
                     <div class="service-card fade-in">
                         <h3 style="margin-bottom: 1rem;">📱 UPI / QR Code (India)</h3>
-                        <div style="height: 300px; overflow: hidden; border-radius: 10px; margin-bottom: 1rem; border: 3px solid #0a5d8c; background: white; display: flex; align-items: center; justify-content: center;">
-                            <img src="YOUR_CLOUDINARY_QR_IMAGE_URL_HERE" 
+                        <div style="height: 400px; overflow: hidden; border-radius: 10px; margin-bottom: 1rem; border: 3px solid #0a5d8c; background: white; display: flex; align-items: center; justify-content: center;">
+                            <img src="https://res.cloudinary.com/dxo9sw7ai/image/upload/v1767922556/WhatsApp_Image_2026-01-09_at_07.05.15_z3nbdk.jpg" 
                                 alt="UPI QR Code for payment" 
                                 style="width: 100%; height: 100%; object-fit: contain; padding: 10px;"
                                 loading="lazy"
@@ -4207,7 +4337,7 @@
                         <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; border: 2px solid #0a9cfc;">
                             <div style="margin-bottom: 1rem;">
                                 <strong style="color: #0a5d8c;">Account Holder:</strong>
-                                <p style="margin: 0.3rem 0; color: #333;">Shivansh Kumar</p>
+                                <p style="margin: 0.3rem 0; color: #333;">Shivansh Ranjan</p>
                             </div>
                             <div style="margin-bottom: 1rem;">
                                 <strong style="color: #0a5d8c;">Bank Name:</strong>
@@ -4215,17 +4345,20 @@
                             </div>
                             <div style="margin-bottom: 1rem;">
                                 <strong style="color: #0a5d8c;">Account Number:</strong>
-                                <p style="margin: 0.3rem 0; color: #333; font-family: monospace; font-size: 1.1rem;">20479706594</p>
+                                <p style="margin: 0.3rem 0; color: #333; font-family: monospace; font-size: 1.1rem;">41878390744</p>
                             </div>
                             <div style="margin-bottom: 1rem;">
                                 <strong style="color: #0a5d8c;">IFSC Code:</strong>
-                                <p style="margin: 0.3rem 0; color: #333; font-family: monospace; font-size: 1.1rem;">SBIN0001656</p>
+                                <p style="margin: 0.3rem 0; color: #333; font-family: monospace; font-size: 1.1rem;">SBIN0019179</p>
                             </div>
                             <div>
                                 <strong style="color: #0a5d8c;">Branch:</strong>
-                                <p style="margin: 0.3rem 0; color: #333;">Shakti Nagar, Delhi</p>
+                                <p style="margin: 0.3rem 0; color: #333;">Sector 13 Market, Kurukshetra</p>
                             </div>
                         </div>
+                        <p style="font-size: 0.95rem; color: #666; margin-bottom: 1rem;">
+                            For NEFT/IMPS/RTGS/SWIFT/REMITLY/UPI and Bank Transactions 
+                        </p>
                         <button onclick="openWhatsAppForPayment('Bank Transfer')" class="btn-primary" style="width: 100%;">
                             💬 Send Payment Screenshot
                         </button>
@@ -4233,8 +4366,8 @@
                     
                     <!-- Card 3: International Payments -->
                     <div class="service-card fade-in">
-                        <h3 style="margin-bottom: 1rem;">🌍 International Payments</h3>
-                        <div style="background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; color: white;">
+                        <h3 style="margin-bottom: 1rem;">🌍 Global Payments</h3>
+                        <div style="height: 400px; background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; color: white;">
                             <div style="margin-bottom: 1rem;">
                                 <strong style="color: #87cefa;">Payment Method:</strong>
                                 <p style="margin: 0.3rem 0;">Wise (formerly TransferWise)</p>
@@ -4282,19 +4415,21 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Mobile Responsive -->
-                <style>
-                @media (max-width: 768px) {
-                    #payment-methods .services-grid > div[style*="grid-template-columns"] {
-                        grid-template-columns: 1fr !important;
-                    }
-                }
-                </style>
             </div>
         </section>
 
-        <!-- ADD THIS JAVASCRIPT AT THE END OF YOUR FILE (before </body>) -->
+        <style>
+        @media (max-width: 768px) {
+            #payment-methods .services-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            #payment-methods .service-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+        </style>
+
         <script>
         function openWhatsAppForPayment(method) {
             const messages = {
@@ -4886,12 +5021,29 @@
             currentCurrency = currency;
             localStorage.setItem('preferredCurrency', currency);
             
+            // Update main price elements
             const priceElements = document.querySelectorAll('[data-price-inr]');
             priceElements.forEach(el => {
                 const inrPrice = parseInt(el.getAttribute('data-price-inr'));
                 const convertedPrice = Math.round(inrPrice * currencyRates[currency]);
-                el.textContent = currencySymbols[currency] + ' ' + convertedPrice;
+                
+                // Check if element has .hero-price-display span inside
+                const displaySpan = el.querySelector('.hero-price-display');
+                if (displaySpan) {
+                    displaySpan.textContent = currencySymbols[currency] + ' ' + convertedPrice;
+                } else {
+                    el.textContent = currencySymbols[currency] + ' ' + convertedPrice;
+                }
             });
+            
+            // Update Official Turnitin price (convert from USD base)
+            const officialPriceCell = document.querySelector('[data-price-usd]');
+            if (officialPriceCell) {
+                const usdPrice = parseInt(officialPriceCell.getAttribute('data-price-usd'));
+                const inrEquivalent = usdPrice / currencyRates['USD']; // Convert USD to INR first
+                const convertedPrice = Math.round(inrEquivalent * currencyRates[currency]);
+                officialPriceCell.textContent = currencySymbols[currency] + convertedPrice + '-' + Math.round(convertedPrice * 1.3);
+            }
             
             trackEvent('currency_change', {
                 'event_category': 'preferences',
@@ -4910,10 +5062,16 @@
             // Save preference
             localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
             
-            // Update toggle icon
+            // Update desktop toggle icon
             const toggleBtn = document.getElementById('darkModeToggle');
             if (toggleBtn) {
                 toggleBtn.textContent = isDark ? '☀️' : '🌙';
+            }
+            
+            // Update mobile toggle icon
+            const mobileIcon = document.getElementById('mobileDarkModeIcon');
+            if (mobileIcon) {
+                mobileIcon.textContent = isDark ? '☀️' : '🌙';
             }
             
             trackEvent('dark_mode_toggle', {
@@ -5831,6 +5989,20 @@ Slug: ${newPost.slug}`);
                 if (toggleBtn) {
                     toggleBtn.textContent = '☀️';
                 }
+                const mobileIcon = document.getElementById('mobileDarkModeIcon');
+                if (mobileIcon) {
+                    mobileIcon.textContent = '☀️';
+                }
+            }
+
+            // Sync desktop and mobile currency selectors
+            const currencySelector = document.getElementById('currencySelector');
+            const mobileCurrencySelector = document.getElementById('mobileCurrencySelector');
+
+            if (currencySelector && mobileCurrencySelector) {
+                const savedCurrency = localStorage.getItem('preferredCurrency') || 'INR';
+                currencySelector.value = savedCurrency;
+                mobileCurrencySelector.value = savedCurrency;
             }
 
             // Load saved currency preference
@@ -6079,7 +6251,7 @@ Thank you!`;
         let usedNames = JSON.parse(localStorage.getItem('usedActivityNames') || '[]');
         let lastReset = localStorage.getItem('lastActivityReset') || new Date().toDateString();
 
-        // Reset used names monthly
+        // Reset used names monthly AND clean up old data
         const today = new Date();
         const todayStr = today.toDateString();
         if (lastReset !== todayStr) {
@@ -6091,6 +6263,30 @@ Thank you!`;
                 localStorage.setItem('lastActivityReset', todayStr);
                 localStorage.setItem('usedActivityNames', '[]');
             }
+        }
+
+        // Clean up localStorage entries older than 90 days
+        try {
+            const storageKeys = ['dailyOrders', 'lastUpdateDate', 'usedActivityNames', 'lastActivityReset'];
+            storageKeys.forEach(key => {
+                const data = localStorage.getItem(key);
+                if (data) {
+                    const stored = localStorage.getItem(key + '_timestamp');
+                    if (stored) {
+                        const timestamp = parseInt(stored);
+                        const daysSinceStored = Math.floor((Date.now() - timestamp) / (1000 * 60 * 60 * 24));
+                        if (daysSinceStored > 90) {
+                            localStorage.removeItem(key);
+                            localStorage.removeItem(key + '_timestamp');
+                        }
+                    } else {
+                        // Add timestamp for existing entries
+                        localStorage.setItem(key + '_timestamp', Date.now().toString());
+                    }
+                }
+            });
+        } catch (e) {
+            console.error('localStorage cleanup error:', e);
         }
 
         function generateUniqueName() {
@@ -6233,7 +6429,7 @@ Thank you!`;
     position: fixed;
     bottom: 150px;
     right: 40px;
-    z-index: 999;
+    z-index: 10001;
     display: none;
 ">
     <!-- Chat Toggle Button -->
@@ -6269,12 +6465,13 @@ Thank you!`;
     
     <!-- Chat Window -->
     <div id="chatWindow" style="
-        position: absolute;
+        position: fixed;
         bottom: 80px;
-        right: 0;
+        right: 20px;
         width: 350px;
         max-width: 90vw;
         height: 500px;
+        max-height: 70vh;
         background: white;
         border-radius: 15px;
         box-shadow: 0 10px 40px rgba(0,0,0,0.2);
@@ -6302,15 +6499,20 @@ Thank you!`;
                 </div>
             </div>
             <button onclick="toggleChat()" style="
-                background: none;
-                border: none;
+                background: rgba(255,255,255,0.2);
+                border: 2px solid white;
                 color: white;
-                font-size: 24px;
+                font-size: 28px;
                 cursor: pointer;
                 padding: 0;
-                width: 30px;
-                height: 30px;
-            " aria-label="Close chat">×</button>
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            " aria-label="Close chat" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">✕</button>
         </div>
         
         <!-- Chat Messages -->
@@ -6409,12 +6611,25 @@ Thank you!`;
 }
 
 @media (max-width: 768px) {
+    #liveChatWidget {
+        bottom: 80px;
+        right: 10px;
+    }
+    
     #chatWindow {
-        width: 100vw !important;
-        height: 100vh !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        border-radius: 0 !important;
+        width: calc(100vw - 20px) !important;
+        height: calc(100vh - 140px) !important;
+        bottom: 10px !important;
+        right: 10px !important;
+        left: 10px !important;
+        border-radius: 15px !important;
+        max-height: 600px !important;
+    }
+    
+    #chatToggle {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
     }
 }
 </style>
@@ -6455,6 +6670,7 @@ function sendQuickReply(type) {
     });
 }
 
+
 function sendChatMessage() {
     const input = document.getElementById('chatInput');
     const message = input.value.trim();
@@ -6464,15 +6680,34 @@ function sendChatMessage() {
     addChatMessage(message, 'user');
     input.value = '';
     
+    // 🔥 FORWARD TO YOUR WHATSAPP
+    const timestamp = new Date().toLocaleString();
+    const chatLog = document.getElementById('chatMessages').innerText;
+    
+    const whatsappNotification = `🤖 LIVE CHAT MESSAGE
+
+📅 Time: ${timestamp}
+💬 User Message: ${message}
+
+📝 Full Chat History:
+${chatLog}
+
+⚡ Action Required: Reply via chat widget or WhatsApp`;
+    
+    // Send to your WhatsApp
+    setTimeout(() => {
+        window.open(`https://wa.me/918168706565?text=${encodeURIComponent(whatsappNotification)}`, '_blank');
+    }, 500);
+    
     // Simulate bot response
     setTimeout(() => {
         addChatMessage(
-            "Thanks for your message! Our team will respond shortly. For immediate assistance, contact us on WhatsApp: +91 8168706565",
+            "Thanks! Our team has been notified and will respond shortly. You can also reach us directly on WhatsApp: +91 8168706565",
             'bot'
         );
     }, 1000);
     
-    trackEvent('chat_message_sent', {'event_category': 'live_chat'});
+    trackEvent('chat_message_sent', {'event_category': 'live_chat', 'message_preview': message.substring(0, 50)});
 }
 
 function addChatMessage(text, sender) {
