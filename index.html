@@ -10,6 +10,7 @@
     <meta name="keywords" content="TurnitinPaperChecker, plagiarism checker, AI detection, academic integrity, Turnitin alternative, student plagiarism tool, paper checker">
     <meta name="robots" content="index, follow">
     <meta name="author" content="TurnitinPaperChecker">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="google-site-verification" content="e494a9385ca42a11">
     
     <!-- Open Graph Meta Tags -->
@@ -30,6 +31,7 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.turnitinpaperchecker.com/">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📝</text></svg>">
@@ -51,7 +53,7 @@
     <link rel="dns-prefetch" href="https://res.cloudinary.com">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
     
     <!-- Structured Data - WebPage -->
     <script type="application/ld+json">
@@ -3262,7 +3264,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://youtu.be/olI3uG-y7hs"
+                                src="https://www.youtube.com/embed/olI3uG-y7hs"
                                 title="How to Upload Documents"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3280,7 +3282,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://youtu.be/6PC0RpeDHq0"
+                                src="https://www.youtube.com/embed/6PC0RpeDHq0"
                                 title="Understanding Your Report"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3298,7 +3300,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://youtu.be/8S7rWqKlKCE"
+                                src="https://www.youtube.com/embed/8S7rWqKlKCE"
                                 title="Fixing Plagiarism Issues"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3576,7 +3578,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://youtube.com/shorts/Ytn_ofmgGHo?feature=share"
+                                src="https://www.youtube.com/embed/Ytn_ofmgGHo"
                                 title="Student testimonial - Priya Sharma"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3594,7 +3596,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://youtube.com/shorts/EqEXY5PecD4"
+                                src="https://www.youtube.com/embed/EqEXY5PecD4"
                                 title="Student testimonial - Rahul Kumar"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -3612,7 +3614,7 @@
                         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 1rem;">
                             <iframe 
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                src="https://youtu.be/U6el1rzayEQ"
+                                src="https://www.youtube.com/embed/U6el1rzayEQ"
                                 title="Student testimonial - Ananya Mehta"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -5019,7 +5021,7 @@
 
         function updateCurrency(currency) {
             currentCurrency = currency;
-            localStorage.setItem('preferredCurrency', currency);
+            try { localStorage.setItem('preferredCurrency', currency); } catch(e) { console.warn('Storage failed:', e); }
             
             // Update main price elements
             const priceElements = document.querySelectorAll('[data-price-inr]');
@@ -5060,7 +5062,7 @@
             const isDark = document.body.classList.contains('dark-mode');
             
             // Save preference
-            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+            try { localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled'); } catch(e) { console.warn('Storage failed:', e); }
             
             // Update desktop toggle icon
             const toggleBtn = document.getElementById('darkModeToggle');
@@ -5810,7 +5812,7 @@ Slug: ${newPost.slug}`);
                 let subscribers = JSON.parse(localStorage.getItem('newsletterSubscribers') || '[]');
                 if (!subscribers.includes(email)) {
                     subscribers.push(email);
-                    localStorage.setItem('newsletterSubscribers', JSON.stringify(subscribers));
+                    try { localStorage.setItem('newsletterSubscribers', JSON.stringify(subscribers)); } catch(e) { console.warn('Storage failed:', e); }
                 }
                 
                 // 🔥 NEW: Forward to your email via WhatsApp
