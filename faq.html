@@ -137,7 +137,218 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+        /* ===================================
+        NAVIGATION STYLES (MATCHING INDEX.HTML)
+        =================================== */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            min-height: 70px;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-short {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .currency-selector {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .currency-selector:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .currency-selector option {
+            background: #0a5d8c;
+            color: white;
+        }
+
+        .dark-mode-toggle {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            background: rgba(255,255,255,0.25);
+            transform: rotate(20deg);
+        }
+
+        .btn-primary-small {
+            background: white;
+            color: #0a5d8c;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .nav-container {
+                grid-template-columns: auto 1fr auto;
+                gap: 1rem;
+            }
+
+            .logo-full {
+                display: none;
+            }
+
+            .logo-short {
+                display: inline;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #0a5d8c 0%, #0a9cfc 100%);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active {
+                max-height: 500px;
+            }
+
+            .nav-links a {
+                padding: 1rem 2rem;
+                border-radius: 0;
+                width: 100%;
+                text-align: left;
+            }
+
+            .header-actions {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            /* Mobile dropdown for currency and dark mode */
+            .nav-links::after {
+                content: '';
+                display: block;
+                width: 100%;
+                padding: 1rem 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 15px;
+                min-height: 60px;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -345,12 +556,281 @@
                 font-size: 1rem;
             }
         }
+
+        /* ===================================
+        FOOTER STYLES (MATCHING INDEX.HTML)
+        =================================== */
+
+        .footer {
+            background: linear-gradient(135deg, #084a70 0%, #0a5d8c 100%);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: #87cefa;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 20px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            margin: 0.5rem 0;
+            opacity: 0.8;
+        }
+
+        /* Footer Responsive */
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-column {
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
+
+<script>
+// ===================================
+// NAVIGATION JAVASCRIPT (MATCHING INDEX.HTML)
+// ===================================
+
+// Mobile Menu Toggle
+function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const navToggle = document.querySelector('.nav-toggle');
+    
+    navLinks.classList.toggle('active');
+    navToggle.classList.toggle('active');
+    
+    // Animate hamburger
+    const spans = navToggle.querySelectorAll('span');
+    if (navLinks.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+    } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+}
+
+// Currency Conversion
+const currencyRates = {
+    'INR': 1,
+    'USD': 0.012,
+    'GBP': 0.0095,
+    'EUR': 0.011,
+    'AUD': 0.018,
+    'CAD': 0.016
+};
+
+const currencySymbols = {
+    'INR': '₹',
+    'USD': '$',
+    'GBP': '£',
+    'EUR': '€',
+    'AUD': 'A$',
+    'CAD': 'C$'
+};
+
+let currentCurrency = localStorage.getItem('selectedCurrency') || 'INR';
+
+function updateCurrency(currency) {
+    currentCurrency = currency;
+    localStorage.setItem('selectedCurrency', currency);
+    
+    // Update all prices on page (if any)
+    document.querySelectorAll('[data-price]').forEach(element => {
+        const basePrice = parseFloat(element.getAttribute('data-price'));
+        const convertedPrice = (basePrice * currencyRates[currency]).toFixed(2);
+        element.textContent = `${currencySymbols[currency]}${convertedPrice}`;
+    });
+    
+    // Track event
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'currency_change', {
+            'event_category': 'Currency',
+            'event_label': currency
+        });
+    }
+}
+
+// Dark Mode Toggle
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark);
+    
+    // Update icon
+    const icon = document.querySelector('.dark-mode-icon');
+    if (icon) {
+        icon.textContent = isDark ? '☀️' : '🌙';
+    }
+    
+    // Track event
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'dark_mode_toggle', {
+            'event_category': 'UI',
+            'event_label': isDark ? 'enabled' : 'disabled'
+        });
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Set currency from localStorage
+    const savedCurrency = localStorage.getItem('selectedCurrency');
+    if (savedCurrency && document.getElementById('currencySelector')) {
+        document.getElementById('currencySelector').value = savedCurrency;
+        updateCurrency(savedCurrency);
+    }
+    
+    // Set dark mode from localStorage
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (savedDarkMode) {
+        document.body.classList.add('dark-mode');
+        const icon = document.querySelector('.dark-mode-icon');
+        if (icon) icon.textContent = '☀️';
+    }
+});
+
+// Event Tracking Function
+function trackEvent(eventName, eventData) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, eventData);
+    }
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const navLinks = document.querySelector('.nav-links');
+    const navToggle = document.querySelector('.nav-toggle');
+    const header = document.querySelector('.header');
+    
+    if (navLinks && navLinks.classList.contains('active')) {
+        if (!header.contains(event.target)) {
+            toggleMenu();
+        }
+    }
+});
+</script>
+
 <body>
     <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">📝 TurnitinPaperChecker</a>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-full">📝 TurnitinPaperChecker</span>
+                <span class="logo-short">📝 TPC</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#testimonials">Testimonials</a>
+                <a href="blog.html">Blog</a>
+                <a href="faq.html" class="active">FAQ</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <select id="currencySelector" class="currency-selector" onchange="updateCurrency(this.value)">
+                    <option value="INR">₹ INR</option>
+                    <option value="USD">$ USD</option>
+                    <option value="GBP">£ GBP</option>
+                    <option value="EUR">€ EUR</option>
+                    <option value="AUD">A$ AUD</option>
+                    <option value="CAD">C$ CAD</option>
+                </select>
+                
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+                    <span class="dark-mode-icon">🌙</span>
+                </button>
+                
+                <a href="https://wa.me/918168706565?text=Hi,%20I%20want%20to%20check%20my%20document%20for%20plagiarism" 
+                class="btn-primary-small" 
+                target="_blank"
+                onclick="trackEvent('whatsapp_click', {'location': 'header', 'page': 'faq'})">
+                    Check Now
+                </a>
+            </div>
+
+            <div class="nav-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
     
@@ -738,15 +1218,60 @@
     </div>
     
     <footer class="footer">
-        <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
-        <p style="margin-top: 10px;">
-            <a href="index.html">Home</a> |
-            <a href="blog.html">Blog</a> |
-            <a href="privacy-policy.html">Privacy Policy</a> |
-            <a href="terms-of-service.html">Terms of Service</a> |
-            <a href="faq.html">FAQ</a> |
-            <a href="index.html#contact">Contact</a>
-        </p>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#pricing">Pricing</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="index.html#services">Plagiarism Detection</a></li>
+                    <li><a href="index.html#services">AI Content Detection</a></li>
+                    <li><a href="index.html#pricing">Combined Reports</a></li>
+                    <li><a href="index.html#pricing">Express Service</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><a href="mailto:shivansh.assignment365@gmail.com">📧 shivansh.assignment365@gmail.com</a></li>
+                    <li><a href="https://wa.me/918168706565" target="_blank">📱 +91-8168706565</a></li>
+                    <li>⏰ 9 AM - 9 PM IST (Mon-Sat)</li>
+                    <li>📍 Available Worldwide</li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+                
+                <h3 style="margin-top: 1.5rem;">Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" target="_blank" aria-label="Facebook">📘</a>
+                    <a href="#" target="_blank" aria-label="Twitter">🐦</a>
+                    <a href="#" target="_blank" aria-label="LinkedIn">💼</a>
+                    <a href="#" target="_blank" aria-label="Instagram">📷</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 TurnitinPaperChecker. All rights reserved.</p>
+            <p>Trusted by 50,000+ Students Worldwide | Professional Plagiarism & AI Detection Services</p>
+        </div>
     </footer>
     
     <script>
